@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/07 18:12:26 by mbenchel         ###   ########.fr       */
+/*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
+/*   Updated: 2024/05/07 21:36:37 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-#include "../utils/utils.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-
-typedef struct s_env
+int	is_builtin(t_env *env, char **cmd)
 {
-	char **path;
-}	t_env;
-
-
-
-
-int		execute(char **envp, char **cmd, t_env *env);
-char	*find_envp(char **envp);
-
-
-#endif
+	if (ft_strncmp(cmd[0], "cd", 2))
+		return(ft_cd());
+}
