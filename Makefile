@@ -10,6 +10,8 @@ RM = rm -rf
 SRCS =	src/main.c \
 		src/envp.c \
 		src/utils.c \
+		src/cd.c \
+		src/pwd.c \
 		utils/utils1.c \
 		utils/utils2.c \
 

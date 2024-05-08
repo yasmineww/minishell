@@ -6,15 +6,24 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/07 20:46:50 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:51:21 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
+// create a struct of the commands
+// start working on built-ins
+
+
 int	exec(t_env *env, char **envp, char **cmd)
 {
-	if (is_builtin(env, cmd))
+	(void)envp;
+	is_builtin(env, cmd);
+	system("ls");
+	return (0);
 }
 
 int		execute(char **envp, char **cmd, t_env *env)
