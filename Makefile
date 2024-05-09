@@ -1,20 +1,22 @@
 NAME = minishell
 
-SRC = file.c
+SRC = main.c utils.c
 
 OBJ = $(SRC:.c=.o)
 
 HEADER = minishell.h
 
-FLAG = -Wall -Wextra -Werror
+CC = cc
+
+FLAG = -Wall -Werror -Wextra -lreadline
 
 all: $(NAME)
 
 %.o: %.c $(HEADER)
-	cc $(FLAG) -c $< -o $@
+	$(CC) -c $< -o $@
 
 $(NAME): $(OBJ)
-	cc $(FLAG) $(NAME) $(OBJ) -o $(NAME)
+	$(CC) $(FLAG) $(OBJ) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
