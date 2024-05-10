@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_syntax.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:56:04 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/10 12:17:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:33:20 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	count_arg(char *str)
 {
 	int	count;
-
 
 	count = 0;
 	if (!str)
@@ -34,10 +33,10 @@ int	count_arg(char *str)
 	return (count);
 }
 
-void    error_message()
+int    error_message()
 {
     write(2, "Minishell: syntax error\n", 25);
-	return ;
+	return (1);
 }
 
 int	ft_strcmp(char *s1, char *s2)

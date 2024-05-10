@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = main.c utils.c
+SRC = main.c syntax.c utils_syntax.c 
 
 OBJ = $(SRC:.c=.o)
 
