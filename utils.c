@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:56:04 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/09 22:01:17 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:17:36 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	count_arg(char *str)
 {
 	int	count;
+
 
 	count = 0;
 	if (!str)
