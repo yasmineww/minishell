@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:56:04 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/09 17:55:16 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/09 22:01:17 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	count_arg(char *str)
 
 void    error_message()
 {
-    write(1, "Minishell: syntax error\n", 25);
+    write(2, "Minishell: syntax error\n", 25);
 	return ;
 }
 
