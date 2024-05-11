@@ -24,7 +24,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
-			$(CC)-lreadline $(CFLAGS) -o $(NAME) $(OBJS)
+			$(CC) -lreadline $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	  $(RM) $(OBJS)
