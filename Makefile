@@ -1,5 +1,4 @@
 NAME = minishell
-NAME = minishell
 
 CC = cc
 
@@ -12,6 +11,8 @@ SRCS =	src/main.c \
 		src/utils.c \
 		src/cd.c \
 		src/pwd.c \
+		src/env.c \
+		src/echo.c \
 		utils/utils1.c \
 		utils/utils2.c \
 
@@ -23,7 +24,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
-			$(CC) -lreadline $(CFLAGS) -o $(NAME) $(OBJS)
+			$(CC)-lreadline $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	  $(RM) $(OBJS)

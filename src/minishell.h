@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/08 17:58:58 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:51:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,24 @@
 #include <stdio.h>
 #include <readline/readline.h>
 
-typedef struct s_env
+typedef struct s_exp
 {
 	char **path;
 	char *key;
 	char *value;
-}	t_env;
-
-typedef struct s_exp
-{
-	char *key;
-	char *value;
 	char *oldpwd;
-} t_exp;
+	struct s_exp *next;
+}	t_exp;
 
-int		execute(char **envp, char **cmd, t_env *env);
-char	*find_envp(char **envp);
-int		is_builtin(t_env *env, char **cmd);
+
+int		execute(char **envp, char **cmd, t_exp *exp);
+char	*find_path(char **envp);
+int		is_builtin(t_exp **exp, char **cmd, char **envp);
 int		ft_cd(char *path);
 int		ft_pwd(void);
-char	*find_key_value(char **envp);
-
+int		ft_env(t_exp **exp, char **envp);
+int		countparams(char **s);
+void	print_env(t_exp *exp);
+int		ft_echo(char **cmd);
 
 #endif
