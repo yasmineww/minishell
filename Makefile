@@ -1,37 +1,31 @@
 NAME = minishell
 
-CC = cc
+SRC = parsing/main.c parsing/syntax.c parsing/utils_syntax.c
+	execution/src/main.c execution/src/envp.c execution/src/utils.c execution/src/cd.c execution/src/pwd.c \
+	execution/src/env.c execution/src/echo.c execution/utils/utils1.c execution/utils/utils2.c \
 
-CFLAGS = -Wall -Wextra -Werror -g
+OBJ = $(SRC:.c=.o)
+
+HEADER = minishell.h execution/utils/utils.h
+
+CC = cc
 
 RM = rm -rf
 
-SRCS =	src/main.c \
-		src/envp.c \
-		src/utils.c \
-		src/cd.c \
-		src/pwd.c \
-		src/env.c \
-		src/echo.c \
-		utils/utils1.c \
-		utils/utils2.c \
+FLAG = -Wall -Werror -Wextra -lreadline
 
-OBJS = $(SRCS:.c=.o)
+%.o: %.c $(HEADER)
+	$(CC) $(FLAG) -c $< -o $@
 
 all: $(NAME)
 
-%.o: %.c minishell.h utils/utils.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME):	$(OBJS)
-			$(CC)-lreadline $(CFLAGS) -o $(NAME) $(OBJS)
+$(NAME): $(OBJ)
+	$(CC) $(FLAG) $(OBJ) -o $(NAME)
 
 clean:
-	  $(RM) $(OBJS)
+	  $(RM) $(OBJ)
 
-fclean: 	clean
-			$(RM) $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-re: 		fclean all
-
-.PHONY:  clean fclean re all
+re: fclean all
