@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 16:36:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/08 17:31:04 by mbenchel         ###   ########.fr       */
+/*   Created: 2024/05/07 16:15:05 by mbenchel          #+#    #+#             */
+/*   Updated: 2024/05/11 22:47:55 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-int	ft_pwd(void)
+char	*find_path(char **envp)
 {
-	printf("%s\n", getcwd(NULL, 0));
-	return (0);
+	int		i;
+	char	*fullpath;
+
+	i = 0;
+	fullpath = NULL;
+	while (envp[i] && envp[i][0] != '\0')
+	{
+		fullpath = ft_strnstr(envp[i], "PATH=", 5);
+		if (fullpath)
+			return (ft_substr(fullpath, 5, ft_strlen(fullpath)));
+		i++;
+	}
+	return (NULL);
 }
-
-
 

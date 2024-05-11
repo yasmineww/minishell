@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/10 21:05:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:47:50 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	ft_echo(char **cmd)
 {

@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/11 20:35:42 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:47:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 // create a struct of the commands
 // start working on built-ins

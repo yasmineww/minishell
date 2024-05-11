@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/10 17:44:44 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:48:10 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	is_builtin(t_exp **exp, char **cmd, char **envp)
 {

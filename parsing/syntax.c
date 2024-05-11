@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:53:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/10 18:04:09 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:44:37 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	helper(char *ptr)
 {

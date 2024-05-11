@@ -6,14 +6,14 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/11 21:27:00 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:43:07 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../utils/utils.h"
+# include "execution/utils/utils.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>

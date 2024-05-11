@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/08 16:05:28 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:47:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 // void errorlhrba(char *str1, char *str2, char *str3)
 // {
