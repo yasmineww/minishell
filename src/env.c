@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/10 16:53:08 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:08:29 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,22 @@ void find_key_value(char **envp, t_exp *exp)
 	j = 0;
 	l++;
 	exp->value = malloc(sizeof(char) * (ft_strlen(envp[i]) - l + 1));
+	if (!exp->value)
+		return ;
 	while (envp[i][l])
 		exp->value[j++] = envp[i][l++];
 	exp->value[j] = '\0';
 }
 
-int	ft_env(t_exp **exp, char **envp)
+int	ft_env(t_exp **exp, char **envp, int flag)
 {
 	int i;
 	t_exp *tmp;
 	t_exp *new;
 
+	if (!flag)
+		if (*exp)
+			return(1);
 	i = 0;
 	*exp = NULL;
 	while (envp[i])
@@ -89,7 +94,8 @@ int	ft_env(t_exp **exp, char **envp)
 		}
 		i++;
 	}
-	print_env(*exp);
-	free_env(*exp);
+	if (flag)
+		print_env(*exp);
+	// free_env(*exp);
 	return (1);
 }

@@ -8,13 +8,16 @@ RM = rm -rf
 
 SRCS =	src/main.c \
 		src/envp.c \
-		src/utils.c \
+		src/builtins.c \
 		src/cd.c \
 		src/pwd.c \
 		src/env.c \
 		src/echo.c \
+		src/execution.c \
+		src/unset.c \
 		utils/utils1.c \
 		utils/utils2.c \
+		utils/utils3.c \
 
 OBJS = $(SRCS:.c=.o)
 
