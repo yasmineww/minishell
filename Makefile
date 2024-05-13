@@ -15,6 +15,7 @@ SRCS =	src/main.c \
 		src/echo.c \
 		src/execution.c \
 		src/unset.c \
+		src/export.c \
 		utils/utils1.c \
 		utils/utils2.c \
 		utils/utils3.c \

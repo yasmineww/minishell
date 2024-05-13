@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/12 20:14:29 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:01:38 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void f()
 
 int main(int ac,char **av ,char **envp)
 {
-	atexit(f);
+	// atexit(f);
 	t_exp	*exp;
 	(void)ac;
 	(void)av;
@@ -32,7 +32,7 @@ int main(int ac,char **av ,char **envp)
 	while (1)
 	{
 		i = 0;
-		tmp = readline("minishell >>");
+		tmp = readline("bash-3.2$ ");
 		res = ft_split(tmp, ' ');
 		if (!res)
 			exit(1);

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/12 18:50:45 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:11:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ int		ft_echo(char **cmd);
 int		execute(char **envp, char **cmd, t_exp *exp);
 int		exec(t_exp *exp, char **envp, char **cmd);
 int		ft_unset(t_exp **exp, char *key);
+int		export(t_exp **exp, char *s);
+void	find_key_value(char **envp, t_exp *exp);
 
 #endif
