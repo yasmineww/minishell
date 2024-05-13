@@ -8,15 +8,15 @@ HEADER = minishell.h
 
 CC = cc
 
-FLAG = -Wall -Werror -Wextra -lreadline
+FLAG = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
 %.o: %.c $(HEADER)
-	$(CC) -c $< -o $@
+	$(CC)  $(FLAG) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) -g $(FLAG) $(OBJ) -o $(NAME)
+	$(CC) -lreadline $(OBJ) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
