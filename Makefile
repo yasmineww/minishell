@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = main.c syntax.c utils_syntax.c 
+SRC = main.c syntax.c utils_syntax.c ft_split.c 
 
 OBJ = $(SRC:.c=.o)
 
@@ -16,7 +16,7 @@ all: $(NAME)
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAG) $(OBJ) -o $(NAME)
+	$(CC) -g $(FLAG) $(OBJ) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

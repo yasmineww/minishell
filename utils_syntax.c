@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_syntax.c                                            :+:      :+:    :+:   */
+/*   utils_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 15:56:04 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/10 16:33:20 by ymakhlou         ###   ########.fr       */
+/*   Created: 2024/05/13 19:57:59 by ymakhlou          #+#    #+#             */
+/*   Updated: 2024/05/13 19:58:04 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	count_arg(char *str)
 	return (count);
 }
 
-int    error_message()
+int	error_message(void)
 {
-    write(2, "Minishell: syntax error\n", 25);
+	write(2, "Minishell: syntax error\n", 25);
 	return (1);
 }
 
@@ -51,8 +51,9 @@ int	ft_strcmp(char *s1, char *s2)
 
 int	special_char(char *ptr)
 {
-	if (*ptr == '|' || *ptr == '<' || *ptr == '>' || (ft_strcmp(ptr, "<<") == 0) || (ft_strcmp(ptr, ">>") == 0))
-	 	return (1);
+	if (*ptr == '|' || *ptr == '<' || *ptr == '>'
+		||(ft_strcmp(ptr, "<<") == 0) || (ft_strcmp(ptr, ">>") == 0))
+		return (1);
 	return (0);
 }
 
