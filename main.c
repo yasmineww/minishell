@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/14 22:06:58 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:13:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int    main ()
     }
 }
 
-		// while (list)
-		// {
-		// 	printf("%s\n", *list->command);
-		// 	list = list->next;
-		// }
+	// while (list)
+	// {
+	// 	printf("%s\n", *list->command);
+	// 	list = list->next;
+	// }
