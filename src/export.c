@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/13 14:51:08 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:29:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	export(t_exp **exp, char *s)
 		{
 			t_exp	*tmp2;
 			tmp2 = tmp->next;
-			if (tmp2 && ft_strncmp(tmp->key, tmp2->key, 1) <= 0)
-				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-			else if (tmp2)
+			if (tmp2 && ft_strncmp(tmp->key, tmp2->key, 1) > 0)
 				printf("declare -x %s=\"%s\"\n", tmp2->key, tmp2->value);
+			else if (tmp2)
+				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 			tmp = tmp2;
 		}
 		return (0);
