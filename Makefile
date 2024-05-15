@@ -8,15 +8,15 @@ HEADER = minishell.h
 
 CC = cc
 
-FLAG = -Wall -Wextra -Werror -g
+FLAG = -Wall -Wextra -Werror -g -fsanitize=address
 
 all: $(NAME)
 
 %.o: %.c $(HEADER)
-	$(CC)  $(FLAG) -c $< -o $@
+	$(CC) $(FLAG) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) -lreadline $(OBJ) -o $(NAME)
+	$(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

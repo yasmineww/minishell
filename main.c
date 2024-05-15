@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/14 22:13:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:42:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 int    main ()
 {
-    char	*input;
+	char	*input;
     t_list	*list;
-	int		tr;	
 
     while (1)
     {
 		input = readline("Minishell$ ");
-		puts("ok1");
 		add_history(input);
-		if (quotes_syntax_error(input))
-			tr = 1;
-		if (syntax_error(input) || tr == 1)
+		if (quotes_syntax_error(input) || syntax_error(input))
 		{
-			puts("ok2");
-			error_message();
-			tr = 0;
+			error_message(input);
+			continue ;
 		}
-		puts("ok3");
 		store_cmd(input, &list);
 		list = NULL;
+		free(input);
+		input = NULL;
     }
 }
 

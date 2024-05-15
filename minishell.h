@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/14 21:23:31 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:10:55 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_list
 }	t_list;
 
 int		count_arg(char *str);
-int		error_message(void);
+int		error_message(char *input);
 int		ft_strcmp(char *s1, char *s2);
 int		special_char(char *ptr);
 int		check_space(char *ptr);
@@ -41,8 +41,7 @@ char	**ft_split(char const *s, char c);
 void    add_back(t_list **stack_a, char **content);
 void    store_cmd(char *input, t_list **list);
 int		quotes_syntax_error(char *input);
-int		count_quote(char *input, char c);
-int		multiply_minus(char *input, char c);
+int		count_quote(char **input);
 int		handle_quotes(char **command);
 
 #endif
