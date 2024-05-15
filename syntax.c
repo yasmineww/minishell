@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:53:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/14 22:04:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/15 22:18:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ int	syntax_error(char *ptr)
 		return 1;
 	else if (count == 1) // case 2 : one arg
 	{
-		if (special_char(ptr))
+		while (check_space(&ptr[i]))
+			i++;
+		if (special_char(&ptr[i]))
 			return 1;
 	}
 	else if (count > 1) // case 3 : multiple args
