@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 19:57:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/15 22:17:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:13:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,9 @@ int	ft_strcmp(char *s1, char *s2)
 
 int	special_char(char *ptr)
 {
-	printf("ptr : %s\n", ptr);
 	if (*ptr == '|' || *ptr == '<' || *ptr == '>'
-		||(ft_strcmp(ptr, "<<") == 0) || (ft_strcmp(ptr, ">>") == 0))
-		{
-		puts("special char detected");	
+		|| (ft_strcmp(ptr, "<<") == 0) || (ft_strcmp(ptr, ">>") == 0))
 		return (1);
-		}
 	return (0);
 }
 

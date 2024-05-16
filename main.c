@@ -6,21 +6,23 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/15 22:03:31 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:13:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int    main ()
+int	main(int ac, char **av)
 {
 	char	*input;
-    t_list	*list;
+	t_list	*list;
 
-    while (1)
-    {
+	(void)ac;
+	(void)av;
+	while (1)
+	{
 		input = readline("Minishell$ ");
-		if(!input)
+		if (!input)
 			return (0);
 		add_history(input);
 		if (quotes_syntax_error(input) || syntax_error(input))
@@ -37,5 +39,5 @@ int    main ()
 		list = NULL;
 		free(input);
 		input = NULL;
-    }
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/15 20:10:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:06:22 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int		two_specials(char *ptr);
 int		delimiter(char *ptr);
 int		syntax_error(char *ptr);
 int		special_last(char *ptr);
+int		cases(char *ptr, int i);
 int		helper(char *ptr);
 char	**ft_split(char const *s, char c);
-void    add_back(t_list **stack_a, char **content);
-void    store_cmd(char *input, t_list **list);
+void	add_back(t_list **stack_a, char **content);
+void	store_cmd(char *input, t_list **list);
 int		quotes_syntax_error(char *input);
-int		count_quote(char **input);
-int		handle_quotes(char **command);
+int		count_quote(char *input);
 
 #endif

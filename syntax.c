@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:53:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/15 22:18:51 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:14:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int	two_specials(char *ptr)
 			while (check_space(&ptr[i]))
 				i++;
 			if (ptr[i] == '|')
-				return 1;
+				return (1);
 		}
-		else if (delimiter(&ptr[i]))//case 2 starts with < or >
-			return 1;
+		else if (delimiter(&ptr[i])) //case 2 starts with < or >
+			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 int	special_last(char *ptr)
@@ -96,36 +96,32 @@ int	special_last(char *ptr)
 	while (check_space(&ptr[i - 1]))
 		i--;
 	if (special_char(&ptr[i - 1]))
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 int	syntax_error(char *ptr)
 {
-    int		count;
-	int		i;
+	int	count;
+	int	i;
 
 	i = 0;
 	count = count_arg(ptr);
 	if (count == 0) // case 1 : no args
-		return 1;
+		return (1);
 	else if (count == 1) // case 2 : one arg
 	{
 		while (check_space(&ptr[i]))
 			i++;
 		if (special_char(&ptr[i]))
-			return 1;
+			return (1);
 	}
 	else if (count > 1) // case 3 : multiple args
 	{
 		while (check_space(&ptr[i]))
 			i++;
-		if (ptr[i] == '|') // case 3.1 : pipe first
-			return 1;
-		if(special_last(ptr)) // case 3.2 : special char last
-			return 1;
-		if (two_specials(ptr)) // case 3.3 : two specials in a row
-			return 1;
+		if (cases(ptr, i))
+			return (1);
 	}
-	return 0;
+	return (0);
 }
