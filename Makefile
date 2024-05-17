@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = main.c syntax.c utils_syntax.c ft_split.c store_cmd.c quote_syntax.c
+SRC = main.c syntax.c utils_syntax.c ft_split.c ft_split_spaces.c store_cmd.c quote_syntax.c split_cmd.c add_space.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -8,7 +8,7 @@ HEADER = minishell.h
 
 CC = cc
 
-FLAG = -Wall -Wextra -Werror -g 
+FLAG = -Wall -Wextra -Werror -g #
 
 all: $(NAME)
 

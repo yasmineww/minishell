@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/16 15:13:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:53:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ int	main(int ac, char **av)
 			error_message(input);
 			continue ;
 		}
+		input = add_space(input);
 		store_cmd(input, &list);
+		split_cmd(&list);
 		while (list)
 		{
-			printf("node : %s\n", *list->command);
+			printf("node.cmd : %s\n", list->cmd);
+			int i = -1;
+			while (list->command[++i])
+				printf("node.command[%i] : %s\n",i,list->command[i]);
 			list = list->next;
+			puts("--------------------------------------");
 		}
 		list = NULL;
 		free(input);
