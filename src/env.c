@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/17 16:18:56 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:44:01 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	free_env(t_exp *exp)
 	}
 }
 
-void	print_env(t_exp *exp)
+void	print_env(t_exp **exp)
 {
-	while (exp)
+	while (*exp)
 	{
-		printf("%s=%s\n", exp->key, exp->value);
-		exp = exp->next;
+		printf("%s=%s\n", (*exp)->key, (*exp)->value);
+		*exp = (*exp)->next;
 	}
 }
 

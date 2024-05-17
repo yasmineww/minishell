@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/17 12:15:36 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:46:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_builtin(t_exp **exp, char **cmd, char **envp)
 		if (ft_strncmp(cmd[0], "pwd", 3) == 0)
 			return (ft_pwd());
 		if (ft_strncmp(cmd[0], "env", 3) == 0)
-			print_env(*exp);
+			print_env(exp);
 		if (ft_strncmp(cmd[0], "exit", 4) == 0)
 			exit(0);
 		if (ft_strncmp(cmd[0], "echo", 4) == 0)
