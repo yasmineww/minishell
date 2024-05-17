@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/13 11:11:11 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:18:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ void	find_key_value(char **envp, t_exp *exp)
 	exp->key[j] = '\0';
 	j = 0;
 	l++;
+	if(!envp[i][l])
+	{
+		exp->value = NULL;
+		return ;
+	}
 	exp->value = malloc(sizeof(char) * (ft_strlen(envp[i]) - l + 1));
 	if (!exp->value)
 		return ;
@@ -65,15 +70,16 @@ void	find_key_value(char **envp, t_exp *exp)
 	exp->value[j] = '\0';
 }
 
-int	ft_env(t_exp **exp, char **envp, int flag)
+// int	ft_env(t_exp **exp, char **envp, int flag)
+int	ft_env(t_exp **exp, char **envp)
 {
 	int i;
 	t_exp *tmp;
 	t_exp *new;
 
-	if (!flag)
-		if (*exp)
-			return(1);
+	// if (!flag)
+	// 	if (*exp)
+	// 		return(1);
 	i = 0;
 	*exp = NULL;
 	while (envp[i])
@@ -94,8 +100,8 @@ int	ft_env(t_exp **exp, char **envp, int flag)
 		}
 		i++;
 	}
-	if (flag)
-		print_env(*exp);
+	// if (flag)
+	// 	print_env(*exp);
 	// free_env(*exp);
 	return (1);
 }

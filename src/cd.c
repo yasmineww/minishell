@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/08 16:05:28 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:39:39 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_cd(char *path)
 		}
 		return(chdir(home));
 	}
-	else if (ft_strncmp(path, "..", 0))
+	else if (!ft_strncmp(path, "..", 2))
 		return (chdir(".."));
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:53:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/13 12:05:57 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:27:52 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		c[i++] = s2[j++];
 	c[i] = '\0';
 	return (c);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
 }

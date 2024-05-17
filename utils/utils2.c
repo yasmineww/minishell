@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:20:27 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/10 18:11:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:14:40 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		c1 = (unsigned char)s1[i];
 		c2 = (unsigned char)s2[i];
 		if (c1 != c2)
-		{
 			return (c1 - c2);
-		}
 		i++;
 	}
 	return (s1[i] - s2[i]);
@@ -102,4 +100,22 @@ int	countparams(char **s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+	unsigned char	c1;
+	unsigned char	c2;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		c1 = (unsigned char)s1[i];
+		c2 = (unsigned char)s2[i];
+		if (c1 != c2)
+			return (c1 - c2);
+		i++;
+	}
+	return (s1[i] - s2[i]);
 }
