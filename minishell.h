@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/17 10:51:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:57:13 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_list
 	char			*cmd;
 	struct s_list	*next;
 }	t_list;
+
 
 int		count_arg(char *str);
 int		error_message(char *input);
