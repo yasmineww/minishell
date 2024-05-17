@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/17 11:57:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:17:31 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct s_exp
+{
+	char **path;
+	char *key;
+	char *value;
+	char *oldpwd;
+	struct s_exp *next;
+}	t_exp;
 
 int		count_arg(char *str);
 int		error_message(char *input);
@@ -48,5 +56,7 @@ void	split_cmd(t_list **list);
 int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
+int		ft_env(t_exp **exp, char **envp);
+int		ft_strlen(char	*av);
 
 #endif
