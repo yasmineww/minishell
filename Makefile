@@ -1,6 +1,7 @@
 NAME = minishell
 
-SRC = main.c syntax.c utils_syntax.c ft_split.c ft_split_spaces.c store_cmd.c quote_syntax.c split_cmd.c add_space.c to_delete_env.c
+SRC = main.c syntax.c utils_syntax.c ft_split.c ft_split_spaces.c store_cmd.c quote_syntax.c \
+	split_cmd.c add_space.c to_delete_env.c parsing.c expanding.c
 
 OBJ = $(SRC:.c=.o)
 

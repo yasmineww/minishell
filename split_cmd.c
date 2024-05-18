@@ -6,11 +6,31 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/16 21:59:59 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:01:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	help(t_list *temp, int i)
+{
+	int		j;
+	char	quote;
+
+	j = 0;
+	while (temp->option[i][j])
+	{
+		while (temp->option[i][j] && (temp->option[i][j] != '"' && temp->option[i][j] != '\''))
+			j++;
+		if (temp->option[i][j] != '"' || temp->option[i][j] != '\'')
+		{
+			quote = temp->option[i][j++];
+			while (temp->option[i][j] != quote && temp->option[i][j])
+				temp->option[i][j++] *= -1;
+		}
+		j++;
+	}
+}
 
 void	add_back_spaces(t_list **stack_a, char **content)
 {
@@ -20,7 +40,7 @@ void	add_back_spaces(t_list **stack_a, char **content)
 	node = malloc (sizeof(t_list));
 	if (!node)
 		return ;
-	node->command = content;
+	node->option = content;
 	node->next = NULL;
 	if ((*stack_a) == NULL)
 	{
@@ -36,11 +56,24 @@ void	add_back_spaces(t_list **stack_a, char **content)
 void	split_cmd(t_list **list)
 {
 	t_list	*temp;
+	int		i;
 
+	i = 0;
 	temp = *list;
 	while (temp)
 	{
-		temp->command = ft_split_spaces(temp->cmd);
+		temp->option = ft_split_spaces(temp->cmd);
+		temp = temp->next;
+	}
+	temp = *list;
+	while (temp)
+	{
+		i = 0;
+		while (temp->option[i])
+		{
+			help(temp, i);
+			i++;
+		}
 		temp = temp->next;
 	}
 }

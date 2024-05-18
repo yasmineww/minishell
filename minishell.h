@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/17 15:17:31 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:46:59 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct s_list
 {
-	char			**command;
+	char			**option;
 	char			*cmd;
 	struct s_list	*next;
 }	t_list;
@@ -58,5 +58,6 @@ int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
 int		ft_strlen(char	*av);
+void	parsing(char *input, t_list **list);
 
 #endif

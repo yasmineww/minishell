@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:13:07 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/17 11:44:45 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:38:21 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ char	*add_space(char *input)
 		input++;
 	}
 	new[i] = '\0';
-	printf("added :%s\n", new);
 	return (new);
 }

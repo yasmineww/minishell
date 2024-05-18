@@ -6,13 +6,13 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:43:14 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/16 21:46:59 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:01:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_back(t_list **stack_a, char *content)
+void	add_back(t_list **list, char *content)
 {
 	t_list	*node;
 	t_list	*temp;
@@ -20,15 +20,15 @@ void	add_back(t_list **stack_a, char *content)
 	node = malloc (sizeof(t_list));
 	if (!node)
 		return ;
-	node->command = NULL;
+	node->option = NULL;
 	node->cmd = content;
 	node->next = NULL;
-	if ((*stack_a) == NULL)
+	if ((*list) == NULL)
 	{
-		*stack_a = node;
+		*list = node;
 		return ;
 	}
-	temp = *stack_a;
+	temp = *list;
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = node;
