@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/17 20:44:01 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/19 21:34:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	print_env(t_exp **exp)
 {
 	while (*exp)
 	{
-		printf("%s=%s\n", (*exp)->key, (*exp)->value);
+		if ((*exp)->value != NULL)
+			printf("%s=%s\n", (*exp)->key, (*exp)->value);
 		*exp = (*exp)->next;
 	}
 }
@@ -70,7 +71,7 @@ void	find_key_value(char **envp, t_exp *exp)
 	exp->value[j] = '\0';
 }
 
-// int	ft_env(t_exp **exp, char **envp, int flag)
+
 int	ft_env(t_exp **exp, char **envp)
 {
 	int i;

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/17 23:00:14 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/19 20:57:50 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,13 @@ void	ft_lstadd_back(t_exp **head, t_exp *new)
 
 int exporthelp(t_exp *exp, char *s)
 {
-	t_exp	*new;
-
-	if (!s && exp)
-	{
-		new = dup_list(exp);
-		sort_list(new);
-		print_exp(new);
-	}
-	else if (s)
+	if (s && exp)
 		export(&exp, s);
+	else if (!s)
+	{
+		sort_list(exp);
+		print_exp(exp);
+	}
 	return (0);
 }
 
@@ -116,6 +113,7 @@ int	export(t_exp **exp, char *s)
 					if (!new)
 						return (-1);
 					new->key = ft_strdup(s);
+					new->value = NULL;
 					new->next = NULL;
 					ft_lstadd_back(exp, new);
 					return (0);
