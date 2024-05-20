@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/19 20:56:40 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:16:22 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void f()
 int main(int ac,char **av ,char **envp)
 {
 	// atexit(f);
-	// t_list	*list;
+	t_list	*list = NULL;
+	t_flag flags = {0, 0};
 	t_exp	*exp;
 	(void)ac;
 	(void)av;
-	char **res = NULL;
 	char *tmp;
 	int i = 0;
 	ft_env(&exp, envp);
@@ -35,11 +35,24 @@ int main(int ac,char **av ,char **envp)
 	{
 		i = 0;
 		tmp = readline("bash-3.2$ ");
+		if (!tmp)
+			break;
 		add_history(tmp);
-		res = ft_split(tmp, ' ');
-		if (!res)
+		list = malloc(sizeof(t_list));
+		if (!list)
+		{
+			free(tmp);
 			exit(1);
-		execute(envp, res ,exp);
+		}
+		list->command = ft_split(tmp, ' ');
+		if (!list->command)
+		{
+			free(list);
+			free(tmp);
+			exit(1);
+		}
+		execute(envp, list->command ,exp, &flags);
+		free(tmp);
 		//declare input struct and change execute prototype to accept list
 	}
 }

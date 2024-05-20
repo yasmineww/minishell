@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:42 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/07 15:20:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:15:37 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	*getwords(int *i, const char *s, char c)
 	return (word);
 }
 
-static char	**ft_freew(char **s)
+char	**ft_freew(char **s)
 {
 	int	i;
 

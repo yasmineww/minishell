@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/17 22:42:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:13:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_exp
 typedef struct s_list
 {
 	char			**command;
-	char			*cmd;
+	char			*cmdpath;
 	struct s_list	*next;
 }	t_list;
 
@@ -42,9 +42,15 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-int		execute(char **envp, char **cmd, t_exp *exp);
+typedef struct s_flag
+{
+	int sorted_flag;
+	int null_flag;
+}	t_flag;
+
+int		execute(char **envp, char **cmd, t_exp *exp, t_flag *flags);
 char	*find_path(char **envp);
-int		is_builtin(t_exp **exp, char **cmd, char **envp);
+int		is_builtin(t_exp **exp, char **cmd, char **envp, t_flag *flags);
 int		ft_cd(char *path);
 int		ft_pwd(void);
 int		ft_env(t_exp **exp, char **envp);
@@ -52,12 +58,11 @@ int		ft_env(t_exp **exp, char **envp);
 int		countparams(char **s);
 void	print_env(t_exp **exp);
 int		ft_echo(char **cmd);
-int		execute(char **envp, char **cmd, t_exp *exp);
-int		exec(t_exp *exp, char **envp, char **cmd);
+int		exec(t_exp *exp, char **envp, char **cmd, t_flag *flags);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
 void	find_key_value(char **envp, t_exp *exp);
-int		exporthelp(t_exp *exp, char *s);
+int		exporthelp(t_exp *exp, char *s, t_flag *flags);
 void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
 t_exp	*dup_list(t_exp *exp);

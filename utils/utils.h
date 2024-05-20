@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/17 14:54:34 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:15:43 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
+int		isalpha_underscore(int c);
+char	**ft_freew(char **s);
 
 #endif

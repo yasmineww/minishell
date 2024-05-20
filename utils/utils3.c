@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:53:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/16 22:27:52 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/19 21:44:26 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
+}
+
+int	isalpha_underscore(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
+		return (1);
+	return (0);
 }

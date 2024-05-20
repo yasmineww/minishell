@@ -6,16 +6,16 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/19 20:57:50 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:44:25 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-	// khas nzid chi flag wla chihaja lakant ghir lkey manprintich lvalue wla chihaja f print_exp
-	// l env kitkhrb9 mora makandir export
+
+
 	// fix export adds another one if the key is already there
-// PATH w _ makitprintawch
-// declare new struct dial l env w atsawb linked list jdida hia linked list dial l env soit msortia wla m addi fiha
+// PATH kitprinta w _ makitprintaach
+
 
 t_exp	*last_node(t_exp *head)
 {
@@ -40,15 +40,24 @@ void	ft_lstadd_back(t_exp **head, t_exp *new)
 	last->next = new;
 }
 
-int exporthelp(t_exp *exp, char *s)
+int exporthelp(t_exp *exp, char *s, t_flag *flags)
 {
-	if (s && exp)
-		export(&exp, s);
-	else if (!s)
+	t_exp	*new;
+
+	if (!s)
 	{
-		sort_list(exp);
-		print_exp(exp);
+		if (!flags->sorted_flag)
+		{
+			new = dup_list(exp);
+			sort_list(new);
+			print_exp(new);
+			flags->sorted_flag = 1;
+		}
+		else
+			print_exp(exp);
 	}
+	else if (s && exp)
+		export(&exp, s);
 	return (0);
 }
 
@@ -61,6 +70,15 @@ int	export(t_exp **exp, char *s)
 
 	i = 0;
 	cur = *exp;
+	if (s[i] && isalpha_underscore(s[i]) == 0)
+		{
+			write(2, "bash: export: ", 14);
+			write(2, "`", 1);
+			write(2, s, ft_strlen(s));
+			write(2, "'", 1);
+			write(2,": not a valid identifier\n", 25);
+			return (1);
+		}
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
 		i++;

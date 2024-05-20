@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/19 21:01:58 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:38:06 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_builtin(t_exp **exp, char **cmd, char **envp)
+int	is_builtin(t_exp **exp, char **cmd, char **envp, t_flag *flags)
 {
 	(void)envp;
 	if (*cmd)
@@ -30,7 +30,7 @@ int	is_builtin(t_exp **exp, char **cmd, char **envp)
 		if (ft_strncmp(cmd[0], "unset", 5) == 0)
 			return (ft_unset(exp, cmd[1]));
 		if (ft_strncmp(cmd[0], "export", 6) == 0)
-			return (exporthelp(*exp, cmd[1]));
+			return (exporthelp(*exp, cmd[1], flags));
 	}
 	return (0);
 }
