@@ -6,16 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 16:44:25 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:55:32 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-	// fix export adds another one if the key is already there
+// fix export adds another one if the key is already there
 // PATH kitprinta w _ makitprintaach
-
 
 t_exp	*last_node(t_exp *head)
 {
@@ -40,22 +37,16 @@ void	ft_lstadd_back(t_exp **head, t_exp *new)
 	last->next = new;
 }
 
-int exporthelp(t_exp *exp, char *s, t_flag *flags)
+int exporthelp(t_exp *exp, char *s)
 {
-	t_exp	*new;
 
+	t_exp	*new;
 	if (!s)
-	{
-		if (!flags->sorted_flag)
 		{
 			new = dup_list(exp);
 			sort_list(new);
 			print_exp(new);
-			flags->sorted_flag = 1;
 		}
-		else
-			print_exp(exp);
-	}
 	else if (s && exp)
 		export(&exp, s);
 	return (0);

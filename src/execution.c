@@ -6,19 +6,20 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 17:13:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:56:48 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec(t_exp *exp, char **envp, char **cmd, t_flag *flags)
+int	exec(t_exp *exp, t_list *list)
 {
-	is_builtin(&exp, cmd, envp, flags);
+	is_builtin(&exp, list->option);
+
 	return (0);
 }
 // change prototype t_list instead of char **
-int		execute(char **envp, char **cmd, t_exp *exp, t_flag *flags)
+int		execute(t_list *list, t_exp *exp)
 {
 	// char	*tmp;
 
@@ -34,13 +35,13 @@ int		execute(char **envp, char **cmd, t_exp *exp, t_flag *flags)
 	// if (!exp->path)
 	// 	exit(1);
 	// free(tmp); // still not working with the paths so the leaks are normal
-	exec(exp, envp, cmd, flags);
+	exec(exp, list);
 	int i = 0;
-	while (cmd[i])
+	while (list->option[i])
 	{
-		free(cmd[i]);
+		free(list->option[i]);
 		i++;
 	}
-	free(cmd);
+	free(list->option);
 	return (0);
 }

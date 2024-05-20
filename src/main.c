@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 17:16:22 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:56:19 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int main(int ac,char **av ,char **envp)
 {
 	// atexit(f);
 	t_list	*list = NULL;
-	t_flag flags = {0, 0};
 	t_exp	*exp;
 	(void)ac;
 	(void)av;
@@ -44,14 +43,14 @@ int main(int ac,char **av ,char **envp)
 			free(tmp);
 			exit(1);
 		}
-		list->command = ft_split(tmp, ' ');
-		if (!list->command)
+		list->option = ft_split(tmp, ' ');
+		if (!list->option)
 		{
 			free(list);
 			free(tmp);
 			exit(1);
 		}
-		execute(envp, list->command ,exp, &flags);
+		execute(list ,exp);
 		free(tmp);
 		//declare input struct and change execute prototype to accept list
 	}
