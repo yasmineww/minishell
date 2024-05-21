@@ -6,13 +6,35 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 21:57:06 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/21 00:40:58 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_builtin(t_exp **exp, char **cmd)
+int	is_builtin(char **cmd)
+{
+	if (*cmd)
+	{
+		if (ft_strncmp(cmd[0], "cd", 2) == 0)
+			return (1);
+		if (ft_strncmp(cmd[0], "pwd", 3) == 0)
+			return (1);
+		if (ft_strncmp(cmd[0], "env", 3) == 0)
+			return (1);
+		if (ft_strncmp(cmd[0], "exit", 4) == 0)
+			return (1);
+		if (ft_strncmp(cmd[0], "echo", 4) == 0)
+			return (1);
+		if (ft_strncmp(cmd[0], "unset", 5) == 0)
+			return (1);
+		if (ft_strncmp(cmd[0], "export", 6) == 0)
+			return (1);
+	}
+	return (0);
+}
+
+int	exec_builtin(t_exp **exp, char **cmd)
 {
 	if (*cmd)
 	{

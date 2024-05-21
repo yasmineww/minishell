@@ -6,17 +6,20 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 21:56:06 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/21 01:42:46 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// #pragma once
+
 #include "../utils/utils.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <fcntl.h>
 #include <readline/readline.h>
 
 typedef struct s_exp
@@ -32,6 +35,8 @@ typedef struct s_list
 {
 	char			**option;
 	char			*cmd;
+	int infile;
+	int outfile;
 	struct s_list	*next;
 }	t_list;
 
@@ -50,7 +55,8 @@ typedef struct s_flag
 
 int		execute(t_list *list, t_exp *exp);
 char	*find_path(char **envp);
-int		is_builtin(t_exp **exp, char **cmd);
+int		is_builtin(char **cmd);
+int		exec_builtin(t_exp **exp, char **cmd);
 int		ft_cd(char *path);
 int		ft_pwd(void);
 int		ft_env(t_exp **exp, char **envp);

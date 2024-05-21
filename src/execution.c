@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 21:56:48 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/21 01:49:32 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,24 @@
 
 int	exec(t_exp *exp, t_list *list)
 {
-	is_builtin(&exp, list->option);
-
+	int	std_in;
+	int	std_out;
+	int	inf;
+	if (is_builtin(list->option))
+		exec_builtin(&exp, list->option);
+	else
+	{
+		std_in = dup(0);
+		std_out = dup(1);
+		if (list->infile)
+		{
+			inf = open(list->option[1], O_RDONLY);
+			dup2(inf, 0);
+			close(inf);
+		}
+		else
+			dup2(std_in, inf);
+	}
 	return (0);
 }
 // change prototype t_list instead of char **

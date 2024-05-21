@@ -4,6 +4,7 @@
 		"readline.h": "c",
 		"utils.h": "c",
 		"stdlib.h": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"unistd.h": "c"
 	}
 }
