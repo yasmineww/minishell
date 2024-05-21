@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/18 16:46:59 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:55:28 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
 int		ft_strlen(char	*av);
 void	parsing(char *input, t_list **list);
+void	expanding(t_list **list, t_exp **exp);
 
 #endif
