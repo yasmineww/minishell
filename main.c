@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/20 22:22:56 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:42:07 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int ac, char **av, char **envp)
 			return (0);
 		add_history(input);
 		parsing(input, &list);
+		expanding(&list, &exp);
 		t_list *tmp = list;
 		while (tmp)
 		{
@@ -43,7 +44,6 @@ int	main(int ac, char **av, char **envp)
 			tmp = tmp->next;
 			puts("--------------------------------------");
 		}
-		expanding(&list, &exp);
 		list = NULL;
 		// free(input);
 		input = NULL;
