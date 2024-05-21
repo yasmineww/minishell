@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/18 16:01:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:34:17 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,52 @@ void	add_back_spaces(t_list **stack_a, char **content)
 	temp->next = node;
 }
 
-void	split_cmd(t_list **list)
+void	add_back(t_list **list, char *content)
+{
+	t_list	*node;
+	t_list	*temp;
+
+	node = malloc (sizeof(t_list));
+	if (!node)
+		return ;
+	node->option = NULL;
+	node->cmd = content;
+	node->next = NULL;
+	if ((*list) == NULL)
+	{
+		*list = node;
+		return ;
+	}
+	temp = *list;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = node;
+}
+
+void	store_cmd(char *input, t_list **list)
+{
+	char	**s;
+	int		i;
+
+	i = 0;
+	s = NULL;
+	s = ft_split(input, '|');
+	if (s == NULL)
+		return ;
+	while (s[i])
+	{
+		add_back(list, s[i]);
+		i++;
+	}
+	free(s);
+}
+
+void	split_cmd(t_list **list, char *input)
 {
 	t_list	*temp;
 	int		i;
 
+	store_cmd(input, list);
 	i = 0;
 	temp = *list;
 	while (temp)

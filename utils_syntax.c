@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 19:57:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/21 10:38:30 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:27:16 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ int	error_message(char *input)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	//printf("s1 : %s and s2 : %s\n", s1, s2);
 	while (*s1 && *s2 && *s1 == *s2)
 	{
 		s1++;
 		s2++;
 	}
-	//printf("strcmp : %d\n", *s1 - *s2);
 	return (*s1 - *s2);
 }
 

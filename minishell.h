@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/20 21:55:28 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:00:29 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**ft_split(char const *s, char c);
 char	**ft_split_spaces(char *s);
 void	add_back(t_list **stack_a, char *content);
 void	store_cmd(char *input, t_list **list);
-void	split_cmd(t_list **list);
+void	split_cmd(t_list **list, char *input);
 int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
@@ -60,5 +60,10 @@ int		ft_env(t_exp **exp, char **envp);
 int		ft_strlen(char	*av);
 void	parsing(char *input, t_list **list);
 void	expanding(t_list **list, t_exp **exp);
+char	*ft_strdup(char *s1);
+char	*ft_substr(char *s, int start, int len);
+int		ft_isalpha_num(char c);
+int		get_key(char *ptr);
+char	*get_value(char *ptr, int end, t_exp **exp);
 
 #endif

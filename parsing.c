@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/18 16:48:50 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:32:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	parsing(char *input, t_list **list)
 		return ;
 	}
 	input = add_space(input);
-	store_cmd(input, list);
-	split_cmd(list);
+	split_cmd(list, input);
 	temp = *list;
 	// while (temp)
 	// {
