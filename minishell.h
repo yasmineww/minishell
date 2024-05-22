@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/21 19:00:29 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/22 18:08:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,26 @@
 # include <signal.h>
 # include <stdarg.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 typedef struct s_list
 {
-	char			**option;
-	char			*cmd;
+	char	**option;
+	char	*cmd;
+	int		heredoc;
+	int		infile;
+	int		outfile;
 	struct s_list	*next;
 }	t_list;
 
 typedef struct s_exp
 {
-	char **path;
-	char *key;
-	char *value;
-	char *oldpwd;
+	char	**path;
+	char	*key;
+	char	*value;
+	char	*oldpwd;
 	struct s_exp *next;
 }	t_exp;
 
@@ -65,5 +69,6 @@ char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp **exp);
+void	handle_heredoc(t_list **list);
 
 #endif
