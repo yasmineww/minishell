@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:53:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/19 21:44:26 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:47:05 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,28 @@ int	isalpha_underscore(int c)
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
 		return (1);
 	return (0);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*b;
+	unsigned char	v;
+	size_t			i;
+
+	b = (unsigned char *)s;
+	v = (unsigned char)c;
+	i = 0;
+	while (i < n)
+	{
+		b[i] = v;
+		i++;
+	}
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	if (n == 0)
+		return ;
+	ft_memset(s, 0, n);
 }

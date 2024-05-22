@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/21 20:25:04 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:19:07 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_flag
 	int null_flag;
 }	t_flag;
 
-int		execute(t_list *list, t_exp *exp);
+int		execute(t_list *list, t_exp *exp, char **envp);
 char	*find_path(char **envp);
 int		is_builtin(char **cmd);
 int		exec_builtin(t_exp **exp, char **cmd);

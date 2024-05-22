@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 21:56:19 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:19:13 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main(int ac,char **av ,char **envp)
 			free(tmp);
 			exit(1);
 		}
-		execute(list ,exp);
+		execute(list ,exp, envp);
 		free(tmp);
 		//declare input struct and change execute prototype to accept list
 	}
