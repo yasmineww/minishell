@@ -17,6 +17,8 @@ SRCS =	src/main.c \
 		src/unset.c \
 		src/export.c \
 		src/exporthelp.c \
+		src/redir.c \
+		src/utils.c \
 		utils/utils1.c \
 		utils/utils2.c \
 		utils/utils3.c \

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/22 20:19:13 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/23 23:49:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int main(int ac,char **av ,char **envp)
 {
 	// atexit(f);
 	t_list	*list = NULL;
+	t_list	*head = NULL;
+	t_list	*cur;
 	t_exp	*exp;
 	(void)ac;
 	(void)av;
@@ -34,8 +36,13 @@ int main(int ac,char **av ,char **envp)
 	{
 		i = 0;
 		tmp = readline("bash-3.2$ ");
-		if (!tmp)
-			break;
+		if (tmp)
+		{
+			if (tmp[0] == '\0')
+				continue;
+		}
+		else
+			exit(0);
 		add_history(tmp);
 		list = malloc(sizeof(t_list));
 		if (!list)
@@ -44,16 +51,41 @@ int main(int ac,char **av ,char **envp)
 			exit(1);
 		}
 		list->option = ft_split(tmp, ' ');
-		if (!list->option)
+		list->next = NULL;
+		if (!head)
+			head = list;
+		else
 		{
-			free(list);
-			free(tmp);
-			exit(1);
+			cur = head;
+			while (cur->next)
+				cur = cur->next;
+			cur->next = list;
 		}
+		i = 0;
+		while(list->option[i])
+		{
+			if (list->option[i][0] == '|')
+			{
+				list->option[i] = NULL;
+				list->next = malloc(sizeof(t_list));
+				if (!list->next)
+				{
+					free(tmp);
+					exit(1);
+				}
+				list->next->option = &list->option[i + 1];
+				list->next->next = NULL;
+				list = list->next;
+				i = 0;
+			}
+			else
+				i++;
+		}
+		list = head;
 		execute(list ,exp, envp);
-		free(tmp);
-		//declare input struct and change execute prototype to accept list
+		head = NULL;
 	}
+	return (0);
 }
 
 // int main() {
