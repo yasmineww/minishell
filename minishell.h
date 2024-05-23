@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/22 18:08:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:55:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp **exp);
-void	handle_heredoc(t_list **list);
+void	handle_heredoc(t_list **list, t_exp **exp);
+int		ft_intlen(int n);
+void	expanding_heredoc(char **read, t_exp **exp);
+int	helper2(char *tmp, t_exp **exp);
+int	get_value_len(char *ptr, int j, int end, t_exp **exp);
+char	*store_new_key(char *node, int len, t_exp **exp);
 
 #endif

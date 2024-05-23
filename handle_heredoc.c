@@ -6,28 +6,100 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/22 18:10:45 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:03:02 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find_delimiter(t_list *temp, int i)
+char	*ft_itoa(int n)
 {
-	int		fd;
-	char	*read;
+	char	*ptr;
+	int		size;
+	long	m;
 
-	fd = open("/tmp/.here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	m = n;
+	size = ft_intlen(n);
+	ptr = (char *) malloc (size + 1);
+	if (!ptr)
+		return (NULL);
+	ptr[size] = '\0';
+	size--;
+	if (m == 0)
+		*ptr = '0'; 
+	if (m < 0)
+	{
+		m = m * -1;
+		ptr[0] = '-';
+	}
+	while (m > 0)
+	{
+		ptr[size] = (m % 10) + 48;
+		m = m / 10;
+		size--;
+	}
+	return (ptr);
+}
+
+static char	*helper_join(char *s1, char *s2, char *ptr)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		ptr[i] = s2[j];
+		i++;
+		j++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*ptr;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	ptr = (char *) malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!ptr)
+		return (NULL);
+	helper_join(s1, s2, ptr);
+	return (ptr);
+}
+
+void	find_delimiter(t_list *temp, t_exp **exp, int i)
+{
+	int			fd;
+	static int	num;
+	char		*read;
+	char		*file;
+
+	file = ft_strjoin("/tmp/.here_doc", ft_itoa(num++));
+	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	temp->heredoc = fd;
 	if (fd == -1) {
-		perror("Failed to open temporary file");
+		perror("Failed to open file");
 		return ;
 	}
 	read = readline("> ");
 	while (read)
 	{
-		if (read[0] == '\0')
+		if (read[0] == '\0' && temp->option[i + 1] == NULL)
 			break ;
+		expanding_heredoc(&read, exp);
 		if (!ft_strcmp(temp->option[i + 1], read))
 			break ;
 		read = readline("> ");
@@ -35,7 +107,7 @@ void	find_delimiter(t_list *temp, int i)
 	close(fd);
 }
 
-void	handle_heredoc(t_list **list)
+void	handle_heredoc(t_list **list, t_exp **exp)
 {
 	t_list	*temp;
 	int		i;
@@ -47,23 +119,7 @@ void	handle_heredoc(t_list **list)
 		while (temp->option[i])
 		{
 			if (!ft_strcmp(temp->option[i], "<<"))
-			{
-				find_delimiter(temp, i);
-				// fd = open("/tmp/.here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
-				// temp->fd = fd;
-				// if (fd == -1) {
-                // 	perror("Failed to open temporary file");
-                // 	return ;
-				// }
-				// read = readline("> ");
-				// while (read)
-				// {
-				// 	if (!ft_strcmp(temp->option[i + 1], read))
-				// 		break ;
-				// 	read = readline("> ");
-				// }
-				// close(fd);
-			}
+				find_delimiter(temp, exp, i);
 			i++;		
 		}
 		temp = temp->next;

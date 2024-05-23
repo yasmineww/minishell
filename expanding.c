@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/22 17:20:21 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:02:38 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 		return NULL;
 	while (node[++i])
 	{
-		if (node[i] == '$')
+		if (node[i] == '$' && node[0] != '\'')
 		{
 			i++;
 			end = get_key(&node[i]);
@@ -42,6 +42,8 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			}
 			i += end - 1;
 		}
+		else if (node[i] == '"' || node[i] == '\'')
+			continue ;
 		else
 			replace[j++] = node[i];
 	}
@@ -66,7 +68,7 @@ int	get_value_len(char *ptr, int j, int end, t_exp **exp)
 	return (0);
 }
 
-int	function_of(char *tmp, t_exp **exp)
+int	helper2(char *tmp, t_exp **exp)
 {
 	int	len;
 	int	j;
@@ -98,13 +100,10 @@ void	expanding(t_list **list, t_exp **exp)
 		i = 0;
 		while (tmp->option[i])
 		{
-			if (tmp->option[i][0] != '\'')
-			{
-				len = function_of(tmp->option[i], exp);
-				replace = store_new_key(tmp->option[i], len, exp);
-				tmp->option[i] = ft_strdup(replace);
-				free(replace);
-			}
+			len = helper2(tmp->option[i], exp);
+			replace = store_new_key(tmp->option[i], len, exp);
+			tmp->option[i] = ft_strdup(replace);
+			free(replace);
 			i++;
 		}
 		tmp = tmp->next;
