@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 21:27:49 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 22:13:49 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,23 @@ int exec(t_exp *exp, t_list *list)
 	std_out = dup(1);
 	while (list)
 	{
-		handle_redir(list);
+		handle_redir_in(list);
 		if (list->infile)
 		{
 			dup2(list->infile, 0);
 			close(list->infile);
+		}
+		handle_redir_out(list);
+		if (list->outfile)
+		{
+			dup2(list->outfile, 1);
+			close(list->outfile);
+		}
+		handle_append(list);
+		if (list->outfile)
+		{
+			dup2(list->outfile, 1);
+			close(list->outfile);
 		}
 		if (list->option && is_builtin(list->option))
 		{
