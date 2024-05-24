@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 21:13:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 21:27:49 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 	return (NULL);
 }
 
-void init_fd(t_list *list)
-{
-	while (list)
-	{
-		list->infile = -1;
-		list->outfile = -1;
-		list = list->next;
-	}
-}
 int exec(t_exp *exp, t_list *list)
 {
 	// int	in;
@@ -61,11 +52,10 @@ int exec(t_exp *exp, t_list *list)
 	// size = ft_lstsize(list);
 	std_in = dup(0);
 	std_out = dup(1);
-	init_fd(list);
 	while (list)
 	{
 		handle_redir(list);
-		if (list->infile == -1)
+		if (list->infile)
 		{
 			dup2(list->infile, 0);
 			close(list->infile);
