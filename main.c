@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 20:08:28 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:09:39 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		input = readline("Minishell$ ");
 		if (!input)
-			return (0);
+			break;
 		add_history(input);
 		parsing(input, &list);
 		handle_heredoc(&list, &exp);
