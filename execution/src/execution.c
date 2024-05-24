@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 17:14:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:52:24 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*get_cmd_path(t_exp *exp, char *cmd)
+char *get_cmd_path(t_exp *exp, char *cmd)
 {
-	char	*cmdpath;
-	char	*prefix;
-	int		i;
+	char *cmdpath;
+	char *prefix;
+	int i;
 
 	i = 0;
 	if (cmd[0] == '/' || cmd[0] == '.')
@@ -35,12 +35,12 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 		return (ft_strdup(cmd));
 	return (NULL);
 }
-int	exec(t_exp *exp, t_list *list)
+int exec(t_exp *exp, t_list *list)
 {
 	// int	in;
 	// int	out;
-	int	pid;
-	int	i;
+	int pid;
+	int i;
 	// int size;
 	int fdpipe[2];
 	// int j = 0;
@@ -59,11 +59,15 @@ int	exec(t_exp *exp, t_list *list)
 			dup2(list->infile, 0);
 			close(list->infile);
 		}
-	if (list->option && is_builtin(list->option))
-	{
+		if (list->option && is_builtin(list->option))
+		{
 			exec_builtin(&exp, list->option);
+			dup2(std_in, 0);
+			close(std_in);
+			dup2(std_out, 1);
+			close(std_out);
 			return (0);
-	}
+		}
 		i = 0;
 		if (list->next && pipe(fdpipe) == -1)
 		{
@@ -77,9 +81,9 @@ int	exec(t_exp *exp, t_list *list)
 		{
 			if (list->next)
 			{
-				close (fdpipe[0]);
+				close(fdpipe[0]);
 				dup2(fdpipe[1], 1);
-				close (fdpipe[1]);
+				close(fdpipe[1]);
 			}
 			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, exp->path) == -1)
@@ -107,9 +111,9 @@ int	exec(t_exp *exp, t_list *list)
 	return (0);
 }
 
-int	execute(t_list *list, t_exp *exp, char **envp)
+int execute(t_list *list, t_exp *exp, char **envp)
 {
-	char	*tmp;
+	char *tmp;
 
 	tmp = find_path(envp);
 	if (!tmp)

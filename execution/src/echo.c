@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 17:19:07 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:06:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void echo_print(char **cmd, int i, int no_nl)
 {
 	while (cmd[i])
 	{
-		printf("%s", cmd[i]);
+		write(1, cmd[i], ft_strlen(cmd[i]));
 		i++;
 		if (cmd[i])
-			printf(" ");
+			write(1, " ", 1);
 	}
 	if (!no_nl)
-		printf("\n");
+		write(1, "\n", 1);
 }
 
 int	ft_echo(char **cmd)

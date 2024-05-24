@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 17:16:16 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:08:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("Minishell$ ");
-		if (input)
-		{
-			if (input[0] == '\0')
-				continue;
-		}
-		else
-			exit (0);
+		if (!input)
+			return (0);
 		add_history(input);
 		parsing(input, &list);
 		handle_heredoc(&list, &exp);
