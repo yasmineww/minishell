@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 20:27:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:15:27 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 t_exp	*dup_list(t_exp *exp)
 {

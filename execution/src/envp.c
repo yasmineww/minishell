@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 22:35:02 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/23 22:35:11 by mbenchel         ###   ########.fr       */
+/*   Created: 2024/05/07 16:15:05 by mbenchel          #+#    #+#             */
+/*   Updated: 2024/05/24 16:13:55 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-int	ft_lstsize(t_list *lst)
+char	*find_path(char **envp)
 {
-	int		count;
+	int		i;
+	char	*fullpath;
 
-	if (!lst)
-		return (0);
-	count = 0;
-	while (lst)
+	i = 0;
+	fullpath = NULL;
+	while (envp[i] && envp[i][0] != '\0')
 	{
-		count++;
-		lst = lst -> next;
+		fullpath = ft_strnstr(envp[i], "PATH=", 5);
+		if (fullpath)
+			return (ft_substr(fullpath, 5, ft_strlen(fullpath)));
+		i++;
 	}
-	return (count);
+	return (NULL);
 }
+

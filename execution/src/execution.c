@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 00:09:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:18:35 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 char	*get_cmd_path(t_exp *exp, char *cmd)
 {
@@ -37,28 +37,28 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 }
 int	exec(t_exp *exp, t_list *list)
 {
-	int	std_in;
-	int	std_out;
 	// int	in;
 	// int	out;
 	int	pid;
 	int	i;
-	int size;
+	// int size;
 	int fdpipe[2];
 	// int j = 0;
+	int std_in;
+	int std_out;
 	if (!list || !list->option)
 		return (1);
-	size = ft_lstsize(list);
+	// size = ft_lstsize(list);
 	std_in = dup(0);
 	std_out = dup(1);
-	t_list *tmp = list;
-	while (tmp)
-	{
-		printf("cmd: %s\n", tmp->option[0]);
-		tmp = tmp->next;
-	}
 	while (list)
 	{
+		handle_redir(list);
+		if (!list->infile)
+		{
+			dup2(list->infile, 0);
+			close(list->infile);
+		}
 	if (list->option && is_builtin(list->option))
 	{
 			exec_builtin(&exp, list->option);
@@ -82,7 +82,6 @@ int	exec(t_exp *exp, t_list *list)
 				close (fdpipe[1]);
 			}
 			list->option[0] = get_cmd_path(exp, list->option[0]);
-			printf("path is %s\n", list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, exp->path) == -1)
 			{
 				perror("execve");

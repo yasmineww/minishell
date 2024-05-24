@@ -6,22 +6,22 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 RM = rm -rf
 
-SRCS =	src/main.c \
-		src/envp.c \
-		src/builtins.c \
-		src/cd.c \
-		src/pwd.c \
-		src/env.c \
-		src/echo.c \
-		src/execution.c \
-		src/unset.c \
-		src/export.c \
-		src/exporthelp.c \
-		src/redir.c \
-		src/utils.c \
-		utils/utils1.c \
-		utils/utils2.c \
-		utils/utils3.c \
+SRCS =	main.c \
+		execution/src/envp.c \
+		execution/src/builtins.c \
+		execution/src/cd.c \
+		execution/src/pwd.c \
+		execution/src/env.c \
+		execution/src/echo.c \
+		execution/src/execution.c \
+		execution/src/unset.c \
+		execution/src/export.c \
+		execution/src/exporthelp.c \
+		execution/src/redir.c \
+		execution/src/utils.c \
+		execution/utils/utils1.c \
+		execution/utils/utils2.c \
+		execution/utils/utils3.c \
 
 OBJS = $(SRCS:.c=.o)
 

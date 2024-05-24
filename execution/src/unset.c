@@ -6,11 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/20 14:28:59 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:14:24 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	ft_unset(t_exp **exp, char *key)
 {

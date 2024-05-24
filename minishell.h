@@ -6,16 +6,16 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/23 22:35:25 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:12:47 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// #pragma once
 
-#include "../utils/utils.h"
+
+#include "execution/utils/utils.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -73,6 +73,6 @@ int		exporthelp(t_exp *exp, char *s);
 void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
 t_exp	*dup_list(t_exp *exp);
-// void	handle_redir(t_list *list, char **s);
+int		handle_redir(t_list *list);
 int		ft_lstsize(t_list *lst);
 #endif
