@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 16:18:52 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:04:26 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-char	*ft_strchr(char *s, int c)
-{
-	int	i;
+// char	*ft_strchr(char *s, int c)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < ft_strlen(s) + 1)
-	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
-		i++;
-	}
-	return (NULL);
-}
+// 	i = 0;
+// 	while (i < ft_strlen(s) + 1)
+// 	{
+// 		if (s[i] == (char)c)
+// 			return ((char *)s + i);
+// 		i++;
+// 	}
+// 	return (NULL);
+// }
 
 char	*ft_strtrim(char *s1, char *set)
 {

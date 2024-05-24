@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:20:27 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/19 18:33:08 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:53:55 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	*ft_strdup(const char *s)
-{
-	size_t	l;
-	size_t	j;
-	char	*dup;
+// char	*ft_strdup(const char *s)
+// {
+// 	size_t	l;
+// 	size_t	j;
+// 	char	*dup;
 
-	j = 0;
-	l = ft_strlen(s);
-	dup = malloc(sizeof(char) * (l + 1));
-	if (dup == NULL)
-		return (NULL);
-	while (j < l)
-	{
-		dup[j] = s[j];
-		j++;
-	}
-	dup[l] = '\0';
-	return (dup);
-}
+// 	j = 0;
+// 	l = ft_strlen(s);
+// 	dup = malloc(sizeof(char) * (l + 1));
+// 	if (dup == NULL)
+// 		return (NULL);
+// 	while (j < l)
+// 	{
+// 		dup[j] = s[j];
+// 		j++;
+// 	}
+// 	dup[l] = '\0';
+// 	return (dup);
+// }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
@@ -102,20 +102,20 @@ int	countparams(char **s)
 	return (i);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-	unsigned char	c1;
-	unsigned char	c2;
+// int	ft_strcmp(const char *s1, const char *s2)
+// {
+// 	size_t	i;
+// 	unsigned char	c1;
+// 	unsigned char	c2;
 
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		c1 = (unsigned char)s1[i];
-		c2 = (unsigned char)s2[i];
-		if (c1 != c2)
-			return (c1 - c2);
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
+// 	i = 0;
+// 	while (s1[i] && s2[i])
+// 	{
+// 		c1 = (unsigned char)s1[i];
+// 		c2 = (unsigned char)s2[i];
+// 		if (c1 != c2)
+// 			return (c1 - c2);
+// 		i++;
+// 	}
+// 	return (s1[i] - s2[i]);
+// }

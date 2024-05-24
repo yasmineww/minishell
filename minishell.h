@@ -2,14 +2,14 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "execution/utils/utils.h"
+# include "execution/utils/utils.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <fcntl.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -60,7 +60,7 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-int		ft_strlen(char	*av);
+// int		ft_strlen(char	*av);
 void	parsing(char *input, t_list **list);
 void	expanding(t_list **list, t_exp **exp);
 char	*ft_strdup(char *s1);

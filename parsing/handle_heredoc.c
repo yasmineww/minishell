@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 16:17:46 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:03:21 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,44 +41,44 @@ char	*ft_itoa(int n)
 	return (ptr);
 }
 
-static char	*helper_join(char *s1, char *s2, char *ptr)
-{
-	int		i;
-	int		j;
+// static char	*helper_join(char *s1, char *s2, char *ptr)
+// {
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		ptr[i] = s2[j];
-		i++;
-		j++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (s1[i])
+// 	{
+// 		ptr[i] = s1[i];
+// 		i++;
+// 	}
+// 	while (s2[j])
+// 	{
+// 		ptr[i] = s2[j];
+// 		i++;
+// 		j++;
+// 	}
+// 	ptr[i] = '\0';
+// 	return (ptr);
+// }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*ptr;
-	int		i;
-	int		j;
+// char	*ft_strjoin(char *s1, char *s2)
+// {
+// 	char	*ptr;
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	ptr = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!ptr)
-		return (NULL);
-	helper_join(s1, s2, ptr);
-	return (ptr);
-}
+// 	i = 0;
+// 	j = 0;
+// 	if (!s1 || !s2)
+// 		return (NULL);
+// 	ptr = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+// 	if (!ptr)
+// 		return (NULL);
+// 	helper_join(s1, s2, ptr);
+// 	return (ptr);
+// }
 
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
