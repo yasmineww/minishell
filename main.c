@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 17:14:37 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 16:27:01 by mbenchel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 
@@ -18,18 +6,30 @@ void f()
 	system("leaks minishell");
 }
 
-int main(int ac,char **av ,char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	// atexit(f);
+  // atexit(f);
+	char	*input;
 	t_list	*list;
 	t_exp	*exp;
+
 	(void)ac;
 	(void)av;
-	char *tmp;
-	int i = 0;
 	ft_env(&exp, envp);
-	execute(list ,exp, envp);
-	return (0);
+	while (1)
+	{
+		input = readline("Minishell$ ");
+		if (!input)
+			return (0);
+		add_history(input);
+		parsing(input, &list);
+		handle_heredoc(&list, &exp);
+		expanding(&list, &exp);
+    execute(list ,exp, envp);
+		list = NULL;
+		// free(input);
+		input = NULL;
+	}
 }
 
 // int main() {
