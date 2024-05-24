@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 12:55:03 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:44:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_list
 {
 	char	**option;
 	char	*cmd;
-	int		heredoc;
 	int		infile;
 	int		outfile;
 	struct s_list	*next;
@@ -72,8 +71,10 @@ char	*get_value(char *ptr, int end, t_exp **exp);
 void	handle_heredoc(t_list **list, t_exp **exp);
 int		ft_intlen(int n);
 void	expanding_heredoc(char **read, t_exp **exp);
-int	helper2(char *tmp, t_exp **exp);
-int	get_value_len(char *ptr, int j, int end, t_exp **exp);
+int		helper2(char *tmp, t_exp **exp);
+int		get_value_len(char *ptr, int j, int end, t_exp **exp);
 char	*store_new_key(char *node, int len, t_exp **exp);
+char	*ft_strtrim(char *s1, char *set);
+void	ft_putendl_fd(char *s, int fd);
 
 #endif

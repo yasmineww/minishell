@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 16:03:02 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:40:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,38 @@ char	*ft_strjoin(char *s1, char *s2)
 
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
-	int			fd;
 	static int	num;
 	char		*read;
 	char		*file;
+	int			bool;
+	char		*ptr;
 
-	file = ft_strjoin("/tmp/.here_doc", ft_itoa(num++));
-	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	temp->heredoc = fd;
-	if (fd == -1) {
+	bool = 0;
+	if (temp->option[i + 1][0]== '"' || temp->option[i + 1][0]== '\'')
+		bool = 1;
+	file = ft_strjoin("here_doc", ft_itoa(num++));
+	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	unlink(file);
+	if (temp->infile == -1) {
 		perror("Failed to open file");
 		return ;
 	}
 	read = readline("> ");
 	while (read)
 	{
-		if (read[0] == '\0' && temp->option[i + 1] == NULL)
+		if (!bool)
+			expanding_heredoc(&read, exp);
+		ptr = ft_strtrim(temp->option[i + 1], "\'\"");
+		if (!ft_strcmp(ptr, read))
+		{
+			free(ptr);
 			break ;
-		expanding_heredoc(&read, exp);
-		if (!ft_strcmp(temp->option[i + 1], read))
-			break ;
+		}
+		free(ptr);
+		ft_putendl_fd(read, temp->infile);
 		read = readline("> ");
 	}
-	close(fd);
+	close(temp->infile);
 }
 
 void	handle_heredoc(t_list **list, t_exp **exp)
