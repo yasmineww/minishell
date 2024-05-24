@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_spaces.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:03:30 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/13 20:28:00 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:17:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-static int	count_word(const char *str, char c)
+static int	count_word_spaces(char *str)
 {
 	int	count;
 
@@ -21,10 +21,10 @@ static int	count_word(const char *str, char c)
 		return (0);
 	while (*str)
 	{
-		if (*str != c)
+		if (!check_space(str))
 		{
 			count++;
-			while (*str && *str != c)
+			while (*str && !check_space(str))
 				str++;
 		}
 		else
@@ -33,7 +33,7 @@ static int	count_word(const char *str, char c)
 	return (count);
 }
 
-static char	*ft_strndup(const char *s, int n)
+static char	*ft_strndup(char *s, int n)
 {
 	char	*str;
 	int		i;
@@ -67,7 +67,7 @@ static void	free_me(char **fresh, int i)
 	fresh = NULL;
 }
 
-static char	**help(char const *s, char c, int words, char **fresh)
+static char	**help_spaces(char *s, int words, char **fresh)
 {
 	char	*str;
 	int		i;
@@ -76,14 +76,14 @@ static char	**help(char const *s, char c, int words, char **fresh)
 	str = (char *) s;
 	while (i < words)
 	{
-		while (*s == c)
+		while (check_space(s))
 		{
 			s++;
 			str++;
 		}
 		if (*s == '\0')
 			break ;
-		while (*s != c && *s != '\0')
+		while (!check_space(s) && *s != '\0')
 			s++;
 		fresh[i] = ft_strndup(str, (s - str));
 		if (!fresh[i++])
@@ -96,16 +96,16 @@ static char	**help(char const *s, char c, int words, char **fresh)
 	return (fresh);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_spaces(char *s)
 {
 	char	**fresh;
 	int		words;
 
-	words = count_word(s, c);
+	words = count_word_spaces(s);
 	fresh = (char **) malloc((words + 1) * sizeof(char *));
 	if (!fresh)
 		return (0);
-	help(s, c, words, fresh);
+	help_spaces(s, words, fresh);
 	fresh[words] = 0;
 	return (fresh);
 }

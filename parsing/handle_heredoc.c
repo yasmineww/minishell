@@ -6,11 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 17:40:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:17:46 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*ft_itoa(int n)
 {
@@ -73,7 +73,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	j = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	ptr = (char *) malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	ptr = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!ptr)
 		return (NULL);
 	helper_join(s1, s2, ptr);

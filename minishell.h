@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:01:13 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 17:44:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:26:36 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_exp
 	char	*oldpwd;
 	struct s_exp *next;
 }	t_exp;
+
+// ---------------------- parsing ----------------------
 
 int		count_arg(char *str);
 int		error_message(char *input);

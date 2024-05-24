@@ -6,11 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 17:38:57 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:18:52 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
@@ -65,7 +65,6 @@ void	expanding_heredoc(char **read, t_exp **exp)
 	i = 0;
 	while (read[0][i])
 	{
-		printf("|%c|\n",read[0][i]);
 		if (read[0][0] != '\'')
 		{
 			len = helper2(read[0], exp);

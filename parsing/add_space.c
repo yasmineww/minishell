@@ -6,11 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:13:07 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 12:38:47 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:17:31 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_intlen(int n)
 {

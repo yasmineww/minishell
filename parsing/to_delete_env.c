@@ -6,11 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:43:35 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/17 15:16:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:18:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	find_key_value(char *envp, t_exp *exp)
 {

@@ -1,8 +1,9 @@
 NAME = minishell
 
-SRC = main.c syntax.c utils_syntax.c ft_split.c ft_split_spaces.c quote_syntax.c \
-	split_cmd.c add_space.c to_delete_env.c parsing.c expanding.c expanding_utils.c \
-	handle_heredoc.c heredoc_utils.c
+SRC = main.c \
+	parsing/syntax.c parsing/utils_syntax.c parsing/ft_split.c parsing/ft_split_spaces.c parsing/quote_syntax.c \
+	parsing/split_cmd.c parsing/add_space.c parsing/to_delete_env.c parsing/parsing.c parsing/expanding.c parsing/expanding_utils.c \
+	parsing/handle_heredoc.c parsing/heredoc_utils.c \
 
 OBJ = $(SRC:.c=.o)
 

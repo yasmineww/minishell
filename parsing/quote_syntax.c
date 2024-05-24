@@ -6,11 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:46:52 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/23 17:04:03 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:17:55 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	cases(char *ptr, int i)
 {
