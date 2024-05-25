@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 16:17:52 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:33:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	parsing(char *input, t_list **list)
 {
 	t_list	*temp;
-
 	if (quotes_syntax_error(input) || syntax_error(input))
 	{
 		error_message(input);

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:13:07 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 16:52:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/24 21:26:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*add_space(char *input)
 	int		i;
 
 	i = 0;
-	new = malloc(ft_strlen(input) * 2 + 1);
+	new = malloc((ft_strlen(input) * 2) + 1);
 	if (!new)
 		return (NULL);
 	while (*input)
