@@ -1,6 +1,68 @@
-// [ ] export a b c
-// car alreayd exist
+[ ] export a b c
+car already exist printf +=
+export j++++++++++=jhjhj
 
-// printf +=
-// export j++++++++++=jhjhj
+command not found
 
+
+------------parsing------------
+
+
+
+
+bash-3.2$ touch
+usage:
+touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
+bash-3.2$ touch $DFGHJKL
+usage:
+touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
+bash-3.2$
+
+
+Minishell$ $RGHJKL
+execve: Permission denied
+
+clear makhdamach idk why
+
+
+export var="ls -la"
+bash-3.2$ $var
+total 224
+drwxr-xr-x  13 mbenchel  candidate    442 May 26 15:30 .
+drwxr-xr-x  31 mbenchel  candidate   1054 May 25 22:26 ..
+-rw-r--r--@  1 mbenchel  candidate   6148 May 24 22:54 .DS_Store
+drwxr-xr-x  15 mbenchel  candidate    510 May 26 12:57 .git
+-rw-r--r--   1 mbenchel  candidate   1073 May  5 15:54 LICENSE
+-rw-r--r--   1 mbenchel  candidate    937 May 25 22:31 Makefile
+-rw-r--r--   1 mbenchel  candidate     49 May  5 15:54 README.md
+drwxr-xr-x   4 mbenchel  candidate    136 May 24 16:45 execution
+-rw-r--r--   1 mbenchel  candidate   1304 May 24 20:09 main.c
+-rw-r--r--   1 mbenchel  candidate   3100 May 26 14:35 main.o
+-rwxr-xr-x   1 mbenchel  candidate  81136 May 26 15:30 minishell
+-rw-r--r--   1 mbenchel  candidate   2739 May 24 22:53 minishell.h
+drwxr-xr-x  26 mbenchel  candidate    884 May 26 14:35 parsing
+
+
+bash-3.2$ export var="la                -la"
+bash-3.2$ echo $var
+la -la
+
+tabs should become spaces
+
+
+➜  minishell git:(main) ✗ ./minishell
+Minishell$ export var=ls
+Minishell$ $var
+LICENSE         execution       minishell
+Makefile        main.c          minishell.h
+README.md       main.o          parsing
+Minishell$ export var=ls -la
+Minishell$ $var
+LICENSE         execution       minishell
+Makefile        main.c          minishell.h
+README.md       main.o          parsing
+Minishell$ export var="ls -la"
+Minishell$ $ar
+execve: Permission denied
+Minishell$ $var
+Minishell$ 

@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:20:27 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 16:53:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:41:19 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-// char	*ft_strdup(const char *s)
-// {
-// 	size_t	l;
-// 	size_t	j;
-// 	char	*dup;
+char	*ft_strdup(char *s1)
+{
+	size_t	l;
+	size_t	j;
+	char	*dup;
 
-// 	j = 0;
-// 	l = ft_strlen(s);
-// 	dup = malloc(sizeof(char) * (l + 1));
-// 	if (dup == NULL)
-// 		return (NULL);
-// 	while (j < l)
-// 	{
-// 		dup[j] = s[j];
-// 		j++;
-// 	}
-// 	dup[l] = '\0';
-// 	return (dup);
-// }
+	if (!s1)
+		return (NULL);
+	j = 0;
+	l = ft_strlen(s1);
+	dup = malloc(sizeof(char) * (l + 1));
+	if (dup == NULL)
+		return (NULL);
+	while (j < l)
+	{
+		dup[j] = s1[j];
+		j++;
+	}
+	dup[l] = '\0';
+	return (dup);
+}
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {

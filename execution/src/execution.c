@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 22:13:49 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/24 22:22:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,13 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 
 int exec(t_exp *exp, t_list *list)
 {
-	// int	in;
-	// int	out;
 	int pid;
 	int i;
-	// int size;
 	int fdpipe[2];
-	// int j = 0;
 	int std_in;
 	int std_out;
 	if (!list || !list->option)
 		return (1);
-	// size = ft_lstsize(list);
 	std_in = dup(0);
 	std_out = dup(1);
 	while (list)

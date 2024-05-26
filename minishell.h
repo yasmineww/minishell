@@ -63,7 +63,7 @@ int		ft_env(t_exp **exp, char **envp);
 // int		ft_strlen(char	*av);
 void	parsing(char *input, t_list **list);
 void	expanding(t_list **list, t_exp **exp);
-char	*ft_strdup(char *s1);
+// char	*ft_strdup(char *s1);
 char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
 int		get_key(char *ptr);

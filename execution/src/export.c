@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 16:15:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:39:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	ft_lstadd_back(t_exp **head, t_exp *new)
 
 int exporthelp(t_exp *exp, char *s)
 {
-
 	t_exp	*new;
+
 	if (!s)
-		{
-			new = dup_list(exp);
-			sort_list(new);
-			print_exp(new);
-		}
+	{
+		new = dup_list(exp);
+		sort_list(new);
+		print_exp(new);
+	}
 	else if (s && exp)
 		export(&exp, s);
 	return (0);
@@ -62,26 +62,27 @@ int	export(t_exp **exp, char *s)
 	i = 0;
 	cur = *exp;
 	if (s[i] && isalpha_underscore(s[i]) == 0)
-		{
-			write(2, "bash: export: ", 14);
-			write(2, "`", 1);
-			write(2, s, ft_strlen(s));
-			write(2, "'", 1);
-			write(2,": not a valid identifier\n", 25);
-			return (1);
-		}
+	{
+		write(2, "bash: export: ", 14);
+		write(2, "`", 1);
+		write(2, s, ft_strlen(s));
+		write(2, "'", 1);
+		write(2,": not a valid identifier\n", 25);
+		return (1);
+	}
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
 		i++;
 		if (s[i] == '+')
 		{
-			if (s[i + 1] == '=')
+			i++;
+			if (s[i] == '=')
 			{
 				while (cur)
 				{
 					if (ft_strncmp(cur->key, s, i - 2) == 0)
 					{
-						cur->value = ft_strjoin(cur->value, s + i + 2);
+						cur->value = ft_strjoin(cur->value, s + i + 1);
 						return (0);
 					}
 					cur = cur->next;
@@ -116,19 +117,16 @@ int	export(t_exp **exp, char *s)
 			{
 				if (ft_strcmp(cur->key, s) == 0)
 					return (0);
-				else
-				{
-					new = malloc(sizeof(t_exp));
-					if (!new)
-						return (-1);
-					new->key = ft_strdup(s);
-					new->value = NULL;
-					new->next = NULL;
-					ft_lstadd_back(exp, new);
-					return (0);
-				}
 				cur = cur->next;
 			}
+			new = malloc(sizeof(t_exp));
+			if (!new)
+				return (-1);
+			new->key = ft_strdup(s);
+			new->value = NULL;
+			new->next = NULL;
+			ft_lstadd_back(exp, new);
+			return (0);
 		}
 	}
 	return (0);
