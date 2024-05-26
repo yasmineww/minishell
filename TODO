@@ -11,7 +11,7 @@ cat << 6 > 7
 Minishell$ ls
 7               8               LICENSE         Makefile        README.md       TODO            execution       main.c          main.o          minishell       minishell.h     parsing         test
 
-shouldnt work 
+shouldnt work
 command not found
 
 Minishell$ ./minishell
@@ -90,7 +90,11 @@ Minishell$ export var="ls -la"
 Minishell$ $ar
 execve: Permission denied
 Minishell$ $var
-Minishell$ 
+Minishell$
 
 
 
+Minishell$ <<$var
+Minishell: syntax error
+
+not a syntax error

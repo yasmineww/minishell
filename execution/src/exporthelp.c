@@ -6,11 +6,26 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/26 17:42:20 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:43:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+
+
+
+
+
+
+
+
+// na9sni lcase dial invalid identifier mora =
+
+//w dik export a b c kamlin khs ydaro
+
+
+
 
 t_exp	*dup_list(t_exp *exp)
 {
