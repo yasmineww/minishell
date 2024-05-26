@@ -1,14 +1,39 @@
+------------execution------------
 [ ] export a b c
 car already exist printf +=
 export j++++++++++=jhjhj
 
+
+cat << 6 > 7
+
+
+ unset PATH
+Minishell$ ls
+7               8               LICENSE         Makefile        README.md       TODO            execution       main.c          main.o          minishell       minishell.h     parsing         test
+
+shouldnt work 
 command not found
 
+Minishell$ ./minishell
+minishell(21747,0x11d036dc0) malloc: Incorrect checksum for freed object 0x7fbc354054c8: probably modified after being freed.
+Corrupt value: 0xe00000000000006e
+minishell(21747,0x11d036dc0) malloc: *** set a breakpoint in malloc_error_break to debug
+double free when minishell wst minishell
 
 ------------parsing------------
 
 
+cat << $"U"
+export a="ls "
+export a="ls -la" -- export a=" ls -la" --> $a$a
+<< a'p'o
+echo "$USER"'$usgdiu"''''''' '' ls
 
+
+--AddressSanitizer: heap-buffer-overflow on address
+Minishell$ (|||)
+s|||s
+export a='$HOME'
 
 bash-3.2$ touch
 usage:
@@ -66,3 +91,6 @@ Minishell$ $ar
 execve: Permission denied
 Minishell$ $var
 Minishell$ 
+
+
+
