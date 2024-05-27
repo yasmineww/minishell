@@ -96,9 +96,10 @@ int		exporthelp(t_exp *exp, char *s);
 void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
 t_exp	*dup_list(t_exp *exp);
-int		handle_redir_in(t_list *list);
-int		handle_redir_out(t_list *list);
-int		handle_append(t_list *list);
+void		handle_redir_in(t_list *list, int i);
+void	handle_redir_out(t_list *list, int i);
+void	handle_append(t_list *list, int i);
 int		ft_lstsize(t_list *lst);
+void	handle_redirs(t_list *list);
 
 #endif
