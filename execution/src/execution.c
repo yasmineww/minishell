@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/27 16:17:09 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:38:11 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 	return (perror(cmd), exit(0), NULL);
 }
 
-int exec(t_exp *exp, t_list *list)
+int exec(t_exp *exp, t_list *list,  char **envp)
 {
 	int pid;
 	int i;
@@ -77,7 +77,7 @@ int exec(t_exp *exp, t_list *list)
 				close(fdpipe[1]);
 			}
 			list->option[0] = get_cmd_path(exp, list->option[0]);
-			if (list->option[0] && execve(list->option[0], list->option, exp->path) == -1)
+			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
 			{
 				// matb9ach tsift exp->path khdm blenv li deja kayn w 9lb 3la path
 				perror("execve");
@@ -107,6 +107,7 @@ int execute(t_list *list, t_exp *exp, char **envp)
 {
 	char *tmp;
 
+	//loopi 3la linked list exp
 	tmp = find_path(envp);
 	if (!tmp)
 	{
@@ -119,6 +120,6 @@ int execute(t_list *list, t_exp *exp, char **envp)
 	if (!exp->path)
 		exit(1);
 	free(tmp);
-	exec(exp, list);
+	exec(exp, list,envp);
 	return (0);
 }

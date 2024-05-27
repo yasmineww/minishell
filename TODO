@@ -20,6 +20,17 @@ Corrupt value: 0xe00000000000006e
 minishell(21747,0x11d036dc0) malloc: *** set a breakpoint in malloc_error_break to debug
 double free when minishell wst minishell
 
+
+ ls | wc > 1|wc
+cat | cat | ls
+cat < " "
+
+
+Minishell$ cat Makefile > 2
+NAME = minishell
+
+
+
 ------------parsing------------
 
 
