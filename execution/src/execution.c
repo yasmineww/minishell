@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/27 17:38:11 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:54:26 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
 			{
-				// matb9ach tsift exp->path khdm blenv li deja kayn w 9lb 3la path
 				perror("execve");
 				exit(1);
 			}

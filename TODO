@@ -7,6 +7,10 @@ export j++++++++++=jhjhj
 cat << 6 > 7
 
 
+///////////////// grep not working when grep PATH??????
+
+
+
  unset PATH
 Minishell$ ls
 7               8               LICENSE         Makefile        README.md       TODO            execution       main.c          main.o          minishell       minishell.h     parsing         test
