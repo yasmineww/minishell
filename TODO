@@ -1,12 +1,4 @@
 ------------execution------------
-[ ] export a b c
-car already exist printf +=
-bash-3.2$ export l++l
-bash: export: `l++l': not a valid identifier
-bash-3.2$ export l+l
-bash: export: `l+l': not a valid identifier
-export a+=b first time should work
-
 cat << 6 > 7
 
 

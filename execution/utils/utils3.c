@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:53:32 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/26 17:18:57 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:12:30 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,17 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-int	isalpha_underscore(int c)
+int	isalpha_underscore(int c, int flag)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
-		return (1);
+	if (flag == 1)
+	{
+		if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
+			return (1);
+		return (0);
+	}
+	else
+		if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || (c >= '0' && c <= '9'))
+			return (1);
 	return (0);
 }
 

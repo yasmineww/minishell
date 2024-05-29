@@ -91,7 +91,7 @@ int		exec(t_exp *exp, t_list *list, char **envp);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
 void	find_key_value(char **envp, t_exp *exp);
-int		exporthelp(t_exp *exp, char *s);
+int		exporthelp(t_exp *exp, char **s);
 void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
 t_exp	*dup_list(t_exp *exp);

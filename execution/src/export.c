@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/29 18:19:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:49:17 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,26 @@ void	ft_lstadd_back(t_exp **head, t_exp *new)
 	last->next = new;
 }
 
-int exporthelp(t_exp *exp, char *s)
+int exporthelp(t_exp *exp, char **s)
 {
 	t_exp	*new;
+	int		i;
 
-	if (!s)
+	i = 1;
+	if (!s[1])
 	{
 		new = dup_list(exp);
 		sort_list(new);
 		print_exp(new);
 	}
-	else if (s && exp)
-		export(&exp, s);
+	else if (s[1] && exp)
+	{
+		while (s[i])
+		{
+			export(&exp, s[i]);
+			i++;
+		}
+	}
 	return (0);
 }
 
@@ -61,7 +69,7 @@ int	export(t_exp **exp, char *s)
 
 	i = 0;
 	cur = *exp;
-	if (s[i] && !isalpha_underscore(s[i]))
+	if (s[i] && !isalpha_underscore(s[i], 1))
 	{
 		write(2, "bash: export: `", 15);
 		write(2, s, ft_strlen(s));
@@ -70,13 +78,13 @@ int	export(t_exp **exp, char *s)
 	}
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
-	if (s[i] && !isalpha_underscore(s[i]))
-	{
-		write(2, "bash: export: `", 15);
-		write(2, s, ft_strlen(s));
-		write(2,"': not a valid identifier\n", 26);
-		return (1);
-	}
+		if (s[i] && !isalpha_underscore(s[i], 0))
+		{
+			write(2, "bash: export: `", 15);
+			write(2, s, ft_strlen(s));
+			write(2,"': not a valid identifier\n", 26);
+			return (1);
+		}
 		i++;
 		if (s[i] == '+')
 		{
@@ -90,8 +98,35 @@ int	export(t_exp **exp, char *s)
 						cur->value = ft_strjoin(cur->value, s + i + 1);
 						return (0);
 					}
+					else
+					{
+						while (cur)
+						{
+							if (ft_strncmp(cur->key, s, i - 2) == 0)
+							{
+								cur->value = ft_strjoin(cur->value, s + i + 1);
+								return (0);
+							}
+							cur = cur->next;
+						}
+						new = malloc(sizeof(t_exp));
+						if (!new)
+							return (-1);
+						new->key = ft_substr(s, 0, i - 1);
+						new->value = ft_strdup(s + i + 1);
+						new->next = NULL;
+						ft_lstadd_back(exp, new);
+						return (0);
+					}
 					cur = cur->next;
 				}
+			}
+			else
+			{
+				write(2, "bash: export: `", 15);
+				write(2, s, ft_strlen(s));
+				write(2,"': not a valid identifier\n", 26);
+				return (1);
 			}
 		}
 		else if (s[i] == '=')
