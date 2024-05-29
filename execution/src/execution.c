@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/27 17:54:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:23:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 int execute(t_list *list, t_exp *exp, char **envp)
 {
 	char *tmp;
-
-	//loopi 3la linked list exp
-	tmp = find_path(envp);
+	tmp = find_path(exp);
 	if (!tmp)
 	{
 		write(2, "env: ", 5);
@@ -118,7 +116,7 @@ int execute(t_list *list, t_exp *exp, char **envp)
 	exp->path = ft_split(tmp, ':');
 	if (!exp->path)
 		exit(1);
-	free(tmp);
+	// free(tmp);
 	exec(exp, list,envp);
 	return (0);
 }

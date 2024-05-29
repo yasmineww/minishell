@@ -3,28 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:15:05 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/27 17:54:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/27 18:04:03 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*find_path(char **envp)
+char	*find_path(t_exp *exp)
 {
-	int		i;
-	char	*fullpath;
-
-	i = 0;
-	fullpath = NULL;
-	while (envp[i] && envp[i][0] != '\0')
+	while (exp)
 	{
-		fullpath = ft_strnstr(envp[i], "PATH=", 5);
-		if (fullpath)
-			return (ft_substr(fullpath, 5, ft_strlen(fullpath)));
-		i++;
+		if (!ft_strcmp(exp->key, "PATH"))
+			return (exp->value);
+		exp = exp->next;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/26 17:39:18 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:19:16 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,22 @@ int	export(t_exp **exp, char *s)
 
 	i = 0;
 	cur = *exp;
-	if (s[i] && isalpha_underscore(s[i]) == 0)
+	if (s[i] && !isalpha_underscore(s[i]))
 	{
-		write(2, "bash: export: ", 14);
-		write(2, "`", 1);
+		write(2, "bash: export: `", 15);
 		write(2, s, ft_strlen(s));
-		write(2, "'", 1);
-		write(2,": not a valid identifier\n", 25);
+		write(2,"': not a valid identifier\n", 26);
 		return (1);
 	}
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
+	if (s[i] && !isalpha_underscore(s[i]))
+	{
+		write(2, "bash: export: `", 15);
+		write(2, s, ft_strlen(s));
+		write(2,"': not a valid identifier\n", 26);
+		return (1);
+	}
 		i++;
 		if (s[i] == '+')
 		{

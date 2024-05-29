@@ -80,7 +80,6 @@ void	ft_putendl_fd(char *s, int fd);
 // ---------------------- execution ----------------------
 
 int		execute(t_list *list, t_exp *exp, char **envp);
-char	*find_path(char **envp);
 int		is_builtin(char **cmd);
 int		exec_builtin(t_exp **exp, char **cmd);
 int		ft_cd(char *path);
@@ -101,5 +100,6 @@ void	handle_redir_out(t_list *list, int i);
 void	handle_append(t_list *list, int i);
 int		ft_lstsize(t_list *lst);
 void	handle_redirs(t_list *list);
+char	*find_path(t_exp *exp);
 
 #endif

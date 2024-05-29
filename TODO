@@ -1,8 +1,11 @@
 ------------execution------------
 [ ] export a b c
 car already exist printf +=
-export j++++++++++=jhjhj
-
+bash-3.2$ export l++l
+bash: export: `l++l': not a valid identifier
+bash-3.2$ export l+l
+bash: export: `l+l': not a valid identifier
+export a+=b first time should work
 
 cat << 6 > 7
 
@@ -17,12 +20,6 @@ Minishell$ ls
 
 shouldnt work
 command not found
-
-Minishell$ ./minishell
-minishell(21747,0x11d036dc0) malloc: Incorrect checksum for freed object 0x7fbc354054c8: probably modified after being freed.
-Corrupt value: 0xe00000000000006e
-minishell(21747,0x11d036dc0) malloc: *** set a breakpoint in malloc_error_break to debug
-double free when minishell wst minishell
 
 
  ls | wc > 1|wc
@@ -62,7 +59,6 @@ bash-3.2$
 Minishell$ $RGHJKL
 execve: Permission denied
 
-clear makhdamach idk why
 
 
 export var="ls -la"
