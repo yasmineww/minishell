@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 17:03:21 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:57:32 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_itoa(int n)
 	ptr[size] = '\0';
 	size--;
 	if (m == 0)
-		*ptr = '0'; 
+		*ptr = '0';
 	if (m < 0)
 	{
 		m = m * -1;
@@ -129,7 +129,7 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 		{
 			if (!ft_strcmp(temp->option[i], "<<"))
 				find_delimiter(temp, exp, i);
-			i++;		
+			i++;
 		}
 		temp = temp->next;
 	}

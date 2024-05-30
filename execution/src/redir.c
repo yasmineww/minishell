@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/27 16:38:04 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:54:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void handle_redirs(t_list *list)
 
 void remove_redir(char **option, int i)
 {
-	while(option[i] && option[i + 2])
+	while (option[i] && option[i + 2])
 	{
 		option[i] = option[i + 2];
 		i++;
@@ -65,11 +65,11 @@ void	handle_redir_out(t_list *list, int i)
 	int	j;
 
 	j = 0;
-	list->infile = -1;
+	list->outfile = -1;
 	if (list->option[i + 1])
 	{
-		list->infile = open(list->option[i + 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (list->infile == -1)
+		list->outfile = open(list->option[i + 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		if (list->outfile == -1)
 		{
 			perror("open");
 			return ;
@@ -85,11 +85,11 @@ void	handle_append(t_list *list, int i)
 	int	j;
 
 	j = 0;
-	list->infile = -1;
+	list->outfile = -1;
 	if (list->option[i + 1])
 	{
-		list->infile = open(list->option[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
-		if (list->infile == -1)
+		list->outfile = open(list->option[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
+		if (list->outfile == -1)
 		{
 			perror("open");
 			return ;
