@@ -1,6 +1,6 @@
 ------------execution------------
-
-
+ cat << 6 << 8 > 9
+print how much times it enters heredoc
 
 
 bash: .: filename argument required
@@ -40,7 +40,7 @@ printi gha error w7da
 
 
 stage lw7ch
-ls | wc > 1|wc
+ls | wc > 1 | wc
 cat | cat | ls
 cat < " "
 
