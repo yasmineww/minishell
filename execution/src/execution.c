@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/31 00:30:28 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/31 02:35:44 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
 	return (perror(cmd), exit(0), NULL);
+
+}
+
+void	onecmd_builtin(t_exp *exp, t_list *list)
+{
+	int std_in = dup(0);
+	int std_out = dup(1);
+	if (list->option && is_builtin(list->option) && !list->next) // lmochkil hna houa lakant lbuiltin hia lkhra ra tahia next NULL
+	{
+		// need to refine this function
+		exec_builtin(&exp, list->option);
+		dup2(std_in, 0);
+		close(std_in);
+		dup2(std_out, 1);
+		close(std_out);
+		list->option[0] = NULL;
+		if (list->option[1])
+			list->option[1] = NULL;
+		// bricolage hhhhhhhhh
+		return ;
+	}
 }
 
 int exec(t_exp *exp, t_list *list,  char **envp)
@@ -47,19 +68,19 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 		return (1);
 	std_in = dup(0);
 	std_out = dup(1);
+	onecmd_builtin(exp, list);
 	while (list)
 	{
-		// printf("infile is %d\n", list->infile);
 		handle_redirs(list);
-		if (list->option && is_builtin(list->option))
-		{
-			exec_builtin(&exp, list->option);
-			dup2(std_in, 0);
-			close(std_in);
-			dup2(std_out, 1);
-			close(std_out);
-			return (0);
-		}
+		// if (list->option && is_builtin(list->option))
+		// {
+		// 	exec_builtin(&exp, list->option);
+		// 	dup2(std_in, 0);
+		// 	close(std_in);
+		// 	dup2(std_out, 1);
+		// 	close(std_out);
+		// 	return (0);
+		// }
 		i = 0;
 		if (list->next && pipe(fdpipe) == -1)
 		{
@@ -77,6 +98,8 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 				dup2(fdpipe[1], 1);
 				close(fdpipe[1]);
 			}
+			if (list->option[0] && is_builtin(list->option))
+				exec_builtin(&exp, list->option);
 			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
 			{

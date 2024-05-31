@@ -1,27 +1,48 @@
 ------------execution------------
-cat << 6 > 7
-
-
-///////////////// grep not working when grep PATH??????
 
 
 
- unset PATH
+
+bash: .: filename argument required
+.: usage: . filename [arguments]
+bash-3.2$ ..
+bash: ..: command not found
+bash-3.2$ ./execution/
+bash: ./execution/: is a directory
+bash-3.2$ ls
+LICENSE         TODO            main.o          parsing
+Makefile        execution       minishell
+README.md       main.c          minishell.h
+bash-3.2$ ./main.c/
+bash: ./main.c/: Not a directory
+bash-3.2$ ./main.c
+bash: ./main.c: Permission denied
+bash-3.2$ ./main.c/
+bash: ./main.c/: Not a directory
+bash-3.2$ ./main.c
+bash: ./main.c: Permission denied
+bash-3.2$ ./main.cb
+bash: ./main.cb: No such file or directory
+bash-3.2$
+
+
+
+➜  minishell git:(main) ✗ ./minishell
+Minishell$ unset PATH
 Minishell$ ls
-7               8               LICENSE         Makefile        README.md       TODO            execution       main.c          main.o          minishell       minishell.h     parsing         test
+env: ls: No such file or directory
+ls: No such file or directory
+Minishell$
+printi gha error w7da
 
-shouldnt work
-command not found
 
 
- ls | wc > 1|wc
+
+
+stage lw7ch
+ls | wc > 1|wc
 cat | cat | ls
 cat < " "
-
-
-Minishell$ cat Makefile > 2
-NAME = minishell
-
 
 
 ------------parsing------------
