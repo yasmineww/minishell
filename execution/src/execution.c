@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/30 19:55:37 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:30:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	std_out = dup(1);
 	while (list)
 	{
+		// printf("infile is %d\n", list->infile);
 		handle_redirs(list);
 		if (list->option && is_builtin(list->option))
 		{

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/30 16:57:32 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/05/31 02:01:54 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		bool = 1;
 	file = ft_strjoin("here_doc", ft_itoa(num++));
 	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	unlink(file);
+	// unlink(file); shouldnt be here i guess
 	if (temp->infile == -1) {
 		perror("Failed to open file");
+		free(file);
 		return ;
 	}
 	read = readline("> ");
@@ -111,9 +112,21 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		}
 		free(ptr);
 		ft_putendl_fd(read, temp->infile);
+		free(read);
 		read = readline("> ");
 	}
+	free(read);
 	close(temp->infile);
+	// this below is added by marin i am trying to fix a heredoc + redirection out case
+	temp->infile = open(file, O_RDONLY, 0644);
+	if (temp->infile == -1) {
+		perror("Failed to open file");
+		unlink(file);
+		free(file);
+		return ;
+	}
+	unlink(file);
+	free(file);
 }
 
 void	handle_heredoc(t_list **list, t_exp **exp)
