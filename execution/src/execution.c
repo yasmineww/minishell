@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/01 00:17:03 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:01:20 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,12 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 		return (1);
 	std_in = dup(0);
 	std_out = dup(1);
-	t_list	*tmp;
 	int		count;
 
 	pid = NULL;
 	i = 0;
 	onecmd_builtin(exp, list);
 	count = ft_lstsize(list);
-	tmp	= list;
-	while (tmp)
-	{
-		handle_redirs(tmp);
-		tmp = tmp->next;
-	}
 	pid = malloc(sizeof(int) * count);
 	if (!pid)
 	{
@@ -90,6 +83,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	}
 	while (list)
 	{
+		handle_redirs(list);
 		if (list->option && is_builtin(list->option))
 		{
 			exec_builtin(&exp, list->option);
@@ -134,14 +128,14 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 		else
 		{
 			close (fdpipe[1]);
-			close (fdpipe[0]);
+			// close (fdpipe[0]);
 			if (list->next)
 			{
-				close(fdpipe[1]);
+				// close(fdpipe[1]);
 				dup2(fdpipe[0], 0);
 				close(fdpipe[0]);
-				i++;
 			}
+				i++;
 		}
 		list = list->next;
 	}
