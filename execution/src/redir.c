@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/02 19:11:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:39:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void handle_redirs(t_list *list)
 {
 	int i = 0;
 
+	list->infile = -1;
+	list->outfile = -1;
 	if (!list->option)
 		return ;
 	while (list->option[i])

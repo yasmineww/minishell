@@ -1,5 +1,11 @@
 ------------execution------------
- cat << 6 << 8 > 9
+cat << 6 << 8 > 9
+ << 6 > 7 heredoc needs to be checked apart from the redirection i guess
+protect dup with custom ft_dup
+
+< infile export >> outfile
+
+
 print how much times it enters heredoc
 
 
