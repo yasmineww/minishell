@@ -1,6 +1,16 @@
 ------------execution------------
+
+bash-3.2$ cat << "l"
+$USER
+l
+$USER
+bash-3.2$ cat << l
+$USER
+l
+bel-oirg
+
 $USER_$HOME
-$drfg ls
+
  cat << 6 << 8 > 9
 
 
@@ -45,19 +55,6 @@ printi gha error w7da
 
 
 
-
-
-<<<<<<< Updated upstream
-stage lw7ch
-ls | wc > 1 | wc
-cat | cat | ls
-cat < " "
-ls < ls
-
-<< ls << a
-
-=======
->>>>>>> Stashed changes
 ------------parsing------------
 
 cat << $"U"
@@ -139,7 +136,7 @@ not a syntax error
 
 ----fixed
 
-
+$drfg ls
 ls | wc > 1 | wc
 cat | cat | ls
 cat << 6 > 7

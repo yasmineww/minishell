@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/05 16:51:15 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/06 22:29:10 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,37 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 
 }
 
+void check_value_export(t_list *list)
+{
+	int		i;
+	int		j;
+	char	**s;
+
+	i = 0;
+	j = 0;
+	while (list->option[i])
+	{
+		if (ft_strlen(list->option[i]) > 0)
+			j++;
+		i++;
+	}
+	s = malloc(sizeof(char *) * j + 1);
+	if (!s)
+		exit(1);
+	i = 0;
+	j = 0;
+	while (list->option[i])
+	{
+		if (ft_strlen(list->option[i]) > 0)
+		{
+			s[j] = list->option[i];
+			j++;
+		}
+		i++;
+	}
+	s[i] = NULL;
+	list->option = s;
+}
 void	onecmd_builtin(t_exp *exp, t_list *list)
 {
 	int std_in = dup(0);
@@ -83,6 +114,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	}
 	while (list)
 	{
+		check_value_export(list);
 		if (list->next && pipe(fdpipe) == -1)
 		{
 			perror("pipe");
