@@ -6,32 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 19:57:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 16:18:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:53:27 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	count_arg(char *str)
-{
-	int	count;
-
-	count = 0;
-	if (!str)
-		return (0);
-	while (*str)
-	{
-		if (!check_space(str))
-		{
-			count++;
-			while (*str && !check_space(str))
-				str++;
-		}
-		else
-			str++;
-	}
-	return (count);
-}
 
 int	error_message(char *input)
 {

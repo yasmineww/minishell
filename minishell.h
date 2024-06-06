@@ -40,7 +40,6 @@ typedef struct s_exp
 
 // ---------------------- parsing ----------------------
 
-int		count_arg(char *str);
 int		error_message(char *input);
 int		ft_strcmp(char *s1, char *s2);
 int		special_char(char *ptr);

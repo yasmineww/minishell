@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:53:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/25 16:32:43 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:53:04 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,28 +102,12 @@ int	special_last(char *ptr)
 
 int	syntax_error(char *ptr)
 {
-	int	count;
 	int	i;
 
 	i = 0;
-	count = count_arg(ptr);
-	if (count == 1) // case 2 : one arg
-	{
-		while (check_space(&ptr[i]))
-			i++;
-		if (special_char(&ptr[i]))
-			return (1);
-		else if (two_specials(ptr)) // case 3.3 : two specials in a row
-			return (1);
-		else if (special_last(ptr))
-			return (1);
-	}
-	else if (count > 1) // case 3 : multiple args
-	{
-		while (check_space(&ptr[i]))
-			i++;
-		if (cases(ptr, i))
-			return (1);
-	}
+	while (check_space(&ptr[i]))
+		i++;
+	if (cases(ptr, i))
+		return (1);
 	return (0);
 }

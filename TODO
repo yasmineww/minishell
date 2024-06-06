@@ -1,7 +1,6 @@
 ------------execution------------
 $USER_$HOME
 $drfg ls
- < Makefile | grep env.c | wc -l
  cat << 6 << 8 > 9
 
 
@@ -134,9 +133,6 @@ Fixed --------------------------------------------------------------------------
 # Minishell$ <<$var
 # Minishell: syntax error
 
-=======
-Minishell$ <<$var
-Minishell: syntax error
 
 not a syntax error
 
