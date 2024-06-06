@@ -8,7 +8,7 @@ SRC = main.c \
   	execution/src/execution.c execution/src/unset.c execution/src/export.c execution/src/exporthelp.c execution/src/redir.c \
   	execution/src/utils.c execution/utils/utils1.c execution/utils/utils2.c	execution/utils/utils3.c \
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(addprefix obj/, $(SRC:.c=.o))
 
 HEADER = minishell.h
 
@@ -18,14 +18,15 @@ FLAG = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
-%.o: %.c $(HEADER)
+obj/%.o: %.c $(HEADER)
+	@mkdir -p $(dir $@)
 	$(CC) $(FLAG) -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME)
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf obj
 
 fclean: clean
 	rm -rf $(NAME)
