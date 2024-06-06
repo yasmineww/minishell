@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/02 19:11:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:12:39 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	handle_redir_in(t_list *list, int i)
 		if (list->infile == -1)
 		{
 			perror("open");
-			return ;
+			exit(1);
 		}
 		dup2(list->infile, 0);
 		close(list->infile);

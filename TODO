@@ -1,8 +1,14 @@
 ------------execution------------
-$USER_$HOME 
+$USER_$HOME
 $drfg ls
  < Makefile | grep env.c | wc -l
  cat << 6 << 8 > 9
+
+
+protect dup with custom ft_dup
+
+< infile builtin export >> outfile
+
 print how much times it enters heredoc
 
 
@@ -42,6 +48,7 @@ printi gha error w7da
 
 
 
+<<<<<<< Updated upstream
 stage lw7ch
 ls | wc > 1 | wc
 cat | cat | ls
@@ -50,6 +57,8 @@ ls < ls
 
 << ls << a
 
+=======
+>>>>>>> Stashed changes
 ------------parsing------------
 
 cat << $"U"
@@ -125,4 +134,21 @@ Fixed --------------------------------------------------------------------------
 # Minishell$ <<$var
 # Minishell: syntax error
 
-# not a syntax error
+=======
+Minishell$ <<$var
+Minishell: syntax error
+
+not a syntax error
+
+
+----fixed
+
+
+ls | wc > 1 | wc
+cat | cat | ls
+cat << 6 > 7
+cat < " "
+
+
+
+

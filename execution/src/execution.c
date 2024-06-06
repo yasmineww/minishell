@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/02 19:01:20 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:51:15 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	}
 	while (list)
 	{
-		handle_redirs(list);
+		if (list->next && pipe(fdpipe) == -1)
+		{
+			perror("pipe");
+			exit(1);
+		}
 		if (list->option && is_builtin(list->option))
 		{
 			exec_builtin(&exp, list->option);
@@ -93,22 +97,28 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 			close(std_out);
 			return (0);
 		}
-		if (list->next && pipe(fdpipe) == -1)
-		{
-			perror("pipe");
-			exit(1);
-		}
 		pid[i] = fork();
 		if (pid[i] < 0)
 			perror("fork");
 		else if (pid[i] == 0)
 		{
+			if (i > 0)//check if it's not the first command
+			{
+				dup2(std_in, 0);
+				close(std_in);
+			}
 			if (list->next)
 			{
 				close(fdpipe[0]);
 				dup2(fdpipe[1], 1);
 				close(fdpipe[1]);
 			}
+			else
+			{
+				dup2(std_out, 1);
+				close(std_out);
+			}
+			handle_redirs(list);
 			if (list->option[0] && is_builtin(list->option))
 			{
 				exec_builtin(&exp, list->option);
@@ -127,17 +137,16 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 		}
 		else
 		{
-			close (fdpipe[1]);
-			// close (fdpipe[0]);
+			if (i > 0)
+				close(std_in);
 			if (list->next)
 			{
-				// close(fdpipe[1]);
-				dup2(fdpipe[0], 0);
-				close(fdpipe[0]);
+				close(fdpipe[1]);
+				std_in = fdpipe[0];
 			}
-				i++;
 		}
 		list = list->next;
+		i++;
 	}
 	i = 0;
 	while (i < count)
