@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/06 22:29:10 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 00:51:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void check_value_export(t_list *list)
 		}
 		i++;
 	}
-	s[i] = NULL;
+	s[j] = NULL;
 	list->option = s;
 }
 void	onecmd_builtin(t_exp *exp, t_list *list)
@@ -104,6 +104,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 
 	pid = NULL;
 	i = 0;
+	check_value_export(list);
 	onecmd_builtin(exp, list);
 	count = ft_lstsize(list);
 	pid = malloc(sizeof(int) * count);
@@ -114,7 +115,6 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	}
 	while (list)
 	{
-		check_value_export(list);
 		if (list->next && pipe(fdpipe) == -1)
 		{
 			perror("pipe");

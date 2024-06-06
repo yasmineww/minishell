@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/06 19:07:02 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/06 22:48:49 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("Minishell$ ");
-		if (!input)
+		if (!input || isatty(0) == 0)
 			break;
 		add_history(input);
 		parsing(input, &list);
