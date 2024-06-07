@@ -6,40 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/06 23:01:42 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:26:16 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*ft_itoa(int n)
-{
-	char	*ptr;
-	int		size;
-	long	m;
-
-	m = n;
-	size = ft_intlen(n);
-	ptr = (char *) malloc (size + 1);
-	if (!ptr)
-		return (NULL);
-	ptr[size] = '\0';
-	size--;
-	if (m == 0)
-		*ptr = '0';
-	if (m < 0)
-	{
-		m = m * -1;
-		ptr[0] = '-';
-	}
-	while (m > 0)
-	{
-		ptr[size] = (m % 10) + 48;
-		m = m / 10;
-		size--;
-	}
-	return (ptr);
-}
 
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
@@ -78,7 +49,6 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	}
 	free(read);
 	close(temp->infile);
-	// this below is added by marin i am trying to fix a heredoc + redirection out case
 	temp->infile = open(file, O_RDONLY, 0644);
 	if (temp->infile == -1) {
 		perror("Failed to open file");
@@ -90,27 +60,78 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(file);
 }
 
-void	handle_heredoc(t_list **list, t_exp **exp)
+void	tmp_file(char *delim)
+{
+	char		*read;
+
+	read = readline("> ");
+	while (1)
+	{
+		if (!ft_strcmp(delim, read))
+			break ;
+		free(read);
+		read = readline("> ");
+	}
+	free(read);
+}
+
+int	store_delim(t_list **list, t_here_doc *var)
 {
 	t_list		*temp;
-	here_doc	*var;
 	int			i;
+	int			j;
 	int			count;
 
 	temp = *list;
-	var = malloc(sizeof(here_doc));
 	count = 0;
+	j = 0;
+	var->delimiter = malloc(sizeof(char *) * 100);
+	while (temp)
+	{
+		i = 0;
+		while (temp->option[i] && temp->option[i + 1])
+		{
+			if (!ft_strcmp(temp->option[i], "<<"))
+			{
+				var->delimiter[j] = ft_strtrim(temp->option[i + 1], "\'\"");
+				count++;
+				j++;
+			}
+			i++;
+		}
+
+		temp = temp->next;
+	}
+	return (count);
+}
+
+void	handle_heredoc(t_list **list, t_exp **exp)
+{
+	t_list		*temp;
+	t_here_doc	*var;
+	int			i;
+	int			j;
+	int			count;
+
+	temp = *list;
+	var = malloc(sizeof(t_here_doc));
+	count = store_delim(list, var);
+	j = 0;
 	while (temp)
 	{
 		i = 0;
 		while (temp->option[i])
 		{
-			if (!ft_strcmp(temp->option[i], "<<"))
+			if (!ft_strcmp(temp->option[i], "<<") && (count > 1))
 			{
-				var->delimiter = ft_strtrim(temp->option[i + 1], "\'\"");
-				count++;
-				printf("delimiter [%s] and count [%d]\n", var->delimiter, count);
+				count--;
+				tmp_file(var->delimiter[j]);
+				j++;
+			}
+			else if (!ft_strcmp(temp->option[i], "<<") && (count == 1))
+			{
 				find_delimiter(temp, exp, i);
+				return ;
 			}
 			i++;
 		}

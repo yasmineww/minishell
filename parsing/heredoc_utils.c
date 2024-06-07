@@ -6,11 +6,40 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 17:04:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:31:36 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_itoa(int n)
+{
+	char	*ptr;
+	int		size;
+	long	m;
+
+	m = n;
+	size = ft_intlen(n);
+	ptr = (char *) malloc (size + 1);
+	if (!ptr)
+		return (NULL);
+	ptr[size] = '\0';
+	size--;
+	if (m == 0)
+		*ptr = '0';
+	if (m < 0)
+	{
+		m = m * -1;
+		ptr[0] = '-';
+	}
+	while (m > 0)
+	{
+		ptr[size] = (m % 10) + 48;
+		m = m / 10;
+		size--;
+	}
+	return (ptr);
+}
 
 void	ft_putendl_fd(char *s, int fd)
 {
@@ -23,20 +52,6 @@ void	ft_putendl_fd(char *s, int fd)
 	}
 	write(fd, "\n", 1);
 }
-
-// char	*ft_strchr(char *s, int c)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < ft_strlen(s) + 1)
-// 	{
-// 		if (s[i] == (char)c)
-// 			return ((char *)s + i);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
 
 char	*ft_strtrim(char *s1, char *set)
 {

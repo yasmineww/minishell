@@ -20,12 +20,12 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct here_doc
+typedef struct s_here_doc
 {
-	char	*delimiter;
+	char	**delimiter;
 	int		count;
-	struct here_doc	*next;
-}	here_doc;
+	struct s_here_doc	*next;
+}	t_here_doc;
 
 typedef struct s_list
 {
@@ -66,10 +66,8 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-// int		ft_strlen(char	*av);
 void	parsing(char *input, t_list **list);
 void	expanding(t_list **list, t_exp **exp);
-// char	*ft_strdup(char *s1);
 char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
 int		get_key(char *ptr);
@@ -82,6 +80,7 @@ int		get_value_len(char *ptr, int j, int end, t_exp **exp);
 char	*store_new_key(char *node, int len, t_exp **exp);
 char	*ft_strtrim(char *s1, char *set);
 void	ft_putendl_fd(char *s, int fd);
+char	*ft_itoa(int n);
 
 // ---------------------- execution ----------------------
 
