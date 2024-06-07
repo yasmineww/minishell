@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 17:07:34 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:21:17 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 		return ;
 	if (is_builtin(list->option))
 	{
+		handle_redirs(list);
 		exec_builtin(&exp, list->option);
 		dup2(std_in, 0);
 		close(std_in);
@@ -144,12 +145,13 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 			handle_redirs(list);
 			if (list->option[0] && is_builtin(list->option))
 			{
+				handle_redirs(list);
 				exec_builtin(&exp, list->option);
 				dup2(fdpipe[0], 0);
 				close(fdpipe[0]);
 				dup2(fdpipe[1], 1);
 				close(fdpipe[1]);
-				// exit(0);
+				exit(0);
 			}
 			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
