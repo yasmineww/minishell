@@ -108,7 +108,6 @@ execve: Permission denied
 Minishell$ $var
 
 
-
 Fixed parsing-----------------------------------------------------------------------------------
 
 # Minishell$ <<$var
@@ -122,6 +121,4 @@ cat | cat | ls
 cat << 6 > 7
 cat < " "
 echo $a -n hello
-
-
 

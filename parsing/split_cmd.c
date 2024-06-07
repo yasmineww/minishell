@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/07 01:52:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:11:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,45 +57,45 @@ void	add_back_spaces(t_list **stack_a, char **content)
 
 void    add_back(t_list **list, char *content)
 {
-    t_list	*node;
-    t_list	*temp;
+	t_list	*node;
+	t_list	*temp;
 
-    if (!list)
-        return ;
-    node = malloc (sizeof(t_list));
-    if (!node)
-        return ;
-    node->option = NULL;
-    node->cmd = ft_strdup(content);
-    node->next = NULL;
-    if ((*list) == NULL)
-    {
-        *list = node;
-        return ;
-    }
-    temp = *list;
-    while (temp->next != NULL)
-        temp = temp->next;
-    temp->next = node;
+	if (!list)
+		return ;
+	node = malloc (sizeof(t_list));
+	if (!node)
+		return ;
+	node->option = NULL;
+	node->cmd = ft_strdup(content);
+	node->next = NULL;
+	if ((*list) == NULL)
+	{
+		*list = node;
+		return ;
+	}
+	temp = *list;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = node;
 }
 
-void    store_cmd(char *input, t_list **list)
+void	store_cmd(char *input, t_list **list)
 {
-    char    **s;
-    int        i;
+	char	**s;
+	int		i;
 
-    i = 0;
-    s = NULL;
-    s = ft_split(input, '|');
-    if (s == NULL)
-        return ;
-    while (s[i])
-    {
-        add_back(list, s[i]);
-        free(s[i]);
-        i++;
-    }
-    free(s);
+	i = 0;
+	s = NULL;
+	s = ft_split(input, '|');
+	if (s == NULL)
+		return ;
+	while (s[i])
+	{
+		add_back(list, s[i]);
+		free(s[i]);
+		i++;
+	}
+	free(s);
 }
 
 void	split_cmd(t_list **list, char *input)
