@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 15:52:13 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 21:38:10 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void remove_redir(char **option, int i)
+void	remove_redir(char **option, int i)
 {
 	while (option[i] && option[i + 2])
 	{
@@ -24,10 +24,11 @@ void remove_redir(char **option, int i)
 		option[i + 1] = NULL;
 }
 
-void handle_redirs(t_list *list)
+void	handle_redirs(t_list *list)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!list->option)
 		return ;
 	while (list->option[i])
@@ -71,7 +72,8 @@ void	handle_redir_out(t_list *list, int i)
 	list->outfile = -1;
 	if (list->option[i + 1])
 	{
-		list->outfile = open(list->option[i + 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		list->outfile = open(list->option[i + 1], O_RDWR
+				| O_CREAT | O_TRUNC, 0644);
 		if (list->outfile == -1)
 		{
 			perror("open");
@@ -88,7 +90,8 @@ void	handle_append(t_list *list, int i)
 	list->outfile = -1;
 	if (list->option[i + 1])
 	{
-		list->outfile = open(list->option[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
+		list->outfile = open(list->option[i + 1], O_RDWR
+				| O_CREAT | O_APPEND, 0644);
 		if (list->outfile == -1)
 		{
 			perror("open");
@@ -99,5 +102,3 @@ void	handle_append(t_list *list, int i)
 		remove_redir(list->option, i);
 	}
 }
-
-

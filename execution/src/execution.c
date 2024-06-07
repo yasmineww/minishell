@@ -6,17 +6,17 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 17:21:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:10:57 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char *get_cmd_path(t_exp *exp, char *cmd)
+char	*get_cmd_path(t_exp *exp, char *cmd)
 {
-	char *cmdpath;
-	char *prefix;
-	int i;
+	char	*cmdpath;
+	char	*prefix;
+	int		i;
 
 	if (!cmd)
 		exit(1);
@@ -36,10 +36,9 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
 	return (perror(cmd), exit(0), NULL);
-
 }
 
-void check_value_export(t_list *list)
+void	check_value_export(t_list *list)
 {
 	int		i;
 	int		j;
@@ -70,10 +69,14 @@ void check_value_export(t_list *list)
 	s[j] = NULL;
 	list->option = s;
 }
+
 void	onecmd_builtin(t_exp *exp, t_list *list)
 {
-	int std_in = dup(0);
-	int std_out = dup(1);
+	int	std_in;
+	int	std_out;
+
+	std_in = dup(0);
+	std_out = dup(1);
 	if (!list || !list->option || list->next)
 		return ;
 	if (is_builtin(list->option))
@@ -91,20 +94,19 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 	}
 }
 
-int exec(t_exp *exp, t_list *list,  char **envp)
+int	exec(t_exp *exp, t_list *list, char **envp)
 {
 	int	fdpipe[2];
 	int	std_in;
 	int	std_out;
-	int *pid;
+	int	*pid;
 	int	i;
+	int	count;
 
 	if (!list || !list->option)
 		return (1);
 	std_in = dup(0);
 	std_out = dup(1);
-	int		count;
-
 	pid = NULL;
 	i = 0;
 	check_value_export(list);
@@ -126,7 +128,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 			perror("fork");
 		else if (pid[i] == 0)
 		{
-			if (i > 0)//check if it's not the first command
+			if (i > 0)
 			{
 				dup2(std_in, 0);
 				close(std_in);
@@ -154,7 +156,8 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 				exit(0);
 			}
 			list->option[0] = get_cmd_path(exp, list->option[0]);
-			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
+			if (list->option[0]
+				&& execve(list->option[0], list->option, envp) == -1)
 			{
 				perror("execve");
 				exit(1);
@@ -187,9 +190,10 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	return (0);
 }
 
-int execute(t_list *list, t_exp *exp, char **envp)
+int	execute(t_list *list, t_exp *exp, char **envp)
 {
-	char *tmp;
+	char	*tmp;
+
 	tmp = find_path(exp);
 	if (!tmp)
 	{
@@ -202,6 +206,6 @@ int execute(t_list *list, t_exp *exp, char **envp)
 	if (!exp->path)
 		exit(1);
 	// free(tmp);
-	exec(exp, list,envp);
+	exec(exp, list, envp);
 	return (0);
 }

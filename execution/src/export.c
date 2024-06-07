@@ -6,13 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/29 22:49:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:59:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-// fix export adds another one if the key is already there
-// PATH kitprinta w _ makitprintaach
 
 t_exp	*last_node(t_exp *head)
 {
@@ -22,6 +20,7 @@ t_exp	*last_node(t_exp *head)
 		head = head->next;
 	return (head);
 }
+
 void	ft_lstadd_back(t_exp **head, t_exp *new)
 {
 	t_exp	*last;
@@ -37,7 +36,7 @@ void	ft_lstadd_back(t_exp **head, t_exp *new)
 	last->next = new;
 }
 
-int exporthelp(t_exp *exp, char **s)
+int	exporthelp(t_exp *exp, char **s)
 {
 	t_exp	*new;
 	int		i;
@@ -70,21 +69,11 @@ int	export(t_exp **exp, char *s)
 	i = 0;
 	cur = *exp;
 	if (s[i] && !isalpha_underscore(s[i], 1))
-	{
-		write(2, "bash: export: `", 15);
-		write(2, s, ft_strlen(s));
-		write(2,"': not a valid identifier\n", 26);
-		return (1);
-	}
+		return (ft_error("export", s, "not a valid identifier"), 1);
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
 		if (s[i] && !isalpha_underscore(s[i], 0))
-		{
-			write(2, "bash: export: `", 15);
-			write(2, s, ft_strlen(s));
-			write(2,"': not a valid identifier\n", 26);
-			return (1);
-		}
+			return (ft_error("export", s, "not a valid identifier"), 1);
 		i++;
 		if (s[i] == '+')
 		{
@@ -122,12 +111,7 @@ int	export(t_exp **exp, char *s)
 				}
 			}
 			else
-			{
-				write(2, "bash: export: `", 15);
-				write(2, s, ft_strlen(s));
-				write(2,"': not a valid identifier\n", 26);
-				return (1);
-			}
+				return (ft_error("export", s, "not a valid identifier"), 1);
 		}
 		else if (s[i] == '=')
 		{

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/29 22:44:24 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:33:14 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exec_builtin(t_exp **exp, char **cmd)
 	if (*cmd)
 	{
 		if (ft_strcmp(cmd[0], "cd") == 0)
-			return(ft_cd(cmd[1]));
+			return (ft_cd(cmd[1]));
 		if (ft_strcmp(cmd[0], "pwd") == 0)
 			return (ft_pwd());
 		if (ft_strcmp(cmd[0], "env") == 0)

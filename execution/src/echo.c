@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/06 23:16:50 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:33:55 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void echo_print(char **cmd, int i, int no_nl)
+void	echo_print(char **cmd, int i, int no_nl)
 {
 	while (cmd[i])
 	{
@@ -25,13 +25,12 @@ void echo_print(char **cmd, int i, int no_nl)
 		write(1, "\n", 1);
 }
 
-int	ft_echo(char **cmd)
+int	ft_echo_helper(char **cmd, int *no_nl)
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	int	no_nl = 0;
 	while (cmd[i])
 	{
 		if (cmd[i] && cmd[i][0] == '-' && cmd[i][1] == 'n')
@@ -40,16 +39,23 @@ int	ft_echo(char **cmd)
 			while (cmd[i][j] && cmd[i][j] == 'n')
 				j++;
 			if (cmd[i][j])
-			{
-				no_nl = 0;
 				break ;
-			}
-			no_nl = 1;
+			*no_nl = 1;
 		}
 		else
 			break ;
 		i++;
 	}
+	return (i);
+}
+
+int	ft_echo(char **cmd)
+{
+	int	no_nl;
+	int	i;
+
+	no_nl = 0;
+	i = ft_echo_helper(cmd, &no_nl);
 	echo_print(cmd, i, no_nl);
 	return (0);
 }

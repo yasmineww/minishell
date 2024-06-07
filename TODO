@@ -1,6 +1,12 @@
 ------------execution------------
 echo -n -nnn hello -n ; echo a -----> should be -nnnnma
 
+echo hey | ls
+
+redirections with bultins
+
+// PATH kitprinta w _ makitprintaach f export
+
 echo -n -n -nnnn -nnnnm ; echo a ------> should be hello -na
 
 

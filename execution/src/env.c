@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/06 21:48:53 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/07 21:35:00 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_env(t_exp *exp)
 {
-	t_exp *tmp;
+	t_exp	*tmp;
 
 	while (exp)
 	{
@@ -36,15 +36,37 @@ void	print_env(t_exp **exp)
 	}
 }
 
-void	find_key_value(char **envp, t_exp *exp)
+void	find_value(char *env, t_exp *exp, int l)
 {
-	int i;
-	int j;
-	int l;
+	int	j;
+
+	j = 0;
+	if (!env[l])
+	{
+		exp->value = NULL;
+		return ;
+	}
+	exp->value = malloc(sizeof(char) * (ft_strlen(env) - l + 1));
+	if (!exp->value)
+		return ;
+	while (env[l])
+	{
+		exp->value[j] = env[l];
+		j++;
+		l++;
+	}
+	exp->value[j] = '\0';
+}
+
+void	find_key(char **envp, t_exp *exp)
+{
+	int	i;
+	int	l;
+	int	j;
 
 	i = 0;
-	j = 0;
 	l = 0;
+	j = 0;
 	while (envp[i][l] != '=' && envp[i][l])
 		l++;
 	exp->key = malloc(sizeof(char) * (l + 1));
@@ -56,27 +78,14 @@ void	find_key_value(char **envp, t_exp *exp)
 		j++;
 	}
 	exp->key[j] = '\0';
-	j = 0;
-	l++;
-	if(!envp[i][l])
-	{
-		exp->value = NULL;
-		return ;
-	}
-	exp->value = malloc(sizeof(char) * (ft_strlen(envp[i]) - l + 1));
-	if (!exp->value)
-		return ;
-	while (envp[i][l])
-		exp->value[j++] = envp[i][l++];
-	exp->value[j] = '\0';
+	find_value(envp[i], exp, l + 1);
 }
-
 
 int	ft_env(t_exp **exp, char **envp)
 {
-	int i;
-	t_exp *tmp;
-	t_exp *new;
+	int		i;
+	t_exp	*tmp;
+	t_exp	*new;
 
 	i = 0;
 	*exp = NULL;
@@ -86,7 +95,7 @@ int	ft_env(t_exp **exp, char **envp)
 		new = malloc(sizeof(t_exp));
 		if (!new)
 			return (0);
-		find_key_value(&envp[i], new);
+		find_key(&envp[i], new);
 		new->next = NULL;
 		if (!tmp)
 			*exp = new;
