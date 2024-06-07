@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 16:17:57 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:47:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,7 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 				// close(fdpipe[1]);
 				exit(0);
 			}
-			if (list->option[0])
-				list->option[0] = get_cmd_path(exp, list->option[0]);
+			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
 			{
 				perror("execve");
