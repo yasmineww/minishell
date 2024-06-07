@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 16:47:18 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:07:34 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 {
 	int std_in = dup(0);
 	int std_out = dup(1);
-	if (list->option && is_builtin(list->option) && !list->next) // lmochkil hna houa lakant lbuiltin hia lkhra ra tahia next NULL
+	if (!list || !list->option || list->next)
+		return ;
+	if (is_builtin(list->option))
 	{
-		// need to refine this function
 		exec_builtin(&exp, list->option);
 		dup2(std_in, 0);
 		close(std_in);
@@ -85,7 +86,6 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 		list->option[0] = NULL;
 		if (list->option[1])
 			list->option[1] = NULL;
-		// bricolage hhhhhhhhh
 		return ;
 	}
 }
@@ -107,29 +107,18 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 	pid = NULL;
 	i = 0;
 	check_value_export(list);
-	onecmd_builtin(exp, list);
 	count = ft_lstsize(list);
+	if (count == 1)
+		onecmd_builtin(exp, list);
 	pid = malloc(sizeof(int) * count);
 	if (!pid)
-	{
-		perror("malloc");
 		return (1);
-	}
 	while (list)
 	{
 		if (list->next && pipe(fdpipe) == -1)
 		{
 			perror("pipe");
 			exit(1);
-		}
-		if (list->option && is_builtin(list->option))
-		{
-			exec_builtin(&exp, list->option);
-			dup2(std_in, 0);
-			close(std_in);
-			dup2(std_out, 1);
-			close(std_out);
-			return (0);
 		}
 		pid[i] = fork();
 		if (pid[i] < 0)
@@ -156,11 +145,11 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 			if (list->option[0] && is_builtin(list->option))
 			{
 				exec_builtin(&exp, list->option);
-				// dup2(fdpipe[0], 0);
-				// close(fdpipe[0]);
-				// dup2(fdpipe[1], 1);
-				// close(fdpipe[1]);
-				exit(0);
+				dup2(fdpipe[0], 0);
+				close(fdpipe[0]);
+				dup2(fdpipe[1], 1);
+				close(fdpipe[1]);
+				// exit(0);
 			}
 			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
