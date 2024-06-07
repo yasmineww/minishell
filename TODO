@@ -64,6 +64,8 @@ usage:
 touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
 bash-3.2$
 
+
+
 export var="ls -la"
 bash-3.2$ $var
 total 224
@@ -101,8 +103,8 @@ LICENSE         execution       minishell
 Makefile        main.c          minishell.h
 README.md       main.o          parsing
 Minishell$ export var="ls -la"
-
-
+Minishell$ $ar
+execve: Permission denied
 Minishell$ $var
 
 
@@ -119,7 +121,7 @@ ls | wc > 1 | wc
 cat | cat | ls
 cat << 6 > 7
 cat < " "
-
+echo $a -n hello
 
 
 
