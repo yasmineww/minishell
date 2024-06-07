@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 21:38:10 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 23:10:59 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ void	handle_redirs(t_list *list)
 			dup2(list->infile, 0);
 			close(list->infile);
 			remove_redir(list->option, i);
+			continue ;
 		}
-		if (list->option[i] && !ft_strncmp(list->option[i], ">>", 2))
+		else if (list->option[i] && !ft_strncmp(list->option[i], ">>", 2))
 			handle_append(list, i);
 		else if (list->option[i] && !ft_strncmp(list->option[i], ">", 1))
 			handle_redir_out(list, i);
 		else if (list->option[i] && !ft_strncmp(list->option[i], "<", 1))
 			handle_redir_in(list, i);
-		else
-			i++;
+		i++;
 	}
 }
 

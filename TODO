@@ -1,4 +1,5 @@
 ------------execution------------
+ cat | << a
 echo -n -nnn hello -n ; echo a -----> should be -nnnnma
 
 echo hey | ls
