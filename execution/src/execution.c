@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 00:51:08 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:17:57 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char *get_cmd_path(t_exp *exp, char *cmd)
 	char *prefix;
 	int i;
 
+	if (!cmd)
+		exit(1);
 	i = 0;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
@@ -51,7 +53,7 @@ void check_value_export(t_list *list)
 			j++;
 		i++;
 	}
-	s = malloc(sizeof(char *) * j + 1);
+	s = malloc(sizeof(char *) * (j + 1));
 	if (!s)
 		exit(1);
 	i = 0;
@@ -160,7 +162,8 @@ int exec(t_exp *exp, t_list *list,  char **envp)
 				// close(fdpipe[1]);
 				exit(0);
 			}
-			list->option[0] = get_cmd_path(exp, list->option[0]);
+			if (list->option[0])
+				list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0] && execve(list->option[0], list->option, envp) == -1)
 			{
 				perror("execve");

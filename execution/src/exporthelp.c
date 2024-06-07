@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/06 22:04:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:51:35 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ void	sort_list(t_exp *exp)
 	int		swapped;
 	t_exp	*ptr1;
 	t_exp	*lptr;
-	int		i;
 
 	swapped = 1;
 	lptr = NULL;
-	i = 0;
 	while (swapped)
 	{
 		swapped = 0;
