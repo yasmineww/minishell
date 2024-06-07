@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/06 16:41:43 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:01:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		bool = 1;
 	file = ft_strjoin("here_doc", ft_itoa(num++));
 	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	// unlink(file); shouldnt be here i guess
+	// unlink(file);
 	if (temp->infile == -1) {
 		perror("Failed to open file");
 		free(file);
@@ -92,17 +92,26 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 
 void	handle_heredoc(t_list **list, t_exp **exp)
 {
-	t_list	*temp;
-	int		i;
+	t_list		*temp;
+	here_doc	*var;
+	int			i;
+	int			count;
 
 	temp = *list;
+	var = malloc(sizeof(here_doc));
+	count = 0;
 	while (temp)
 	{
 		i = 0;
 		while (temp->option[i])
 		{
 			if (!ft_strcmp(temp->option[i], "<<"))
+			{
+				var->delimiter = ft_strtrim(temp->option[i + 1], "\'\"");
+				count++;
+				printf("delimiter [%s] and count [%d]\n", var->delimiter, count);
 				find_delimiter(temp, exp, i);
+			}
 			i++;
 		}
 		temp = temp->next;

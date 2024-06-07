@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/25 16:33:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:27:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	parsing(char *input, t_list **list)
 {
 	t_list	*temp;
+
 	if (quotes_syntax_error(input) || syntax_error(input))
 	{
 		error_message(input);
@@ -25,6 +26,7 @@ void	parsing(char *input, t_list **list)
 	temp = *list;
 	// while (temp)
 	// {
+	// 	puts("ok");
 	// 	printf("node.cmd : %s\n", temp->cmd);
 	// 	int i = -1;
 	// 	while (temp->option[++i])

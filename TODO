@@ -1,18 +1,8 @@
 ------------execution------------
 
-bash-3.2$ cat << "l"
-$USER
-l
-$USER
-bash-3.2$ cat << l
-$USER
-l
-bel-oirg
-
 $USER_$HOME
 
  cat << 6 << 8 > 9
-
 
 protect dup with custom ft_dup
 
@@ -53,8 +43,6 @@ ls: No such file or directory
 Minishell$
 printi gha error w7da
 
-
-
 ------------parsing------------
 
 cat << $"U"
@@ -65,8 +53,7 @@ echo "$USER"'$usgdiu"''''''' '' ls
 
 
 --AddressSanitizer: heap-buffer-overflow on address
-Minishell$ (|||)
-s|||s
+
 export a='$HOME'
 
 bash-3.2$ touch
@@ -76,12 +63,6 @@ bash-3.2$ touch $DFGHJKL
 usage:
 touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
 bash-3.2$
-
-
-Minishell$ $RGHJKL
-execve: Permission denied
-
-
 
 export var="ls -la"
 bash-3.2$ $var
@@ -101,7 +82,7 @@ drwxr-xr-x   4 mbenchel  candidate    136 May 24 16:45 execution
 drwxr-xr-x  26 mbenchel  candidate    884 May 26 14:35 parsing
 
 
-bash-3.2$ export var="la                -la"
+bash-3.2$ export var="ls                -la"
 bash-3.2$ echo $var
 la -la
 
@@ -120,21 +101,18 @@ LICENSE         execution       minishell
 Makefile        main.c          minishell.h
 README.md       main.o          parsing
 Minishell$ export var="ls -la"
-Minishell$ $ar
-execve: Permission denied
+
+
 Minishell$ $var
-Minishell$
 
 
-Fixed -----------------------------------------------------------------------------------
+
+Fixed parsing-----------------------------------------------------------------------------------
+
 # Minishell$ <<$var
-# Minishell: syntax error
+(|||)
 
-
-not a syntax error
-
-
-----fixed
+Fixed execution-----------------------------------------------------------------------------------
 
 $drfg ls
 ls | wc > 1 | wc

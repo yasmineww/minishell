@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/06 19:07:02 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:29:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
+	list = NULL;
 	ft_env(&exp, envp);
 	while (1)
 	{
@@ -31,6 +32,7 @@ int	main(int ac, char **av, char **envp)
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list ,exp, envp);
+		puts("ok66");
 		list = NULL;
 		// free(input);
 		input = NULL;

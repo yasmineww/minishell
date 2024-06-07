@@ -20,6 +20,13 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct here_doc
+{
+	char	*delimiter;
+	int		count;
+	struct here_doc	*next;
+}	here_doc;
+
 typedef struct s_list
 {
 	char	**option;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/26 17:11:26 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:48:53 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	ft_env(t_exp **exp, char **envp)
 	t_exp *tmp;
 	t_exp *new;
 
-	// if (!flag)
-	// 	if (*exp)
-	// 		return(1);
 	i = 0;
 	*exp = NULL;
 	while (envp[i])
@@ -101,8 +98,5 @@ int	ft_env(t_exp **exp, char **envp)
 		}
 		i++;
 	}
-	// if (flag)
-	// 	print_env(*exp);
-	// free_env(*exp);
 	return (1);
 }
