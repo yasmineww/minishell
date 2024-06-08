@@ -1,21 +1,19 @@
 ------------execution------------
-echo -n -nnn hello -n ; echo a -----> should be -nnnnma
 
 redirections with bultins
 
 // PATH kitprinta w _ makitprintaach f export
 
-echo -n -n -nnnn -nnnnm ; echo a ------> should be hello -na
 
 /dev/stdin < cat | cat > /dev/stdin
 
 $USER_$HOME
 
+cat << 6 << 8 | << 2
+
 protect dup with custom ft_dup
 
 < infile builtin export >> outfile
-
-print how much times it enters heredoc
 
 
 bash: .: filename argument required
@@ -40,15 +38,6 @@ bash-3.2$ ./main.cb
 bash: ./main.cb: No such file or directory
 bash-3.2$
 
-
-
-➜  minishell git:(main) ✗ ./minishell
-Minishell$ unset PATH
-Minishell$ ls
-env: ls: No such file or directory
-ls: No such file or directory
-Minishell$
-printi gha error w7da
 
 ------------parsing------------
 

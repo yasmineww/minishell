@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 22:16:41 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/08 22:35:46 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,13 +195,6 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 	char	*tmp;
 
 	tmp = find_path(exp);
-	if (!tmp)
-	{
-		write(2, "env: ", 5);
-		if (list->option && list->option[0])
-			write(2, list->option[0], ft_strlen(list->option[0]));
-		write(2, ": No such file or directory\n", 28);
-	}
 	exp->path = ft_split(tmp, ':');
 	if (!exp->path)
 		exit(1);
