@@ -1,8 +1,5 @@
 ------------execution------------
- cat | << a
 echo -n -nnn hello -n ; echo a -----> should be -nnnnma
-
-echo hey | ls
 
 redirections with bultins
 
@@ -10,12 +7,9 @@ redirections with bultins
 
 echo -n -n -nnnn -nnnnm ; echo a ------> should be hello -na
 
-
 /dev/stdin < cat | cat > /dev/stdin
 
 $USER_$HOME
-
- cat << 6 << 8 > 9
 
 protect dup with custom ft_dup
 
@@ -78,7 +72,6 @@ touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
 bash-3.2$
 
 
-
 export var="ls -la"
 bash-3.2$ $var
 total 224
@@ -118,7 +111,6 @@ README.md       main.o          parsing
 Minishell$ export var="ls -la"
 Minishell$ $ar
 execve: Permission denied
-Minishell$ $var
 
 
 Fixed parsing-----------------------------------------------------------------------------------
@@ -132,7 +124,10 @@ $drfg ls
 ls | wc > 1 | wc
 cat | cat | ls
 cat << 6 > 7
+cat << 6 << 8 > 9
 cat < " "
 echo $a -n hello
 echo hey | ls
+cat | << a
+
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/07 22:00:49 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/08 17:26:29 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,21 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(file);
 }
 
-void	tmp_file(char *delim)
+void    tmp_file(char *delim)
 {
-	char		*read;
+    char        *read;
 
-	read = readline("> ");
-	while (1)
-	{
-		if (!ft_strcmp(delim, read))
-			break ;
-		free(read);
-		read = readline("> ");
-	}
-	free(read);
+    read = readline("> ");
+    while (read)
+    {
+        if (!ft_strcmp(delim, read)) 
+        {
+            free(read);
+            break ;
+        }
+        free(read);
+        read = readline("> ");
+    }
 }
 
 int	store_delim(t_list **list, t_here_doc *var)
