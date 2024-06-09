@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/08 17:26:29 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/09 21:06:33 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	bool = 0;
 	if (temp->option[i + 1][0]== '"' || temp->option[i + 1][0]== '\'')
 		bool = 1;
-	file = ft_strjoin("here_doc", ft_itoa(num++));
+	file = ft_strjoin(".here_doc", ft_itoa(num++));
 	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	// unlink(file);
 	if (temp->infile == -1) {
 		perror("Failed to open file");
 		free(file);
@@ -60,21 +59,19 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(file);
 }
 
-void    tmp_file(char *delim)
+void	tmp_file(char *delim)
 {
     char        *read;
 
     read = readline("> ");
     while (read)
     {
-        if (!ft_strcmp(delim, read)) 
-        {
-            free(read);
-            break ;
-        }
+		if (!ft_strcmp(delim, read))
+			break ;
         free(read);
         read = readline("> ");
     }
+    free(read);
 }
 
 int	store_delim(t_list **list, t_here_doc *var)
@@ -87,7 +84,7 @@ int	store_delim(t_list **list, t_here_doc *var)
 	temp = *list;
 	count = 0;
 	j = 0;
-	var->delimiter = malloc(sizeof(char *) * 100);
+	var->delimiter = malloc(sizeof(char *) * 100);////// count delimiters
 	while (temp)
 	{
 		i = 0;
@@ -116,7 +113,9 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 	int			count;
 
 	temp = *list;
+	temp->infile = 0;
 	var = malloc(sizeof(t_here_doc));
+	///protect malloc
 	count = store_delim(list, var);
 	j = 0;
 	while (temp)
@@ -124,17 +123,8 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 		i = 0;
 		while (temp->option[i])
 		{
-			if (!ft_strcmp(temp->option[i], "<<") && (count > 1))
-			{
-				count--;
-				tmp_file(var->delimiter[j]);
-				j++;
-			}
-			else if (!ft_strcmp(temp->option[i], "<<") && (count == 1))
-			{
+			if (!ft_strcmp(temp->option[i], "<<"))
 				find_delimiter(temp, exp, i);
-				return ;
-			}
 			i++;
 		}
 		temp = temp->next;

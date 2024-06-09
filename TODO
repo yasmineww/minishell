@@ -42,6 +42,7 @@ bash-3.2$
 ------------parsing------------
 
 cat << $"U"
+cat $"$USER"
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
 << a'p'o

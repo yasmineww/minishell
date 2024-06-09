@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/07 17:31:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/09 20:32:25 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,16 @@ void	expanding_heredoc(char **read, t_exp **exp)
 	char	*replace;
 
 	i = 0;
-	while (read[0][i])
+	while ((*read)[i])
 	{
-		if (read[0][0] != '\'')
+		if ((*read)[0] != '\'')
 		{
-			len = helper2(read[0], exp);
-			replace = store_new_key(read[0], len, exp);
-			read[0] = ft_strdup(replace);
+			len = helper2(*read, exp);
+			replace = store_new_key(*read, len, exp);
+			*read = ft_strdup(replace);
 			free(replace);
+			if (!ft_strlen(*read))
+				return ;
 		}
 		i++;
 	}
