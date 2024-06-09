@@ -12,6 +12,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
 
 typedef struct s_env
 {
@@ -19,13 +20,6 @@ typedef struct s_env
 	char	*value;
 	struct s_env	*next;
 }	t_env;
-
-typedef struct s_here_doc
-{
-	char	**delimiter;
-	int		count;
-	struct s_here_doc	*next;
-}	t_here_doc;
 
 typedef struct s_list
 {
