@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/09 21:06:33 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/09 21:10:10 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ void	tmp_file(char *delim)
     read = readline("> ");
     while (read)
     {
-		if (!ft_strcmp(delim, read))
-			break ;
+        if (!ft_strcmp(delim, read))
+        {
+            free(read);
+            break ;
+        }
         free(read);
         read = readline("> ");
     }

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/08 22:35:46 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:09:02 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	}
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
-	return (perror(cmd), exit(0), NULL);
+	return (perror(cmd), exit(1), NULL);
 }
 
 void	check_value_export(t_list *list)
@@ -92,6 +92,8 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 			list->option[1] = NULL;
 		return ;
 	}
+	close(std_in);
+	close(std_out);
 }
 
 int	exec(t_exp *exp, t_list *list, char **envp)
@@ -102,7 +104,6 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	int	*pid;
 	int	i;
 	int	count;
-
 	if (!list || !list->option)
 		return (1);
 	std_in = dup(0);
@@ -144,7 +145,6 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				dup2(std_out, 1);
 				close(std_out);
 			}
-			handle_redirs(list);
 			if (list->option[0] && is_builtin(list->option))
 			{
 				handle_redirs(list);
@@ -155,6 +155,8 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				close(fdpipe[1]);
 				exit(0);
 			}
+			else
+				handle_redirs(list);
 			list->option[0] = get_cmd_path(exp, list->option[0]);
 			if (list->option[0]
 				&& execve(list->option[0], list->option, envp) == -1)
