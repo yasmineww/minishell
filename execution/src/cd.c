@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 17:41:27 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:24:42 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,21 @@ void	ft_error(char *str1, char *str2, char *str3)
 	write(1, "\n", 1);
 }
 
-int	ft_cd(char *path)
+int	ft_cd(char *path, t_exp *exp)
 {
 	char	*home;
 	int		ret;
 
 	if (!path || path[0] == '\0')
 	{
-		home = getenv("HOME");
+		while (exp)
+		{
+			home = getenv("HOME");
+			if (ft_strcmp(exp->value, home) == 0)
+				return (chdir(home));
+			home = exp->value;
+		}
+		// home = getenv("HOME");
 		if (!home)
 		{
 			write(2, "bash: cd:", 5);

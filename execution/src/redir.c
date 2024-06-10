@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/09 17:08:58 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:59:20 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	handle_redir_out(t_list *list, int i)
 		if (list->outfile == -1)
 		{
 			perror("open");
-			return ;
+			exit(1);
 		}
 		dup2(list->outfile, 1);
 		close(list->outfile);
@@ -95,7 +95,7 @@ void	handle_append(t_list *list, int i)
 		if (list->outfile == -1)
 		{
 			perror("open");
-			return ;
+			exit(1);
 		}
 		dup2(list->outfile, 1);
 		close(list->outfile);

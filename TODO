@@ -5,18 +5,13 @@ here_doc leak fd
 redirections with bultins
 
 // PATH kitprinta w _ makitprintaach f export
+< infile builtin export >> outfile
 
-
-/dev/stdin < cat | cat > /dev/stdin
 
 $USER_$HOME
 
-cat << 6 << 8 | << 2
 
 protect dup with custom ft_dup
-
-< infile builtin export >> outfile
-
 
 bash: .: filename argument required
 .: usage: . filename [arguments]
@@ -123,5 +118,7 @@ cat < " "
 echo $a -n hello
 echo hey | ls
 cat | << a
-
-
+cat << 6 << 8 | << 2
+< infile builtin export >> outfile
+/dev/stdin < cat
+/dev/stdin < cat | cat > /dev/stdin

@@ -14,16 +14,18 @@ HEADER = minishell.h
 
 CC = cc
 
-FLAG = -Wall -Wextra -Werror -g 
+FLAG = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
 obj/%.o: %.c $(HEADER)
 	@mkdir -p $(dir $@)
-	$(CC) $(FLAG) -c $< -o $@
+	@($(CC) $(FLAG) -c $< -o $@)
+	@printf "\rcompiling...\033[K"
 
 $(NAME): $(OBJ)
-	$(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME)
+	@($(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME))
+	@printf "\r\033[K\033[33mminishell compiled\033[0m\n"
 
 clean:
 	rm -rf obj

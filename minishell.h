@@ -81,7 +81,7 @@ char	*ft_itoa(int n);
 int		execute(t_list *list, t_exp *exp, char **envp);
 int		is_builtin(char **cmd);
 int		exec_builtin(t_exp **exp, char **cmd);
-int		ft_cd(char *path);
+int		ft_cd(char *path, t_exp *exp);
 int		ft_pwd(void);
 int		countparams(char **s);
 void	print_env(t_exp **exp);

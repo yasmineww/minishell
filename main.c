@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/09 23:21:19 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:54:33 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av, char **envp)
 		// SIGINT and SIGQUIT
 		// print QUIT \n
 		// SIG_DFL;
-		input = readline("Minishell$ ");
+		input = readline("\033[1;33mMinishell$ \033[0m");
 		if (!input || isatty(0) == 0)
 			break;
 		add_history(input);
