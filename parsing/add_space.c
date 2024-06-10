@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:13:07 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 21:26:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:48:07 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,6 @@ int	special_case(char **input, char **new, int i)
 		(*new)[i++] = ' ';
 	return (i);
 }
-
-// int	ft_strlen(char	*av)
-// {
-// 	int	count;
-
-// 	count = 0;
-// 	while (*av)
-// 	{
-// 		count++;
-// 		av++;
-// 	}
-// 	return (count);
-// }
 
 char	*add_space(char *input)
 {

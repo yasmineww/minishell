@@ -6,11 +6,54 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/09 20:32:25 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:43:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*store_new_key2(char *node, int len, t_exp **exp)
+{
+	int		i;
+	int		j;
+	int		end;
+	char	*replace;
+	char	*value;
+
+	i = -1;
+	j = 0;
+	replace = calloc (1, len + 1);/////////ft_calloc
+	if (!replace)
+		return NULL;
+	while (node[++i])
+	{
+		if (node[i] == '$' && (check_space(&node[i + 1]) || node[i + 1] == '\0'))
+		{
+			replace[j++] = node[i];
+			break ;
+		}
+		else if (node[i] == '$')
+		{
+			i++;
+			if (node[i] == '$')
+				continue ;
+			end = get_key(&node[i]);
+			value = get_value(&node[i], end, exp);
+			if (value)
+			{
+				while (*value)
+				{
+					replace[j++] = *value;
+					value++;
+				}
+			}
+			i += end - 1;
+		}
+		else
+			replace[j++] = node[i];
+	}
+	return (replace);
+}
 
 char	*ft_itoa(int n)
 {
@@ -78,17 +121,8 @@ void	expanding_heredoc(char **read, t_exp **exp)
 	char	*replace;
 
 	i = 0;
-	while ((*read)[i])
-	{
-		if ((*read)[0] != '\'')
-		{
-			len = helper2(*read, exp);
-			replace = store_new_key(*read, len, exp);
-			*read = ft_strdup(replace);
-			free(replace);
-			if (!ft_strlen(*read))
-				return ;
-		}
-		i++;
-	}
+	len = helper2(*read, exp);
+	replace = store_new_key2(*read, len, exp);
+	*read = ft_strdup(replace);
+	free(replace);
 }

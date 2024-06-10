@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/09 21:07:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:27:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	helper2(char *tmp, t_exp **exp)
 	int	j;
 	int	end;
 
+	len = 0;
 	len = ft_strlen(tmp);
 	j = -1;
 	while (tmp[++j])

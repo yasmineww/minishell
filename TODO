@@ -42,9 +42,9 @@ bash-3.2$
 
 
 ------------parsing------------
+cat << "$"U"" ===> need to change ft_strtrim to rm_quotes
 
-cat << $"U"
-cat $"$USER"
+
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
 << a'p'o
@@ -109,6 +109,8 @@ Fixed parsing-------------------------------------------------------------------
 
 # Minishell$ <<$var
 (|||)
+cat << $"U"
+cat $"$USER"
 
 Fixed execution-----------------------------------------------------------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/09 23:35:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:45:30 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	char		*read;
 	char		*file;
 	int			bool;
-	char		*ptr;
+	char		*delim;
 
 	bool = 0;
 	if (temp->option[i + 1][0]== '"' || temp->option[i + 1][0]== '\'')
@@ -35,13 +35,17 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	{
 		if (!bool)
 			expanding_heredoc(&read, exp);
-		ptr = ft_strtrim(temp->option[i + 1], "\'\"");
-		if (!ft_strcmp(ptr, read))
+		if (temp->option[i + 1][0] == '$')
+			delim = ft_strtrim(temp->option[i + 1] + 1, "\'\"");
+		else
+			delim = ft_strtrim(temp->option[i + 1], "\'\"");
+		printf("delim = %s\n", delim);
+		if (!ft_strcmp(delim, read))
 		{
-			free(ptr);
+			free(delim);
 			break ;
 		}
-		free(ptr);
+		free(delim);
 		ft_putendl_fd(read, temp->infile);
 		free(read);
 		read = readline("> ");
