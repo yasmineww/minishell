@@ -36,6 +36,7 @@ typedef struct s_exp
 	char	*key;
 	char	*value;
 	char	*oldpwd;
+	char	*pwd;
 	struct s_exp *next;
 }	t_exp;
 
@@ -82,7 +83,7 @@ int		execute(t_list *list, t_exp *exp, char **envp);
 int		is_builtin(char **cmd);
 int		exec_builtin(t_exp **exp, char **cmd);
 int		ft_cd(char *path, t_exp *exp);
-int		ft_pwd(void);
+int		ft_pwd(t_exp *exp);
 int		countparams(char **s);
 void	print_env(t_exp **exp);
 int		ft_echo(char **cmd);

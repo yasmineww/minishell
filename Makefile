@@ -14,21 +14,21 @@ HEADER = minishell.h
 
 CC = cc
 
-FLAG = -Wall -Wextra -Werror -g
+FLAG = -Wall -Wextra -Werror -g -fsanitize=address
 
-# READLINE_L = $(shell brew --prefix readline)/lib
+READLINE_L = $(shell brew --prefix readline)/lib
 
-# READLINE_I = $(shell brew --prefix readline)/include
+READLINE_I = $(shell brew --prefix readline)/include
 
 all: $(NAME)
 
 obj/%.o: %.c $(HEADER)
 	@mkdir -p $(dir $@)
-	@($(CC) $(FLAG) -c $< -o $@)
+	@($(CC) $(FLAG) -I $(READLINE_I) -c $< -o $@)
 	@printf "\rcompiling...\033[K"
 
 $(NAME): $(OBJ)
-	@($(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME))
+	@($(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME) -L $(READLINE_L))
 	@printf "\r\033[K\033[33mminishell compiled\033[0m\n"
 
 clean:

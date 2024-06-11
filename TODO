@@ -7,6 +7,11 @@ redirections with bultins
 // PATH kitprinta w _ makitprintaach f export
 < infile builtin export >> outfile
 
+ th=""
+declare -x tj=""
+bash-3.2$ export ts tl
+bash-3.2$ export ts tl=
+bash-3.2$ export ts=$tl
 
 $USER_$HOME
 
@@ -98,6 +103,13 @@ Minishell$ $ar
 execve: Permission denied
 
 
+
+
+export tjs"""'"="asdsd"
+this one should be sent by the parser like this tjs'="asdsd"
+and then the executer will treat it as invalid identifier
+
+
 Fixed parsing-----------------------------------------------------------------------------------
 
 # Minishell$ <<$var
@@ -125,3 +137,4 @@ cat << 6 << 8 | << 2
 < infile builtin export >> outfile
 /dev/stdin < cat
 /dev/stdin < cat | cat > /dev/stdin
+

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/10 15:43:29 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:50:00 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 			exit(1);
 		}
 		pid[i] = fork();
+		// catch signal command
 		if (pid[i] < 0)
 			perror("fork");
 		else if (pid[i] == 0)

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/10 14:25:13 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/11 21:40:41 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,33 @@ int	is_builtin(char **cmd)
 // 	return (0);
 // }
 
+int	ft_2dlen(char **s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
 int	exec_builtin(t_exp **exp, char **cmd)
 {
+	if (!cmd || !*cmd)
+		return (0);
 	if (*cmd)
 	{
 		if (ft_strcmp(cmd[0], "cd") == 0)
-			return (ft_cd(cmd[1], *exp));
+		{
+			if (ft_2dlen(cmd) > 2)
+				return (ft_error("bash: cd:", "too many arguments", NULL), 1);
+			else
+				return (ft_cd(cmd[1], *exp));
+		}
 		if (ft_strcmp(cmd[0], "pwd") == 0)
-			return (ft_pwd());
+			return (ft_pwd(*exp));
 		if (ft_strcmp(cmd[0], "env") == 0)
 			print_env(exp);
 		if (ft_strcmp(cmd[0], "exit") == 0)

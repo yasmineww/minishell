@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 17:59:28 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:50:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	export(t_exp **exp, char *s)
 
 	i = 0;
 	cur = *exp;
-	if (s[i] && !isalpha_underscore(s[i], 1))
+	if (s[i] && !isalpha_underscore(s[i], 1)) // mnb3d an7taj nzid ta lquotes 7it atb9a tsifthom
 		return (ft_error("export", s, "not a valid identifier"), 1);
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
