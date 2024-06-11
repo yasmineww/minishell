@@ -3,14 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/10 11:57:38 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:46:12 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*rm_quotes(char *s1, int *bool)
+{
+	char	*copy;
+	int		i;
+
+	copy = malloc (ft_strlen(s1) + 1);
+	i = 0;
+	if (!s1 || !copy)
+		return (NULL);
+	while (*s1)
+	{
+		if (*s1 == '\'' || *s1 == '"')
+		{
+			s1++;
+			*bool = 1;
+		}
+		else
+		{
+			copy[i] = *s1;
+			i++;
+			s1++;
+		}
+	}
+	copy[i] = '\0';
+	return (copy);
+}
+void	protect_fd(char *file)
+{	
+	perror("Failed to open file");
+	free(file);
+	return ;
+}
 
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
@@ -20,45 +53,31 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	int			bool;
 	char		*delim;
 
-	bool = 0;
-	if (temp->option[i + 1][0]== '"' || temp->option[i + 1][0]== '\'')
-		bool = 1;
 	file = ft_strjoin(".here_doc", ft_itoa(num++));
 	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (temp->infile == -1) {
-		perror("Failed to open file");
-		free(file);
-		return ;
-	}
+	if (temp->infile == -1)
+		return (protect_fd(file));
+	if (temp->option[i + 1][0] == '$')
+		delim = rm_quotes((temp->option[i + 1] + 1), &bool);
+	else
+		delim = rm_quotes((temp->option[i + 1]), &bool);
 	read = readline("> ");
 	while (read)
 	{
 		if (!bool)
 			expanding_heredoc(&read, exp);
-		if (temp->option[i + 1][0] == '$')
-			delim = ft_strtrim(temp->option[i + 1] + 1, "\'\"");
-		else
-			delim = ft_strtrim(temp->option[i + 1], "\'\"");
-		printf("delim = %s\n", delim);
 		if (!ft_strcmp(delim, read))
-		{
-			free(delim);
 			break ;
-		}
-		free(delim);
 		ft_putendl_fd(read, temp->infile);
 		free(read);
 		read = readline("> ");
 	}
 	free(read);
+	free(delim);
 	close(temp->infile);
 	temp->infile = open(file, O_RDONLY, 0644);
-	if (temp->infile == -1) {
-		perror("Failed to open file");
-		unlink(file);
-		free(file);
-		return ;
-	}
+	if (temp->infile == -1)
+		return (protect_fd(file));
 	unlink(file);
 	free(file);
 }

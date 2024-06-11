@@ -37,8 +37,6 @@ bash-3.2$
 
 
 ------------parsing------------
-cat << "$"U"" ===> need to change ft_strtrim to rm_quotes
-
 
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
@@ -106,6 +104,11 @@ Fixed parsing-------------------------------------------------------------------
 (|||)
 cat << $"U"
 cat $"$USER"
+bash-3.2$ cat << U"X"
+> $USER
+> UX
+$USER
+cat << "$"U"" ===> need to change ft_strtrim to rm_quotes
 
 Fixed execution-----------------------------------------------------------------------------------
 
