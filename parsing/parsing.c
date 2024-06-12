@@ -6,11 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/06/10 22:49:27 by mbenchel         ###   ########.fr       */
-=======
-/*   Updated: 2024/06/11 20:29:04 by ymakhlou         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/06/12 16:01:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

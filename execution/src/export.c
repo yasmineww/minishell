@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/10 22:50:12 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:08:11 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	export(t_exp **exp, char *s)
 			i = 0;
 			while (cur)
 			{
-				if (ft_strncmp(cur->key, s, old_i - 1) == 0)
+				if (ft_strncmp(cur->key, s, old_i - 1) == 0 && cur->key[old_i] == '\0')
 				{
 					cur->value = ft_strdup(s + old_i + 1);
 					return (0);
