@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/11 17:46:12 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/11 21:05:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ void	protect_fd(char *file)
 	return ;
 }
 
+void	signal_handler_doc(int sig)
+{
+	(void) sig;
+	// printf("\n");
+	close(0);
+}
+
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
 	static int	num;
@@ -61,6 +68,8 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		delim = rm_quotes((temp->option[i + 1] + 1), &bool);
 	else
 		delim = rm_quotes((temp->option[i + 1]), &bool);
+	int fd = dup(0);
+	signal(SIGINT, signal_handler_doc);
 	read = readline("> ");
 	while (read)
 	{
@@ -72,6 +81,8 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		free(read);
 		read = readline("> ");
 	}
+	dup2(fd, 0);
+	close(fd);
 	free(read);
 	free(delim);
 	close(temp->infile);

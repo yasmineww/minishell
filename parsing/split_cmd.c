@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/09 18:35:02 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:16:46 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	help(t_list *temp, int i)
 		}
 		if (temp->option[i][j] == '\0')
 			return ;
+			 
 		j++;
 	}
 }

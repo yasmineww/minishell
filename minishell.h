@@ -76,6 +76,8 @@ char	*store_new_key(char *node, int len, t_exp **exp);
 char	*ft_strtrim(char *s1, char *set);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
+void	catch_signal(void);
+void	signal_handler1(int sig);
 
 // ---------------------- execution ----------------------
 

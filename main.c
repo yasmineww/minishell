@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 18:10:16 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/11 20:28:08 by mbenchel         ###   ########.fr       */
+/*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
+/*   Updated: 2024/06/12 15:59:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	signal_handler2(int sig)
+{
+	(void) sig;
+	printf("Quit: 3\n");
+}
+
+
+void	signal_handler1(int sig)
+{
+	(void) sig;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	catch_signal(void)
+{
+	signal(SIGINT, signal_handler1);
+	signal(SIGQUIT, signal_handler2);
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -31,15 +53,10 @@ int	main(int ac, char **av, char **envp)
 	}
 	while (1)
 	{
-		// rl_catch_signals = 0;
-		// \n
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
-		// rl_redisplay();
-		// SIGINT and SIGQUIT
-		// print QUIT \n
+		rl_catch_signals = 0;
+		signal(SIGINT, signal_handler1);
 		// SIG_DFL;
-		input = readline("\033[1;33mMinishell$ \033[0m");
+		input = readline("Minishell$ ");
 		if (!input || isatty(0) == 0)
 			break;
 		add_history(input);

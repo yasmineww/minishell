@@ -43,13 +43,23 @@ bash-3.2$
 
 ------------parsing------------
 
+cat << l
+> $USER
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> signal 
+$USER
+
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
 << a'p'o
 echo "$USER"'$usgdiu"''''''' '' ls
-
-
---AddressSanitizer: heap-buffer-overflow on address
 
 export a='$HOME'
 
@@ -85,7 +95,6 @@ bash-3.2$ echo $var
 la -la
 
 tabs should become spaces
-
 
 ➜  minishell git:(main) ✗ ./minishell
 Minishell$ export var=ls
