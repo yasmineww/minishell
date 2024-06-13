@@ -78,6 +78,8 @@ void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
 void	catch_signal(void);
 void	signal_handler1(int sig);
+void	signal_handler2(int sig);
+void	signal_handler_doc(int sig);
 
 // ---------------------- execution ----------------------
 
@@ -104,5 +106,6 @@ int		ft_lstsize(t_list *lst);
 void	handle_redirs(t_list *list);
 char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
+void	signal_handler45(int sig);
 
 #endif

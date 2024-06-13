@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/11 21:05:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:14:27 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*rm_quotes(char *s1, int *bool)
 	return (copy);
 }
 void	protect_fd(char *file)
-{	
+{
 	perror("Failed to open file");
 	free(file);
 	return ;
@@ -86,9 +86,14 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(read);
 	free(delim);
 	close(temp->infile);
-	temp->infile = open(file, O_RDONLY, 0644);
-	if (temp->infile == -1)
-		return (protect_fd(file));
+	if (isatty(0))
+		temp->infile = -3;
+	else
+	{
+		temp->infile = open(file, O_RDONLY, 0644);
+		if (temp->infile == -1)
+			return (protect_fd(file));
+	}
 	unlink(file);
 	free(file);
 }
