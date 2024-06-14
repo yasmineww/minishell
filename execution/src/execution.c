@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/12 16:45:27 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:03:41 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	std_out = dup(1);
 	pid = NULL;
 	i = 0;
+	signal(SIGQUIT, signal_handler2);
+	signal(SIGINT, signal_handler45);
 	check_value_export(list);
 	count = ft_lstsize(list);
 	if (count == 1)

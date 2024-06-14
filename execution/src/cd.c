@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/12 20:27:34 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:52:35 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	update_cwd(t_exp *exp)
 
 	oldpwd = NULL;
 	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		ft_error("bash: cd:", NULL, "error in retrieving current directory");
-		return ;
-	}
+	// if (!cwd)
+	// {
+	// 	ft_error("bash: cd:", NULL, "error in retrieving current directory");
+	// 	return ;
+	// }
 	tmp = exp;
 	while (tmp)
 	{
@@ -81,9 +81,9 @@ int	ft_cd(char *path, t_exp *exp)
 	int		ret;
 	// char	*cwd;
 	t_exp	*tmp;
-	// int		home_found;
+	int		home_found;
 
-	// home_found = 0;
+	home_found = 0;
 	if (!path || path[0] == '\0')
 	{
 		tmp = exp;
@@ -101,21 +101,21 @@ int	ft_cd(char *path, t_exp *exp)
 				if (exp->pwd)
 					free(exp->pwd);
 				exp->pwd = ft_strdup(tmp->value);
-				// home_found = 1;
+				home_found = 1;
 				break ;
 			}
 			tmp = tmp->next;
 		}
 		// ma3rftch wach m7taj had lflag tant2kd
-		// if (!home_found)
-		// 	ft_error("bash: cd:", "HOME not set", NULL);
+		if (!home_found)
+			ft_error("bash: cd:", "HOME not set", NULL);
 	}
 	else if (!ft_strncmp(path, "..", 2))
 	{
 		if (!getcwd(NULL, 0))
 		{
 			ft_error("bash: cd:", NULL, "error in retrieving current directory");
-			chdir("exp->pwd");
+			chdir("HOME");
 		}
 		else
 			chdir("..");

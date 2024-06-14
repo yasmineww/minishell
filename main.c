@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/14 18:49:12 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/14 22:03:52 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	signal_handler2(int sig)
 	(void) sig;
 	printf("Quit: 3\n");
 }
+
 
 void	signal_handler1(int sig)
 {
@@ -61,6 +62,17 @@ int	main(int ac, char **av, char **envp)
 		add_history(input);
 		parsing(input, &list);
 		handle_heredoc(&list, &exp);
+		// check fd here doc stays open if ctrl c
+		// while (list->next)
+		// {
+		// 	if (list->infile == -3)
+		// 	list = list->next;
+		// }
+		// if(check_here())
+		// {
+		// close fd heredoc
+		// 	continue;
+		// }
 		expanding(&list, &exp);
 		t_list *temp = list;
 	while (temp)

@@ -1,5 +1,8 @@
 ------------execution------------
 
+ambiguous redirect
+ << $""
+
 here_doc leak fd
 
 redirections with bultins
@@ -43,17 +46,27 @@ bash-3.2$
 
 ------------parsing------------
 
+
+ls "" ymkn kat7t fih \0
+
+Minishell$ cat << f
+> $HOME
+> f
+$HOME
+Minishell$
+
+
 cat << l
 > $USER
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> signal 
+>
+>
+>
+>
+>
+>
+>
+>
+> signal
 $USER
 
 export a="ls "
