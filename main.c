@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/12 16:38:52 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:49:12 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	signal_handler2(int sig)
 	(void) sig;
 	printf("Quit: 3\n");
 }
-
 
 void	signal_handler1(int sig)
 {
@@ -63,6 +62,16 @@ int	main(int ac, char **av, char **envp)
 		parsing(input, &list);
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
+		t_list *temp = list;
+	while (temp)
+	{
+		printf("node.cmd : %s\n", temp->cmd);
+		int i = -1;
+		while (temp->option[++i])
+			printf("node.option[%i] : %s\n",i,temp->option[i]);
+		temp = temp->next;
+		puts("--------------------------------------");
+	}
 		tcgetattr(0, &term);
 		execute(list ,exp, envp);
 		tcsetattr(0, 0, &term);

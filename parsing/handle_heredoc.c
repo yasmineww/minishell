@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:04:17 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/11 21:05:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:25:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	protect_fd(char *file)
 void	signal_handler_doc(int sig)
 {
 	(void) sig;
-	// printf("\n");
 	close(0);
 }
 
