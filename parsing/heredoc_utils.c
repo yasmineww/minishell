@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/10 02:53:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:53:16 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 
 	i = -1;
 	j = 0;
-	replace = calloc (1, len + 1);/////////ft_calloc
+	replace = (char *) malloc (len + 1);
 	if (!replace)
 		return NULL;
 	while (node[++i])

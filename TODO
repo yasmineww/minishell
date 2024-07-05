@@ -1,4 +1,16 @@
 ------------execution------------
+/bin/cat terminal save etat ? ctrl+ C
+cat << U"X" cat hangs
+split and create array in export cmd="ls -l" 
+test $cmd -a
+
+Minishell$ export cmd = "ls -la"
+export =: not a valid identifier
+bash-3.2$ export cmd = "ls -la"
+bash: export: `=': not a valid identifier
+bash: export: `ls -la': not a valid identifier
+
+abort exec when : << f
 
 ambiguous redirect
  << $""
@@ -17,7 +29,6 @@ bash-3.2$ export ts tl=
 bash-3.2$ export ts=$tl
 
 $USER_$HOME
-
 
 protect dup with custom ft_dup
 
@@ -43,9 +54,7 @@ bash-3.2$ ./main.cb
 bash: ./main.cb: No such file or directory
 bash-3.2$
 
-
 ------------parsing------------
-
 
 ls "" ymkn kat7t fih \0
 
@@ -55,13 +64,8 @@ Minishell$ cat << f
 $HOME
 Minishell$
 
-
 cat << l
 > $USER
->
->
->
->
 >
 >
 >
@@ -72,17 +76,8 @@ $USER
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
 << a'p'o
-echo "$USER"'$usgdiu"''''''' '' ls
 
 export a='$HOME'
-
-bash-3.2$ touch
-usage:
-touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
-bash-3.2$ touch $DFGHJKL
-usage:
-touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
-bash-3.2$
 
 
 export var="ls -la"
@@ -109,30 +104,21 @@ la -la
 
 tabs should become spaces
 
-➜  minishell git:(main) ✗ ./minishell
-Minishell$ export var=ls
-Minishell$ $var
-LICENSE         execution       minishell
-Makefile        main.c          minishell.h
-README.md       main.o          parsing
-Minishell$ export var=ls -la
-Minishell$ $var
-LICENSE         execution       minishell
-Makefile        main.c          minishell.h
-README.md       main.o          parsing
-Minishell$ export var="ls -la"
-Minishell$ $ar
-execve: Permission denied
-
-
-
-
 export tjs"""'"="asdsd"
 this one should be sent by the parser like this tjs'="asdsd"
 and then the executer will treat it as invalid identifier
 
 
 Fixed parsing-----------------------------------------------------------------------------------
+echo "$USER"'$us' and echo '$us'"$USER"
+echo '"'
+bash-3.2$ touch
+usage:
+touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
+bash-3.2$ touch $DFGHJKL
+usage:
+touch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...
+bash-3.2$
 
 # Minishell$ <<$var
 (|||)

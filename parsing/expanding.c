@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/14 19:00:02 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:53:24 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 	int		end;
 	char	*replace;
 	char	*value;
+	char	quote;
 
 	i = -1;
 	j = 0;
-	replace = calloc (1, len + 1);
+	replace = (char *) malloc (len + 1);
 	if (!replace)
 		return NULL;
 	while (node[++i])
@@ -32,8 +33,9 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			replace[j++] = node[i];
 			break ;
 		}
-		else if (node[i] == '$' && node[0] != '\'')
+		else if (node[i] == '$' && node[i - 1] != '\'')
 		{
+			puts("ok");
 			i++;
 			if (node[i] == '$')
 				continue ;
@@ -50,7 +52,19 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			i += end - 1;
 		}
 		else if (node[i] == '"' || node[i] == '\'')
-			continue ;
+				// continue ;
+		{
+			quote = node[i++];
+			while (node[i] != quote)
+			{
+				if (node[i] == '$')
+					break ;
+				replace[j++] = node[i];
+				i++;
+			}
+			if (node[i] == quote)
+				continue ;
+		}
 		else
 			replace[j++] = node[i];
 	}
@@ -100,20 +114,6 @@ int	helper2(char *tmp, t_exp **exp)
 	return (len);
 }
 
-void	rm_spaces(t_list *tmp)
-{
-	int i;
-
-	i = 0;
-	printf("bef %s\n" ,tmp->option[1]);
-	while (tmp)
-	{
-		tmp->option = ft_split_spaces(tmp->option[i]);
-		tmp = tmp->next;
-		i++;
-	}
-}
-
 void	expanding(t_list **list, t_exp **exp)
 {
 	int		i;
@@ -125,18 +125,15 @@ void	expanding(t_list **list, t_exp **exp)
 	while (tmp)
 	{
 		i = 0;
-		printf("before: tmp->option[%d]: %s\n", i, tmp->option[i]);
 		while (tmp->option[i])
 		{
 			len = helper2(tmp->option[i], exp);
 			replace = store_new_key(tmp->option[i], len, exp);
 			tmp->option[i] = ft_strdup(replace);
+			printf("replace : %s\n", replace);
 			free(replace);
 			i++;
 		}
-		printf("after: tmp->option %s\n", tmp->option[1]);
-		if (!ft_strchr(tmp->option[1], ' '))
-			rm_spaces(tmp);
 		tmp = tmp->next;
 	}		
 }
