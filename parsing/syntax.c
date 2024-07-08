@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:53:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/06 16:53:04 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:22:19 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,6 @@ int	special_last(char *ptr)
 	while (check_space(&ptr[i - 1]))
 		i--;
 	if (special_char(&ptr[i - 1]))
-		return (1);
-	return (0);
-}
-
-int	syntax_error(char *ptr)
-{
-	int	i;
-
-	i = 0;
-	while (check_space(&ptr[i]))
-		i++;
-	if (cases(ptr, i))
 		return (1);
 	return (0);
 }

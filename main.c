@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 11:01:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:52:25 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ int	main(int ac, char **av, char **envp)
 		// close fd heredoc
 		// 	continue;
 		// }
-	// 	t_list *temp = list;
-	// while (temp)
-	// {
-	// 	printf("node.cmd : %s\n", temp->cmd);
-	// 	int i = -1;
-	// 	while (temp->option[++i])
-	// 		printf("node.option[%i] : %s\n",i,temp->option[i]);
-	// 	temp = temp->next;
-	// 	puts("--------------------------------------");
-	// }
+		t_list *temp = list;
+	while (temp)
+	{
+		printf("node.cmd : %s\n", temp->cmd);
+		int i = -1;
+		while (temp->option[++i])
+			printf("node.option[%i] : %s\n",i,temp->option[i]);
+		temp = temp->next;
+		puts("--------------------------------------");
+	}
 		expanding(&list, &exp);
 		tcgetattr(0, &term);
 		execute(list ,exp, envp);
@@ -98,5 +98,3 @@ int	main(int ac, char **av, char **envp)
 // if the PWD is not found it would Rtrunr -1
 // if the return value is -1 we should create the PWD in the env and add it with the addback function
 // if the return value is not -1 we should update the index of PWD in the env
-
-/////////////////echo "$USER"'$us' abort///////////
