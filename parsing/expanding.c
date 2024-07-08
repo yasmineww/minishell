@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 09:42:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:14:26 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,30 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 	int		end;
 	char	*replace;
 	char	*value;
-	// char	quote;
+	int		in_double_quotes = 0;
+	int		in_single_quotes = 0;
 
 	i = -1;
 	j = 0;
-	replace = ft_calloc (1, len + 1);
+	replace = ft_calloc(1, len + 1);
 	if (!replace)
 		return NULL;
 	while (node[++i])
 	{
-		if (node[i] == '$' && (check_space(&node[i + 1]) || node[i + 1] == '\0'))
+		if (node[i] == '"' && !in_single_quotes)
+			in_double_quotes = !in_double_quotes;
+		else if (node[i] == '\'' && !in_double_quotes)
+			in_single_quotes = !in_single_quotes;
+		else if (node[i] == '$' && !in_single_quotes)
 		{
-			replace[j++] = node[i];
-			break ;
-		}
-		else if (node[i] == '$' && node[i - 1] != '\'')
-		{
+			if (check_space(&node[i + 1]) || node[i + 1] == '\0')
+			{
+				replace[j++] = node[i];
+				break ;
+			}
 			i++;
 			if (node[i] == '$')
-				continue ;
+				continue;
 			end = get_key(&node[i]);
 			value = get_value(&node[i], end, exp);
 			if (value)
@@ -50,20 +55,6 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			}
 			i += end - 1;
 		}
-		else if (node[i] == '"' || node[i] == '\'')
-			continue ;
-		// {
-		// 	quote = node[i++];
-		// 	while (node[i] != quote)
-		// 	{
-		// 		if (node[i] == '$')
-		// 			break ;
-		// 		replace[j++] = node[i];
-		// 		i++;
-		// 	}
-		// 	if (node[i] == quote)
-		// 		continue ;
-		// }
 		else
 			replace[j++] = node[i];
 	}
