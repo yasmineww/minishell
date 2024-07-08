@@ -1,8 +1,10 @@
 ------------execution------------
 /bin/cat terminal save etat ? ctrl+ C
-cat << U"X" cat hangs
+cat << f cat hangs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 split and create array in export cmd="ls -l" 
 test $cmd -a
+
+<< $f abort in exec remov redir when i type $f
 
 Minishell$ export cmd = "ls -la"
 export =: not a valid identifier
@@ -62,7 +64,6 @@ Minishell$ cat << f
 > $HOME
 > f
 $HOME
-Minishell$
 
 cat << l
 > $USER

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 10:14:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:38:20 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,9 @@ void	expanding(t_list **list, t_exp **exp)
 		i = 0;
 		while (tmp->option[i])
 		{
-			printf("node.option[%i] : %s\n",i,tmp->option[i]);
 			len = helper2(tmp->option[i], exp);
 			replace = store_new_key(tmp->option[i], len, exp);
-			printf("replace : %s\n", replace);
 			tmp->option[i] = ft_strdup(replace);
-			// printf("replace : %s\n", replace);
 			free(replace);
 			i++;
 		}

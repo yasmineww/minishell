@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 09:27:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:01:13 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int ac, char **av, char **envp)
 		// close fd heredoc
 		// 	continue;
 		// }
-		expanding(&list, &exp);
 	// 	t_list *temp = list;
 	// while (temp)
 	// {
@@ -84,6 +83,7 @@ int	main(int ac, char **av, char **envp)
 	// 	temp = temp->next;
 	// 	puts("--------------------------------------");
 	// }
+		expanding(&list, &exp);
 		tcgetattr(0, &term);
 		execute(list ,exp, envp);
 		tcsetattr(0, 0, &term);
