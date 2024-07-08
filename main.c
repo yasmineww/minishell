@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/05 12:36:33 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 09:27:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,4 @@ int	main(int ac, char **av, char **envp)
 // if the return value is -1 we should create the PWD in the env and add it with the addback function
 // if the return value is not -1 we should update the index of PWD in the env
 
-/////////////////echo "$USER"'$us" abort///////////
+/////////////////echo "$USER"'$us' abort///////////

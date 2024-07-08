@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 19:57:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/07 16:26:37 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 09:41:44 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,23 @@ int	check_space(char *ptr)
 	if ((*ptr >= 9 && *ptr <= 13) || *ptr == 32)
 		return (1);
 	return (0);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	if (count > 9223372036854775807 || size > 9223372036854775807)
+		return (0);
+	ptr = malloc (count * size);
+	if (!ptr)
+		return (NULL);
+	while (i < (count * size))
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return (ptr);
 }

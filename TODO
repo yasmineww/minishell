@@ -10,7 +10,6 @@ bash-3.2$ export cmd = "ls -la"
 bash: export: `=': not a valid identifier
 bash: export: `ls -la': not a valid identifier
 
-abort exec when : << f
 
 ambiguous redirect
  << $""
@@ -55,6 +54,7 @@ bash: ./main.cb: No such file or directory
 bash-3.2$
 
 ------------parsing------------
+abort exec when : << f
 
 ls "" ymkn kat7t fih \0
 
@@ -107,7 +107,6 @@ tabs should become spaces
 export tjs"""'"="asdsd"
 this one should be sent by the parser like this tjs'="asdsd"
 and then the executer will treat it as invalid identifier
-
 
 Fixed parsing-----------------------------------------------------------------------------------
 echo "$USER"'$us' and echo '$us'"$USER"

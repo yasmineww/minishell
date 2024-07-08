@@ -80,6 +80,7 @@ void	catch_signal(void);
 void	signal_handler1(int sig);
 void	signal_handler2(int sig);
 void	signal_handler_doc(int sig);
+void	*ft_calloc(size_t count, size_t size);
 
 // ---------------------- execution ----------------------
 

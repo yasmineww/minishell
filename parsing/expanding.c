@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/05 13:53:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/08 09:42:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 	int		end;
 	char	*replace;
 	char	*value;
-	char	quote;
+	// char	quote;
 
 	i = -1;
 	j = 0;
-	replace = (char *) malloc (len + 1);
+	replace = ft_calloc (1, len + 1);
 	if (!replace)
 		return NULL;
 	while (node[++i])
@@ -35,7 +35,6 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 		}
 		else if (node[i] == '$' && node[i - 1] != '\'')
 		{
-			puts("ok");
 			i++;
 			if (node[i] == '$')
 				continue ;
@@ -52,19 +51,19 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			i += end - 1;
 		}
 		else if (node[i] == '"' || node[i] == '\'')
-				// continue ;
-		{
-			quote = node[i++];
-			while (node[i] != quote)
-			{
-				if (node[i] == '$')
-					break ;
-				replace[j++] = node[i];
-				i++;
-			}
-			if (node[i] == quote)
-				continue ;
-		}
+			continue ;
+		// {
+		// 	quote = node[i++];
+		// 	while (node[i] != quote)
+		// 	{
+		// 		if (node[i] == '$')
+		// 			break ;
+		// 		replace[j++] = node[i];
+		// 		i++;
+		// 	}
+		// 	if (node[i] == quote)
+		// 		continue ;
+		// }
 		else
 			replace[j++] = node[i];
 	}
@@ -127,10 +126,12 @@ void	expanding(t_list **list, t_exp **exp)
 		i = 0;
 		while (tmp->option[i])
 		{
+			printf("node.option[%i] : %s\n",i,tmp->option[i]);
 			len = helper2(tmp->option[i], exp);
 			replace = store_new_key(tmp->option[i], len, exp);
-			tmp->option[i] = ft_strdup(replace);
 			printf("replace : %s\n", replace);
+			tmp->option[i] = ft_strdup(replace);
+			// printf("replace : %s\n", replace);
 			free(replace);
 			i++;
 		}
