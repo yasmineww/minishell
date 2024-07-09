@@ -1,11 +1,22 @@
 ------------execution------------
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a   b  "
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
+bash: $a: ambiguous redirect
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a    "
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$
+
+checki wach mor spaces wach kayn character
+
+exit status dial lbuiltins  b7al exit
+
 ls "" ymkn kat7t fih \0 just skip list->option if list->option == NULL in execution
 
 /bin/cat terminal save etat ? ctrl+ C
 
 cat << f cat hangs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-split and create array in export cmd="ls -l" 
+split and create array in export cmd="ls -l"
 
 test $cmd -a
 
@@ -14,7 +25,7 @@ test $cmd -a
 bash-3.2$ export var="ls                -la"
 bash-3.2$ echo $var
 la -la
-this is what i send 
+this is what i send
 node.option[0] : export
 node.option[1] : var=ls -la
 

@@ -110,5 +110,7 @@ int		ft_lstsize(t_list *lst);
 void	handle_redirs(t_list *list);
 char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
+int		ft_exit(char **cmd);
+int		ft_isnumber(char *s);
 
 #endif

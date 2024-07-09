@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/09 15:50:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:40:38 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	int	*pid;
 	int	i;
 	int	count;
+	static int	status;
+	int		exitcode;
+
 	if (!list || !list->option)
 		return (1);
 	std_in = dup(0);
@@ -159,7 +162,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				&& execve(list->option[0], list->option, envp) == -1)
 			{
 				perror("execve");
-				exit(1);
+				exit(127);
 			}
 		}
 		else
@@ -178,7 +181,9 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	i = 0;
 	while (i < count)
 	{
-		waitpid(pid[i], NULL, 0);
+		waitpid(pid[i], &status, 0);
+		if (WIFEXITED(status))
+			exitcode = WEXITSTATUS(status);
 		i++;
 	}
 	free(pid);
