@@ -14,6 +14,8 @@
 # include <readline/history.h>
 # include <termios.h>
 
+int g_sig;
+
 typedef struct s_env
 {
 	char	*key;
@@ -81,6 +83,7 @@ void	signal_handler1(int sig);
 void	signal_handler2(int sig);
 void	signal_handler_doc(int sig);
 void	*ft_calloc(size_t count, size_t size);
+void	signal_handler_doc(int sig);
 
 // ---------------------- execution ----------------------
 
@@ -95,7 +98,7 @@ int		ft_echo(char **cmd);
 int		exec(t_exp *exp, t_list *list, char **envp);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
-void	find_key(char **envp, t_exp *exp);
+void	find_key(char *envp, t_exp *exp);
 int		exporthelp(t_exp *exp, char **s);
 void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
@@ -107,6 +110,5 @@ int		ft_lstsize(t_list *lst);
 void	handle_redirs(t_list *list);
 char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
-void	signal_handler45(int sig);
 
 #endif

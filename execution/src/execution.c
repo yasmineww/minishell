@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/08 11:09:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:50:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	pid = NULL;
 	i = 0;
 	signal(SIGQUIT, signal_handler2);
-	// signal(SIGINT, signal_handler45);
 	check_value_export(list);
 	count = ft_lstsize(list);
 	if (count == 1)
@@ -192,13 +191,21 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 
 int	execute(t_list *list, t_exp *exp, char **envp)
 {
-	char	*tmp;
+	char			*tmp;
+	struct termios	term;
 
+	tcgetattr(0, &term);
+	if (g_sig == 1)
+	{
+		g_sig = 0;
+		return (0);
+	}
 	tmp = find_path(exp);
 	exp->path = ft_split(tmp, ':');
 	if (!exp->path)
 		exit(1);
 	// free(tmp);
 	exec(exp, list, envp);
+	tcsetattr(0, 0, &term);
 	return (0);
 }

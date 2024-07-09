@@ -139,3 +139,20 @@ cat << 6 << 8 | << 2
 /dev/stdin < cat
 /dev/stdin < cat | cat > /dev/stdin
 
+
+
+
+
+
+MY TEST DONT DELETE
+
+		// t_list *temp = list;
+		// while (temp)
+		// {
+		// 	printf("node.cmd : %s\n", temp->cmd);
+		// 	int i = -1;
+		// 	while (temp->option[++i])
+		// 		printf("node.option[%i] : %s\n",i,temp->option[i]);
+		// 	temp = temp->next;
+		// 	puts("--------------------------------------");
+		// }

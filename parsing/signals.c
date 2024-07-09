@@ -1,45 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expanding_utils.c                                  :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/09 15:46:32 by ymakhlou         ###   ########.fr       */
+/*   Created: 2024/07/09 10:50:33 by ymakhlou          #+#    #+#             */
+/*   Updated: 2024/07/09 15:34:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_value(char *ptr, int end, t_exp **exp)
+void signal_handler2(int sig)
 {
-	char	*ptr2;
-	t_exp	*env;
-
-	env = *exp;
-	ptr2 = ft_substr(ptr, 0, end);
-	if (!ptr2)
-		return (NULL);
-	while (env)
-	{
-		if (!ft_strcmp(env->key, ptr2))
-		{
-			free(ptr2);
-			return (env->value);
-		}
-		env = env->next;
-	}
-	free(ptr2);
-	return (NULL);
+	(void) sig;
+	printf("Quit: 3\n");
 }
 
-int	get_key(char *ptr)
+void signal_handler1(int sig)
 {
-	int	i;
+	(void) sig;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
 
-	i = 0;
-	while (ft_isalpha_num(ptr[i]))
-		i++;
-	return (i);
+void catch_signal(void)
+{
+	signal(SIGINT, signal_handler1);
+	signal(SIGQUIT, signal_handler2);
+}
+void	signal_handler_doc(int sig)
+{
+	(void) sig;
+	if (sig == SIGINT)
+	{
+		g_sig = 1;
+		close(0);
+	}
 }

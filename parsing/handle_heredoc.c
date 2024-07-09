@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 11:01:01 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:34:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ void	protect_fd(char *file)
 	return ;
 }
 
-void	signal_handler_doc(int sig)
-{
-	(void) sig;
-	close(0);
-}
-
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
 	static int	num;
@@ -72,6 +66,8 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	read = readline("> ");
 	while (read)
 	{
+		if (g_sig)
+			return ;
 		if (!bool && ft_strcmp(delim, read))
 			expanding_heredoc(&read, exp);
 		if (!ft_strcmp(delim, read))
@@ -85,7 +81,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(read);
 	free(delim);
 	close(temp->infile);
-	if (isatty(0))
+	if (!isatty(0))
 		temp->infile = -3;
 	else
 	{
@@ -103,6 +99,7 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 	int			i;
 	int			j;
 
+	g_sig = 0;
 	temp = *list;
 	if (temp)
 		temp->infile = 0;

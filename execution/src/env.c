@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 21:35:00 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:32:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,62 +50,61 @@ void	find_value(char *env, t_exp *exp, int l)
 	if (!exp->value)
 		return ;
 	while (env[l])
-	{
-		exp->value[j] = env[l];
-		j++;
-		l++;
-	}
+		exp->value[j++] = env[l++];
 	exp->value[j] = '\0';
 }
 
-void	find_key(char **envp, t_exp *exp)
+void	find_key(char *envp, t_exp *exp)
 {
-	int	i;
 	int	l;
 	int	j;
 
-	i = 0;
 	l = 0;
 	j = 0;
-	while (envp[i][l] != '=' && envp[i][l])
+	while (envp[l] != '=' && envp[l])
 		l++;
 	exp->key = malloc(sizeof(char) * (l + 1));
 	if (!exp->key)
 		return ;
 	while (j < l)
 	{
-		exp->key[j] = envp[i][j];
+		exp->key[j] = envp[j];
 		j++;
 	}
 	exp->key[j] = '\0';
-	find_value(envp[i], exp, l + 1);
+	find_value(envp, exp, l + 1);
 }
 
 int	ft_env(t_exp **exp, char **envp)
 {
-	int		i;
-	t_exp	*tmp;
-	t_exp	*new;
+	int			i;
+	t_exp		*tmp;
+	t_exp		*new;
+	static char	*env_save;
 
-	i = 0;
+	i = -1;
 	*exp = NULL;
-	while (envp[i])
+	while (envp[++i])
 	{
-		tmp = *exp;
 		new = malloc(sizeof(t_exp));
 		if (!new)
 			return (0);
-		find_key(&envp[i], new);
+		find_key(envp[i], new);
 		new->next = NULL;
-		if (!tmp)
+		if (!*exp)
 			*exp = new;
 		else
 		{
+			tmp = *exp;
 			while (tmp->next)
 				tmp = tmp->next;
 			tmp->next = new;
 		}
-		i++;
+	}
+	if (getcwd(NULL, 0))
+	{
+		env_save = getcwd(NULL, 0);
+		(*exp)->pwd = ft_strdup(env_save);
 	}
 	return (1);
 }

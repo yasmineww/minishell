@@ -1,7 +1,7 @@
 NAME = minishell
 
 SRC = main.c \
-	parsing/syntax.c parsing/utils_syntax.c parsing/ft_split.c parsing/ft_split_spaces.c \
+	parsing/syntax.c parsing/utils_syntax.c parsing/ft_split.c parsing/ft_split_spaces.c parsing/signals.c \
 	parsing/split_cmd.c parsing/add_space.c parsing/parsing.c parsing/expanding.c parsing/expanding_utils.c \
 	parsing/handle_heredoc.c parsing/heredoc_utils.c \
   	execution/src/envp.c execution/src/builtins.c	execution/src/cd.c execution/src/pwd.c execution/src/env.c execution/src/echo.c \

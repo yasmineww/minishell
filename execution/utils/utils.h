@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/08 16:16:39 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:48:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "../../minishell.h"
 
 int		ft_strlen(const char *s);
+char	*ft_substr(char *s, int start, int len);
+int		ft_isalpha_num(char c);
 char	*ft_strdup(char *s1);
 char	**ft_split(const char *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
