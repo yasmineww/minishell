@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/13 16:52:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:44:12 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	ft_cd(char *path, t_exp *exp)
 		if (!getcwd(NULL, 0))
 		{
 			ft_error("bash: cd:", NULL, "error in retrieving current directory");
-			chdir("HOME");
+			chdir(exp->pwd);
 		}
 		else
 			chdir("..");

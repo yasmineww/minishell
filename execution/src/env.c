@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/09 15:32:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:44:18 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_env(t_exp **exp, char **envp)
 	{
 		env_save = getcwd(NULL, 0);
 		(*exp)->pwd = ft_strdup(env_save);
+		free(env_save);
 	}
 	return (1);
 }
