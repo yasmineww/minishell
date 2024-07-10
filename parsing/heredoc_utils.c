@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 09:43:16 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:21:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_itoa(int n)
 
 	m = n;
 	size = ft_intlen(n);
-	ptr = (char *) malloc (size + 1);
+	ptr = ft_calloc(1, size + 1);
 	if (!ptr)
 		return (NULL);
 	ptr[size] = '\0';

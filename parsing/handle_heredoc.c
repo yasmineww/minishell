@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/09 15:34:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:01:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	read = readline("> ");
 	while (read)
 	{
-		if (g_sig)
+		if (g_sig)/////leaks
 			return ;
 		if (!bool && ft_strcmp(delim, read))
 			expanding_heredoc(&read, exp);
@@ -81,14 +81,9 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(read);
 	free(delim);
 	close(temp->infile);
-	if (!isatty(0))
-		temp->infile = -3;
-	else
-	{
-		temp->infile = open(file, O_RDONLY, 0644);
-		if (temp->infile == -1)
-			return (protect_fd(file));
-	}
+	temp->infile = open(file, O_RDONLY, 0644);
+	if (temp->infile == -1)
+		return (protect_fd(file));
 	unlink(file);
 	free(file);
 }

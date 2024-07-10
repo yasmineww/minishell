@@ -113,4 +113,12 @@ void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd);
 int		ft_isnumber(char *s);
 
+// ---------------------- signals ----------------------
+
+void	signal_handler2(int sig);
+void	signal_handler1(int sig);
+void	catch_signal(void);
+void	signal_handler_doc(int sig);
+int		exit_status(int status);
+
 #endif

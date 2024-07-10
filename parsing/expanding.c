@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/09 16:07:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:57:21 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 				replace[j++] = node[i];
 				break ;
 			}
+			else if (node[i + 1] == '?')
+			{
+				i++;
+				value = ft_itoa(exit_status(g_sig));
+				while (*value)
+				{
+					replace[j++] = *value;
+					value++;
+				}
+				continue ;
+			}
 			i++;
 			if (node[i] == '$')
 				continue;
@@ -58,6 +69,7 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 		else
 			replace[j++] = node[i];
 	}
+	replace[len] = '\0'; 
 	return (replace);
 }
 
@@ -93,7 +105,7 @@ int	helper2(char *tmp, t_exp **exp)
 		if (tmp[j] == '$')
 		{
 			if (tmp[j + 1] && tmp[j + 1] == '?')
-				break ;
+				len += ft_intlen(exit_status(g_sig));
 			else
 			{
 				end = get_key(&tmp[j + 1]);

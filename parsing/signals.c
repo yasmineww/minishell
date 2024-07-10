@@ -6,11 +6,17 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:50:33 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/09 15:34:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:31:30 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	exit_status(int status)
+{
+	g_sig = status;
+	return (g_sig);
+}
 
 void signal_handler2(int sig)
 {
@@ -38,6 +44,7 @@ void	signal_handler_doc(int sig)
 	if (sig == SIGINT)
 	{
 		g_sig = 1;
+		exit_status(g_sig);
 		close(0);
 	}
 }
