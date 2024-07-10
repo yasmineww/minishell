@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/09 16:59:48 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:39:13 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_cd(char *path, t_exp *exp)
 				if (tmp->value == NULL)
 				{
 					ft_error("bash: cd:", "HOME not set", NULL);
-					return (1);
+					return (exp->status = 1, 1);
 				}
 				else
 					ret = chdir(tmp->value);
@@ -108,7 +108,7 @@ int	ft_cd(char *path, t_exp *exp)
 		}
 		// ma3rftch wach m7taj had lflag tant2kd
 		if (!home_found)
-			ft_error("bash: cd:", "HOME not set", NULL);
+			return (ft_error("bash: cd:", "HOME not set", NULL), exp->status = 1, 1);
 	}
 	else if (!ft_strncmp(path, "..", 2))
 	{
@@ -125,9 +125,10 @@ int	ft_cd(char *path, t_exp *exp)
 		ret = chdir(path);
 		if (ret != 0)
 			return (ft_error("bash: cd:", path, "No such file or directory")
-				, 1);
+				, exp->status = 1, 1);
 	}
 	update_cwd(exp);
 	/// steps to update the PWD and OLDPWD
+	exp->status = 0;
 	return (0);
 }

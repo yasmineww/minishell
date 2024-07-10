@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 18:33:55 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:07:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ int	ft_echo_helper(char **cmd, int *no_nl)
 	return (i);
 }
 
-int	ft_echo(char **cmd)
+int	ft_echo(char **cmd, t_exp *exp)
 {
 	int	no_nl;
 	int	i;
+	(void)exp;
 
 	no_nl = 0;
 	i = ft_echo_helper(cmd, &no_nl);
 	echo_print(cmd, i, no_nl);
+	exp->status = 0;
 	return (0);
 }

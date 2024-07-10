@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/09 22:33:08 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:45:55 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	exec_builtin(t_exp **exp, char **cmd)
 		if (ft_strcmp(cmd[0], "cd") == 0)
 		{
 			if (ft_2dlen(cmd) > 2)
-				return (ft_error("bash: cd:", "too many arguments", NULL), 1);
+				return (ft_error("bash: cd:", "too many arguments", NULL),(*exp)->status = 1, 1);
 			else
 				return (ft_cd(cmd[1], *exp));
 		}
@@ -89,9 +89,9 @@ int	exec_builtin(t_exp **exp, char **cmd)
 		if (ft_strcmp(cmd[0], "env") == 0)
 			print_env(exp);
 		if (ft_strcmp(cmd[0], "exit") == 0)
-			return (ft_exit(cmd));
+			return (ft_exit(cmd , *exp));
 		if (ft_strcmp(cmd[0], "echo") == 0)
-			return (ft_echo(cmd));
+			return (ft_echo(cmd, *exp));
 		if (ft_strcmp(cmd[0], "unset") == 0)
 			return (ft_unset(exp, cmd[1]));
 		if (ft_strcmp(cmd[0], "export") == 0)

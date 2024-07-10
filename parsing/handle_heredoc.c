@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 15:58:34 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:00:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 
 	if (pipe(td) == -1)
 		printf("fail");
-		// return (protect_fd(td[2]));	
+		// return (protect_fd(td[2]));
 	bool = 0;
 	int fd = dup(0);
 	delim = rm_quotes((temp->option[i + 1]), &bool);

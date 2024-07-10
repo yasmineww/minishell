@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 16:12:19 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:45:43 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		ft_cd(char *path, t_exp *exp);
 int		ft_pwd(t_exp *exp);
 int		countparams(char **s);
 void	print_env(t_exp **exp);
-int		ft_echo(char **cmd);
+int		ft_echo(char **cmd, t_exp *exp);
 int		exec(t_exp *exp, t_list *list, char **envp);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
@@ -120,7 +120,7 @@ int		ft_lstsize(t_list *lst);
 void	handle_redirs(t_list *list);
 char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
-int		ft_exit(char **cmd);
+int		ft_exit(char **cmd, t_exp *exp);
 int		ft_isnumber(char *s);
 
 // ---------------------- signals ----------------------

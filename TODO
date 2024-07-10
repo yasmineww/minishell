@@ -1,4 +1,6 @@
 ------------execution------------
+env -i ./minishell
+ls > a > b < c > d
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a   b  "
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
 bash: $a: ambiguous redirect
@@ -9,7 +11,7 @@ ambiguous redirect
  << $""
 checki wach mor spaces wach kayn character
 
- 
+
 exit status dial lbuiltins  b7al exit
 
 
@@ -27,7 +29,7 @@ export =: not a valid identifier
 bash-3.2$ export cmd = "ls -la"
 bash: export: `=': not a valid identifier
 bash: export: `ls -la': not a valid identifier
-declare -x ls -la shoudlnt be exported 
+declare -x ls -la shoudlnt be exported
 
 protect dup with custom ft_dup
 

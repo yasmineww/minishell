@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 15:11:01 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:44:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	static int	status;
 
 	if (!list || !list->option)
-		return (1);
+		return (exp->status = 1, 1);
 	std_in = dup(0);
 	std_out = dup(1);
 	pid = NULL;
@@ -110,87 +110,90 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	signal(SIGQUIT, signal_handler2);
 	// check_value_export(list);
 	count = ft_lstsize(list);
-	if (count == 1)
+	if (count == 1 && is_builtin(list->option))
 		onecmd_builtin(exp, list);
-	pid = malloc(sizeof(int) * count);
-	if (!pid)
-		return (1);
-	while (list)
+	else
 	{
-		if (list->next && pipe(fdpipe) == -1)
+		pid = malloc(sizeof(int) * count);
+		if (!pid)
+			return (exp->status = 1, 1);
+		while (list)
 		{
-			perror("pipe");
-			exit(1);
-		}
-		pid[i] = fork();
-		// catch signal command
-		if (pid[i] < 0)
-			perror("fork");
-		else if (pid[i] == 0)
-		{
-			if (i > 0)
+			if (list->next && pipe(fdpipe) == -1)
 			{
-				dup2(std_in, 0);
-				close(std_in);
+				perror("pipe");
+				exit(1);
 			}
-			if (list->next)
+			pid[i] = fork();
+			// catch signal command
+			if (pid[i] < 0)
+				perror("fork");
+			else if (pid[i] == 0)
 			{
-				close(fdpipe[0]);
-				dup2(fdpipe[1], 1);
-				close(fdpipe[1]);
+				if (i > 0)
+				{
+					dup2(std_in, 0);
+					close(std_in);
+				}
+				if (list->next)
+				{
+					close(fdpipe[0]);
+					dup2(fdpipe[1], 1);
+					close(fdpipe[1]);
+				}
+				else
+				{
+					dup2(std_out, 1);
+					close(std_out);
+				}
+				if (list->option[0] && is_builtin(list->option))
+				{
+					handle_redirs(list);
+					exec_builtin(&exp, list->option);
+					dup2(fdpipe[0], 0);
+					close(fdpipe[0]);
+					dup2(fdpipe[1], 1);
+					close(fdpipe[1]);
+					exit(0);
+				}
+				else
+					handle_redirs(list);
+				list->option[0] = get_cmd_path(exp, list->option[0]);
+				if (list->option[0]
+					&& execve(list->option[0], list->option, envp) == -1)
+				{
+					perror("execve");
+					exp->status = 127;
+					exit(127);
+				}
 			}
 			else
 			{
-				dup2(std_out, 1);
-				close(std_out);
+				if (i > 0)
+					close(std_in);
+				if (list->next)
+				{
+					close(fdpipe[1]);
+					std_in = fdpipe[0];
+				}
 			}
-			if (list->option[0] && is_builtin(list->option))
-			{
-				handle_redirs(list);
-				exec_builtin(&exp, list->option);
-				dup2(fdpipe[0], 0);
-				close(fdpipe[0]);
-				dup2(fdpipe[1], 1);
-				close(fdpipe[1]);
-				exit(0);
-			}
-			else
-				handle_redirs(list);
-			list->option[0] = get_cmd_path(exp, list->option[0]);
-			if (list->option[0]
-				&& execve(list->option[0], list->option, envp) == -1)
-			{
-				perror("execve");
-				exp->status = 127;
-				exit(127);
-			}
+			list = list->next;
+			i++;
 		}
-		else
+		i = 0;
+		while (i < count)
 		{
-			if (i > 0)
-				close(std_in);
-			if (list->next)
-			{
-				close(fdpipe[1]);
-				std_in = fdpipe[0];
-			}
+			waitpid(pid[i], &status, 0);
+			if (WIFEXITED(status))
+				exp->status = WEXITSTATUS(status);
+			i++;
 		}
-		list = list->next;
-		i++;
+		free(pid);
+		dup2(std_in, 0);
+		close(std_in);
+		dup2(std_out, 1);
+		close(std_out);
 	}
-	i = 0;
-	while (i < count)
-	{
-		waitpid(pid[i], &status, 0);
-		if (WIFEXITED(status))
-			exp->status = WEXITSTATUS(status);
-		i++;
-	}
-	free(pid);
-	dup2(std_in, 0);
-	close(std_in);
-	dup2(std_out, 1);
-	close(std_out);
 	return (0);
 }
 
@@ -206,9 +209,12 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 		return (0);
 	}
 	tmp = find_path(exp);
-	exp->path = ft_split(tmp, ':');
-	if (!exp->path)
-		exit(1);
+	if (!tmp)
+		return (exp->status = 1, 1);
+	if (exp)
+		exp->path = ft_split(tmp, ':');
+	if (!exp || !exp->path)
+		return (exp->status = 1 ,1);
 	// free(tmp);
 	exec(exp, list, envp);
 	tcsetattr(0, 0, &term);

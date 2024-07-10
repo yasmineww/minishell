@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/05/24 16:14:24 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:47:35 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_unset(t_exp **exp, char *key)
 	cur = *exp;
 	prev = NULL;
 	if (!key)
-		return (-1);
+		return ((*exp)->status = 1, 1);
 	while (cur)
 	{
 		if (ft_strncmp(cur->key, key, ft_strlen(key)) == 0)
