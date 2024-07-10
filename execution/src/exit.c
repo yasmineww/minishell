@@ -23,11 +23,17 @@ int	ft_exit(char **cmd)
 		exit(0);
 	if (i == 2)
 	{
-		printf("cmd[1] = %s\n", cmd[1]);
 		if (ft_isnumber(cmd[1]))
-			exit(atoi(cmd[1]));
+			exit(atoi(cmd[1]));// replace with my atoi
 		else
 			return (ft_error("exit", cmd[1], "numeric argument required"), exit(2), 1);
 	}
-	return (write(2, "exit\n", 5), ft_error("exit", NULL, "too many arguments"), 1);
+	if (i > 2)
+	{
+			if (!ft_isnumber(cmd[1]))
+				return (ft_error("exit", cmd[1], "numeric argument required"), exit(2), 1);
+			else
+				return (ft_error("exit", NULL, "too many arguments"), 1);
+	}
+	return (write(2, "exit\n", 5), ft_error("exit", NULL, "too many arguments"), exit(1), 1);
 }
