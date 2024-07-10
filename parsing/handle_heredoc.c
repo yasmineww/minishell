@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 12:19:58 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:41:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*rm_quotes(char *s1, int *bool)
 	copy[i] = '\0';
 	return (copy);
 }
+
 void	protect_fd(char *file)
 {
 	perror("Failed to open file");
@@ -52,7 +53,6 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	char		*file;
 	int			bool;
 	char		*delim;
-	int			fd;
 
 	file = ft_strjoin(".here_doc", ft_itoa(num++));
 	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -62,7 +62,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		delim = rm_quotes((temp->option[i + 1]), &bool);
 	else
 		delim = rm_quotes((temp->option[i + 1]), &bool);
-	fd = dup(0);
+	int fd = dup(0);
 	signal(SIGINT, signal_handler_doc);
 	read = readline("> ");
 	while (read)
@@ -82,9 +82,14 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	free(read);
 	free(delim);
 	close(temp->infile);
-	temp->infile = open(file, O_RDONLY, 0644);
-	if (temp->infile == -1)
-		return (protect_fd(file));
+	if (!isatty(0))
+		temp->infile = -3;
+	else
+	{
+		temp->infile = open(file, O_RDONLY, 0644);
+		if (temp->infile == -1)
+			return (protect_fd(file));
+	}
 	unlink(file);
 	free(file);
 }
