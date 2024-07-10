@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
+/*   Updated: 2024/07/10 16:12:19 by ymakhlou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -18,33 +29,34 @@ int g_sig;
 
 typedef struct s_env
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_list
 {
-	char	**option;
-	char	*cmd;
-	int		infile;
-	int		outfile;
+	char			**option;
+	char			*cmd;
+	int				infile;
+	int				outfile;
 	struct s_list	*next;
 }	t_list;
 
 typedef struct s_exp
 {
-	char	**path;
-	char	*key;
-	char	*value;
-	char	*oldpwd;
-	char	*pwd;
-	struct s_exp *next;
+	int				status;
+	char			**path;
+	char			*key;
+	char			*value;
+	char			*oldpwd;
+	char			*pwd;
+	struct s_exp	*next;
 }	t_exp;
 
 // ---------------------- parsing ----------------------
 
-int		error_message(char *input);
+int		error_message(char *input, t_exp **exp);
 int		ft_strcmp(char *s1, char *s2);
 int		special_char(char *ptr);
 int		check_space(char *ptr);
@@ -63,7 +75,7 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-void	parsing(char *input, t_list **list);
+void	parsing(char *input, t_list **list, t_exp **exp);
 void	expanding(t_list **list, t_exp **exp);
 char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
@@ -81,9 +93,7 @@ char	*ft_itoa(int n);
 void	catch_signal(void);
 void	signal_handler1(int sig);
 void	signal_handler2(int sig);
-void	signal_handler_doc(int sig);
 void	*ft_calloc(size_t count, size_t size);
-void	signal_handler_doc(int sig);
 
 // ---------------------- execution ----------------------
 
@@ -119,6 +129,5 @@ void	signal_handler2(int sig);
 void	signal_handler1(int sig);
 void	catch_signal(void);
 void	signal_handler_doc(int sig);
-int		exit_status(int status);
 
 #endif

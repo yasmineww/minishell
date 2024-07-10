@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 12:18:46 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:10:02 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	list = NULL;
 	ft_env(&exp, envp);
+		(*exp).status = 0;
 	while (1)
 	{
 		rl_catch_signals = 0;
@@ -32,7 +33,7 @@ int	main(int ac, char **av, char **envp)
 		if (!input || isatty(0) == 0)
 			break ;
 		add_history(input);
-		parsing(input, &list);
+		parsing(input, &list, &exp);
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list, exp, envp);

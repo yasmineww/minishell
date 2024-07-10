@@ -5,55 +5,37 @@ bash: $a: ambiguous redirect
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a    "
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$
-
+ambiguous redirect
+ << $""
 checki wach mor spaces wach kayn character
 
+ 
 exit status dial lbuiltins  b7al exit
 
-ls "" ymkn kat7t fih \0 just skip list->option if list->option == NULL in execution
 
 /bin/cat terminal save etat ? ctrl+ C
 
-cat << f cat hangs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 split and create array in export cmd="ls -l"
-
-test $cmd -a
-
-<< $f abort in exec remov redir when i type $f
-
 bash-3.2$ export var="ls                -la"
 bash-3.2$ echo $var
 la -la
 this is what i send
 node.option[0] : export
 node.option[1] : var=ls -la
-
 Minishell$ export cmd = "ls -la"
 export =: not a valid identifier
 bash-3.2$ export cmd = "ls -la"
 bash: export: `=': not a valid identifier
 bash: export: `ls -la': not a valid identifier
+declare -x ls -la shoudlnt be exported 
 
-ambiguous redirect
- << $""
+protect dup with custom ft_dup
 
-here_doc leak fd
-
-redirections with bultins
-
-// PATH kitprinta w _ makitprintaach f export
-< infile builtin export >> outfile
-
- th=""
-declare -x tj=""
-bash-3.2$ export ts tl
-bash-3.2$ export ts tl=
-bash-3.2$ export ts=$tl
+---------- error management -------
 
 $USER_$HOME
 
-protect dup with custom ft_dup
+test $cmd -a
 
 bash: .: filename argument required
 .: usage: . filename [arguments]
@@ -76,20 +58,18 @@ bash: ./main.c: Permission denied
 bash-3.2$ ./main.cb
 bash: ./main.cb: No such file or directory
 bash-3.2$
+------------------------------------
 
+th=""
+declare -x tj=""
+bash-3.2$ export ts tl
+bash-3.2$ export ts tl=
+bash-3.2$ export ts=$tl
+
+
+
+// PATH kitprinta w _ makitprintaach f export
 ------------parsing------------
-
-Minishell$ cat << f
-> $HOME
-> f
-$HOME
-
-cat << l
-> $USER
->
->
-> signal
-$USER
 
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
@@ -136,13 +116,15 @@ cat << "$"U"" ===> need to change ft_strtrim to rm_quotes
 
 Fixed execution-----------------------------------------------------------------------------------
 
+<< $f abort in exec remov redir when i type $f
 $drfg ls
 ls | wc > 1 | wc
 cat | cat | ls
 cat << 6 > 7
 cat << 6 << 8 > 9
 cat < " "
-echo $a -n hello
+echo $a -n hello ////////////not
+ls "" ymkn kat7t fih \0 just skip list->option if list->option == NULL in execution
 echo hey | ls
 cat | << a
 cat << 6 << 8 | << 2

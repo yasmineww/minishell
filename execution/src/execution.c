@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/09 22:40:38 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:11:01 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	pid = NULL;
 	i = 0;
 	signal(SIGQUIT, signal_handler2);
-	check_value_export(list);
+	// check_value_export(list);
 	count = ft_lstsize(list);
 	if (count == 1)
 		onecmd_builtin(exp, list);

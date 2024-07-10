@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 12:41:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:58:34 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,53 +45,41 @@ void	protect_fd(char *file)
 	free(file);
 	return ;
 }
-
 void	find_delimiter(t_list *temp, t_exp **exp, int i)
 {
-	static int	num;
-	char		*read;
-	char		*file;
+	char		*read_me;
 	int			bool;
 	char		*delim;
+	int			td[2];
 
-	file = ft_strjoin(".here_doc", ft_itoa(num++));
-	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (temp->infile == -1)
-		return (protect_fd(file));
-	if (temp->option[i + 1][0] == '$')
-		delim = rm_quotes((temp->option[i + 1]), &bool);
-	else
-		delim = rm_quotes((temp->option[i + 1]), &bool);
+	if (pipe(td) == -1)
+		printf("fail");
+		// return (protect_fd(td[2]));	
+	bool = 0;
 	int fd = dup(0);
+	delim = rm_quotes((temp->option[i + 1]), &bool);
 	signal(SIGINT, signal_handler_doc);
-	read = readline("> ");
-	while (read)
+	read_me = readline("> ");
+	while (read_me)
 	{
 		if (g_sig)/////leaks
+		{
+			(*exp)->status = 1;
 			return ;
-		if (!bool && ft_strcmp(delim, read))
-			expanding_heredoc(&read, exp);
-		if (!ft_strcmp(delim, read))
+		}
+		if (!bool && ft_strcmp(delim, read_me))
+			expanding_heredoc(&read_me, exp);
+		if (!ft_strcmp(delim, read_me))
 			break ;
-		ft_putendl_fd(read, temp->infile);
-		free(read);
-		read = readline("> ");
+		ft_putendl_fd(read_me, td[1]);
+		free(read_me);
+		read_me = readline("> ");
 	}
 	dup2(fd, 0);
-	close(fd);
-	free(read);
+	free(read_me);
 	free(delim);
-	close(temp->infile);
-	if (!isatty(0))
-		temp->infile = -3;
-	else
-	{
-		temp->infile = open(file, O_RDONLY, 0644);
-		if (temp->infile == -1)
-			return (protect_fd(file));
-	}
-	unlink(file);
-	free(file);
+	close(td[1]);
+	temp->infile = td[0];
 }
 
 void	handle_heredoc(t_list **list, t_exp **exp)
