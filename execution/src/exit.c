@@ -27,7 +27,7 @@ int	ft_exit(char **cmd)
 		if (ft_isnumber(cmd[1]))
 			exit(atoi(cmd[1]));
 		else
-			return (ft_error("exit", cmd[1], "numeric argument required"), 1);
+			return (ft_error("exit", cmd[1], "numeric argument required"), exit(2), 1);
 	}
-	return (ft_error("exit", NULL, "too many arguments"), 1);
+	return (write(2, "exit\n", 5), ft_error("exit", NULL, "too many arguments"), 1);
 }

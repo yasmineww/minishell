@@ -35,7 +35,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	}
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
-	return (perror(cmd), exit(1), NULL);
+	return (exp->status = 127, perror(cmd), exit(127), NULL);
 }
 
 void	check_value_export(t_list *list)
@@ -100,7 +100,6 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	int	i;
 	int	count;
 	static int	status;
-	int		exitcode;
 
 	if (!list || !list->option)
 		return (1);
@@ -162,6 +161,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				&& execve(list->option[0], list->option, envp) == -1)
 			{
 				perror("execve");
+				exp->status = 127;
 				exit(127);
 			}
 		}
@@ -183,7 +183,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	{
 		waitpid(pid[i], &status, 0);
 		if (WIFEXITED(status))
-			exitcode = WEXITSTATUS(status);
+			exp->status = WEXITSTATUS(status);
 		i++;
 	}
 	free(pid);
