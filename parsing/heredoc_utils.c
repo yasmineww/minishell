@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/09 18:21:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:20:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 	j = 0;
 	replace = ft_calloc (1, len + 1);
 	if (!replace)
-		return NULL;
+		return (NULL);
 	while (node[++i])
 	{
 		if (node[i] == '$' && (check_space(&node[i + 1]) || node[i + 1] == '\0'))

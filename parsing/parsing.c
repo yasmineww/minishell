@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 16:21:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:20:27 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	cases(char *ptr, int i)
 {
-	if (ptr[i] == '|') // case 3.1 : pipe first
+	if (ptr[i] == '|')
 		return (1);
-	if(special_last(ptr)) // case 3.2 : special char last
+	if (special_last(ptr))
 		return (1);
-	if (two_specials(ptr)) // case 3.3 : two specials in a row
+	if (two_specials(ptr))
 		return (1);
 	return (0);
 }

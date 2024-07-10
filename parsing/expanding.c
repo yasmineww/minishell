@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 10:57:21 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:18:33 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 	j = 0;
 	replace = ft_calloc(1, len + 1);
 	if (!replace)
-		return NULL;
+		return (NULL);
 	while (node[++i])
 	{
 		if (node[i] == '"' && !in_single_quotes)
@@ -53,7 +53,7 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			}
 			i++;
 			if (node[i] == '$')
-				continue;
+				continue ;
 			end = get_key(&node[i]);
 			value = get_value(&node[i], end, exp);
 			if (value)
@@ -69,7 +69,7 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 		else
 			replace[j++] = node[i];
 	}
-	replace[len] = '\0'; 
+	replace[len] = '\0';
 	return (replace);
 }
 
@@ -81,7 +81,7 @@ int	get_value_len(char *ptr, int j, int end, t_exp **exp)
 	env = *exp;
 	ptr2 = ft_substr(ptr, j, end);
 	if (!ptr2)
-		return 0;
+		return (0);
 	while (env)
 	{
 		if (!ft_strcmp(env->key, ptr2))
@@ -136,5 +136,5 @@ void	expanding(t_list **list, t_exp **exp)
 			i++;
 		}
 		tmp = tmp->next;
-	}		
+	}
 }

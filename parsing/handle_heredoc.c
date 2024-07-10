@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 09:01:08 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:19:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	char		*file;
 	int			bool;
 	char		*delim;
+	int			fd;
 
 	file = ft_strjoin(".here_doc", ft_itoa(num++));
 	temp->infile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -61,7 +62,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		delim = rm_quotes((temp->option[i + 1]), &bool);
 	else
 		delim = rm_quotes((temp->option[i + 1]), &bool);
-	int fd = dup(0);
+	fd = dup(0);
 	signal(SIGINT, signal_handler_doc);
 	read = readline("> ");
 	while (read)

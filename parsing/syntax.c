@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:53:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/08 16:22:19 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:21:45 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int	helper(char *ptr)
 			i++;
 		if ((i == j) && (ptr[i] == '<' || ptr[i] == '|'))
 			return (1);
-		else if ((i == j) && ptr[i] == '>') // handle >>>
+		else if ((i == j) && ptr[i] == '>')
 		{
 			if (special_char(&ptr[i + 1]))
 				return (1);
 		}
-		else if ((i != j) && (special_char(&ptr[i]))) // compare i & j to check for white spaces
+		else if ((i != j) && (special_char(&ptr[i])))
 			return (1);
 	}
 	return (0);
@@ -51,12 +51,12 @@ int	delimiter(char *ptr)
 			i++;
 		if ((i == j) && (ptr[i] == '>' || ptr[i] == '|'))
 			return (1);
-		else if ((i == j) && ptr[i] == '<') // handle <<<
+		else if ((i == j) && ptr[i] == '<')
 		{
 			if (special_char(&ptr[i + 1]))
 				return (1);
 		}
-		else if ((i != j) && (special_char(&ptr[i]))) // compare i & j to check for white spaces
+		else if ((i != j) && (special_char(&ptr[i])))
 			return (1);
 	}
 	if (helper(&ptr[i]))
@@ -71,7 +71,7 @@ int	two_specials(char *ptr)
 	i = 0;
 	while (ptr[i] != '\0')
 	{
-		if (ptr[i] == '|') //case 1 pipes : ||
+		if (ptr[i] == '|')
 		{
 			i++;
 			while (check_space(&ptr[i]))
@@ -79,7 +79,7 @@ int	two_specials(char *ptr)
 			if (ptr[i] == '|')
 				return (1);
 		}
-		else if (delimiter(&ptr[i])) //case 2 starts with < or >
+		else if (delimiter(&ptr[i]))
 			return (1);
 		i++;
 	}

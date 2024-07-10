@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:13:07 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/10 02:48:07 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:19:24 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	special_case(char **input, char **new, int i)
 {
 	(*new)[i++] = ' ';
 	(*new)[i++] = **input;
-	if ((**input == '>' && *(*input+1) == '>')
-		|| (**input == '<' && *(*input+1) == '<'))
+	if ((**input == '>' && *(*input + 1) == '>')
+		|| (**input == '<' && *(*input + 1) == '<'))
 	{
 		(*new)[i++] = **input;
 		(*input)++;
 	}
-	if (!(*(*input+1) == '>' || *(*input+1) == '<'))
+	if (!(*(*input + 1) == '>' || *(*input + 1) == '<'))
 		(*new)[i++] = ' ';
 	return (i);
 }

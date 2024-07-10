@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 11:04:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:18:46 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	main(int ac, char **av, char **envp)
 		signal(SIGINT, signal_handler1);
 		input = readline("Minishell$ ");
 		if (!input || isatty(0) == 0)
-			break;
+			break ;
 		add_history(input);
 		parsing(input, &list);
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
-		execute(list ,exp, envp);
+		execute(list, exp, envp);
 		list = NULL;
 		input = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/06/11 18:16:46 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:21:10 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	help(t_list *temp, int i)
 	j = 0;
 	while (temp->option[i][j])
 	{
-		while (temp->option[i][j] && (temp->option[i][j] != '"' && temp->option[i][j] != '\''))
+		while (temp->option[i][j] && (temp->option[i][j] != '"'
+			&& temp->option[i][j] != '\''))
 			j++;
 		if (temp->option[i][j] == '"' || temp->option[i][j] == '\'')
 		{
@@ -30,7 +31,6 @@ void	help(t_list *temp, int i)
 		}
 		if (temp->option[i][j] == '\0')
 			return ;
-			 
 		j++;
 	}
 }
@@ -56,7 +56,7 @@ void	add_back_spaces(t_list **stack_a, char **content)
 	temp->next = node;
 }
 
-void    add_back(t_list **list, char *content)
+void	add_back(t_list **list, char *content)
 {
 	t_list	*node;
 	t_list	*temp;
