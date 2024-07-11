@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 12:13:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:03:46 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/history.h>
 # include <termios.h>
 
-int g_sig;
+int	g_sig;
 
 typedef struct s_env
 {
@@ -54,10 +54,20 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
+
+// ---------------------- utils ----------------------
+
+int		ft_strcmp(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
+char	*ft_substr(char *s, int start, int len);
+int		ft_isalpha_num(char c);
+int		ft_intlen(int n);
+void	*ft_calloc(size_t count, size_t size);
+
+
 // ---------------------- parsing ----------------------
 
 int		error_message(char *input, t_exp **exp);
-int		ft_strcmp(char *s1, char *s2);
 int		special_char(char *ptr);
 int		check_space(char *ptr);
 int		two_specials(char *ptr);
@@ -66,7 +76,6 @@ int		syntax_error(char *ptr);
 int		special_last(char *ptr);
 int		cases(char *ptr, int i);
 int		helper(char *ptr);
-char	**ft_split(char const *s, char c);
 char	**ft_split_spaces(char *s);
 void	add_back(t_list **stack_a, char *content);
 void	store_cmd(char *input, t_list **list);
@@ -77,20 +86,13 @@ char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
 int		parsing(char *input, t_list **list, t_exp **exp);
 void	expanding(t_list **list, t_exp **exp);
-char	*ft_substr(char *s, int start, int len);
-int		ft_isalpha_num(char c);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp **exp);
 void	handle_heredoc(t_list **list, t_exp **exp);
-int		ft_intlen(int n);
 void	expanding_heredoc(char **read, t_exp **exp);
 int		helper2(char *tmp, t_exp **exp);
 int		get_value_len(char *ptr, int j, int end, t_exp **exp);
 char	*store_new_key(char *node, int len, t_exp **exp);
-void	catch_signal(void);
-void	signal_handler1(int sig);
-void	signal_handler2(int sig);
-void	*ft_calloc(size_t count, size_t size);
 
 // ---------------------- execution ----------------------
 
@@ -122,8 +124,8 @@ int		ft_isnumber(char *s);
 
 // ---------------------- signals ----------------------
 
-void	signal_handler2(int sig);
 void	signal_handler1(int sig);
+void	signal_handler2(int sig);
 void	catch_signal(void);
 void	signal_handler_doc(int sig);
 

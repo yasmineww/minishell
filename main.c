@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 11:47:01 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:05:21 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 ////////DONT TOUCH MAIN 25 LINES PLS///////////
 
-// int	setup_prompt(char **input)
-// {
-// 	*input = NULL;
-// 	rl_catch_signals = 0;
-// 	signal(SIGINT, signal_handler1);
-// 	*input = readline("Minishell$ ");
-// 	if (!*input || isatty(0) == 0)
-// 	{
-// 		printf("exit\n");
-// 		return (1);
-// 	}
-// 	if (**input != '\0')
-// 		add_history(*input);
-// 	return (0);
-// }
+int	setup_prompt(char **input)
+{
+	*input = NULL;
+	rl_catch_signals = 0;
+	signal(SIGINT, signal_handler1);
+	*input = readline("Minishell$ ");
+	if (!*input || isatty(0) == 0)
+	{
+		printf("exit\n");
+		return (1);
+	}
+	if (*input && *input[0] != '\0')
+		add_history(*input);
+	return (0);
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -44,17 +44,10 @@ int	main(int ac, char **av, char **envp)
 		(*exp).status = 0;
 	while (1)
 	{
-		rl_catch_signals = 0;
-		signal(SIGINT, signal_handler1);
-		input = readline("Minishell$ ");
-		if (!input || isatty(0) == 0)
-		{
-			printf("exit\n");
+		if (setup_prompt(&input) == 1)
 			break ;
-		}
-		if (*input != '\0')
-			add_history(input);
-		parsing(input, &list, &exp);
+		if (parsing(input, &list, &exp))
+			continue ;
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list, exp, envp);
