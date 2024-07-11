@@ -6,13 +6,13 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 15:32:45 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:36:52 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	replace_with_value(char *node, t_exp **exp, char *replace, int *i)
+int	replace_with_value_heredoc(char *node, t_exp **exp, char *replace, int *i)
 {
 	int		end;
 	char	*value;
@@ -68,7 +68,7 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 		if (node[i] == '$')
 		{
 			i++;
-			if (replace_with_value(node, exp, &replace[j], &i) == 1)
+			if (replace_with_value_heredoc(node, exp, &replace[j], &i) == 1)
 				continue ;
 		}
 		else

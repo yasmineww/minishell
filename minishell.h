@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 16:13:45 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:42:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
-
 // ---------------------- utils ----------------------
 
 int		ft_strcmp(char *s1, char *s2);
@@ -64,7 +63,6 @@ char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
 int		ft_intlen(int n);
 void	*ft_calloc(size_t count, size_t size);
-
 
 // ---------------------- parsing ----------------------
 
@@ -94,6 +92,9 @@ void	expanding_heredoc(char **read, t_exp **exp);
 int		helper2(char *tmp, t_exp **exp);
 int		get_value_len(char *ptr, int j, int end, t_exp **exp);
 char	*store_new_key(char *node, int len, t_exp **exp);
+int		found_question_mark(char node, t_exp **exp, char *replace);
+int		store_dollar(char *node, char *replace, int i);
+int		replace_with_value(char *node, t_exp **exp, char *replace, int *i);
 
 // ---------------------- execution ----------------------
 
