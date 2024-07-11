@@ -79,7 +79,7 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 	std_out = dup(1);
 	if (!list || !list->option || list->next)
 		return ;
-	handle_redirs(list);
+	handle_redirs(list, exp);
 	exec_builtin(&exp, list->option);
 	list->option[0] = NULL;
 	if (list->option[1])
@@ -145,7 +145,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				}
 				if (list->option[0] && is_builtin(list->option))
 				{
-					handle_redirs(list);
+					handle_redirs(list, exp);
 					exec_builtin(&exp, list->option);
 					dup2(fdpipe[0], 0);
 					close(fdpipe[0]);
@@ -154,7 +154,7 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 					exit(0);
 				}
 				else
-					handle_redirs(list);
+					handle_redirs(list, exp);
 				list->option[0] = get_cmd_path(exp, list->option[0]);
 				if (list->option[0]
 					&& execve(list->option[0], list->option, envp) == -1)

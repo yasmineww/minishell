@@ -12,20 +12,6 @@
 
 #include "../../minishell.h"
 
-int	check_ambiguous(char *s, char *val)
-{
-	int	i;
-
-	i = 0;
-	while(s[i])
-	{
-		if (check_space(&s[i]) && val)
-			return (ft_error("bash: ", s, " ambiguous redirect"), 1);// exit status to 1
-		i++;
-	}
-	return (0);
-}
-
 void	remove_redir(char **option, int i)
 {
 	while (option[i] && option[i + 2])
@@ -38,7 +24,7 @@ void	remove_redir(char **option, int i)
 		option[i + 1] = NULL;
 }
 
-void	handle_redirs(t_list *list)
+void	handle_redirs(t_list *list, t_exp *exp)
 {
 	int	i;
 
@@ -55,20 +41,22 @@ void	handle_redirs(t_list *list)
 			continue ;
 		}
 		else if (list->option[i] && !ft_strncmp(list->option[i], ">>", 2))
-			handle_append(list, i);
+			handle_append(list, i, exp);
 		else if (list->option[i] && !ft_strncmp(list->option[i], ">", 1))
-			handle_redir_out(list, i);
+			handle_redir_out(list, i, exp);
 		else if (list->option[i] && !ft_strncmp(list->option[i], "<", 1))
-			handle_redir_in(list, i);
+			handle_redir_in(list, i, exp);
 		i++;
 	}
 }
 
-void	handle_redir_in(t_list *list, int i)
+int	handle_redir_in(t_list *list, int i, t_exp *exp)
 {
 	list->infile = -1;
 	if (list->option[i + 1])
 	{
+		if (exp->ambiguous)
+			return (ft_error("bash: ", list->option[i + 1], " ambiguous redirect"), exit(1), 1);
 		list->infile = open(list->option[i + 1], O_RDONLY);
 		if (list->infile == -1)
 		{
@@ -81,16 +69,13 @@ void	handle_redir_in(t_list *list, int i)
 	}
 }
 
-int	handle_redir_out(t_list *list, int i)
+int	handle_redir_out(t_list *list, int i, t_exp *exp)
 {
 	list->outfile = -1;
 	if (list->option[i + 1])
 	{
-		char *val = getenv(list->option[i + 1]);
-		if (val)
-			check_ambiguous(list->option[i + 1], val);
-		else
-			return (ft_error("bash: ", list->option[i + 1], " ambiguous redirect"), exit(1), 1); // exit status to 1
+		if (exp->ambiguous)
+			return (ft_error("bash: ", list->option[i + 1], " ambiguous redirect"), exit(1), 1);
 		list->outfile = open(list->option[i + 1], O_RDWR
 				| O_CREAT | O_TRUNC, 0644);
 		if (list->outfile == -1)
@@ -105,11 +90,13 @@ int	handle_redir_out(t_list *list, int i)
 	return (0);
 }
 
-void	handle_append(t_list *list, int i)
+int	handle_append(t_list *list, int i, t_exp *exp)
 {
 	list->outfile = -1;
 	if (list->option[i + 1])
 	{
+		if (exp->ambiguous)
+			return (ft_error("bash: ", list->option[i + 1], " ambiguous redirect"), exit(1), 1);
 		list->outfile = open(list->option[i + 1], O_RDWR
 				| O_CREAT | O_APPEND, 0644);
 		if (list->outfile == -1)
