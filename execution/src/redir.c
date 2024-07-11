@@ -67,6 +67,7 @@ int	handle_redir_in(t_list *list, int i, t_exp *exp)
 		close(list->infile);
 		remove_redir(list->option, i);
 	}
+	return (0);
 }
 
 int	handle_redir_out(t_list *list, int i, t_exp *exp)
@@ -108,4 +109,5 @@ int	handle_append(t_list *list, int i, t_exp *exp)
 		close(list->outfile);
 		remove_redir(list->option, i);
 	}
+	return (0);
 }
