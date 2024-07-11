@@ -6,11 +6,19 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 13:04:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:27:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	free_pointers(char *read_me, char *delim, int *td, t_list *temp)
+{
+	free(read_me);
+	free(delim);
+	close(td[1]);
+	temp->infile = td[0];
+}
 
 char	*rm_quotes(char *s1, int *bool)
 {
@@ -61,14 +69,10 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		if (!ft_strcmp(delim, read_me))
 			break ;
 		ft_putendl_fd(read_me, td[1]);
-		free(read_me);
 		read_me = readline("> ");
 	}
 	dup2(fd, 0);
-	free(read_me);
-	free(delim);
-	close(td[1]);
-	temp->infile = td[0];
+	free_pointers(read_me, delim, td, temp);
 }
 
 void	handle_heredoc(t_list **list, t_exp **exp)
