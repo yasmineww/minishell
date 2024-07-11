@@ -6,17 +6,19 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 12:12:44 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:56:28 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	help_me(char *node, t_exp **exp, char *replace, int *i, int j)
+int	replace_with_value(char *node, t_exp **exp, char *replace, int *i)
 {
 	int		end;
 	char	*value;
+	int		j;
 
+	j = 0;
 	if (node[*i] == '$')
 		return (1);
 	end = get_key(&node[*i]);
@@ -34,6 +36,20 @@ int	help_me(char *node, t_exp **exp, char *replace, int *i, int j)
 	return (0);
 }
 
+int	store_dollar(char *node, char *replace, int i)
+{
+	int	j;
+
+	j = 0;
+	if (node[i] == '$' && (check_space(&node[i + 1])
+			|| node[i + 1] == '\0'))
+	{
+		replace[j] = node[i];
+		return (1);
+	}
+	return (0);
+}
+
 char	*store_new_key2(char *node, int len, t_exp **exp)
 {
 	int		i;
@@ -47,16 +63,12 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 		return (NULL);
 	while (node[++i])
 	{
-		if (node[i] == '$' && (check_space(&node[i + 1])
-				|| node[i + 1] == '\0'))
-		{
-			replace[j++] = node[i];
+		if (store_dollar(node, &replace[j], i))
 			break ;
-		}
-		else if (node[i] == '$')
+		if (node[i] == '$')
 		{
 			i++;
-			if (help_me(node, exp, &replace[j], &i, j) == 1)
+			if (replace_with_value(node, exp, &replace[j], &i) == 1)
 				continue ;
 		}
 		else
