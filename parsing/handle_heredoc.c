@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 15:27:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:13:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 	int			i;
 	int			j;
 
-	g_sig = 0;
 	temp = *list;
 	if (temp)
 		temp->infile = 0;
