@@ -12,9 +12,11 @@ OBJ = $(addprefix obj/, $(SRC:.c=.o))
 
 HEADER = minishell.h
 
+LD = -lreadline
+
 CC = cc
 
-FLAG = -Wall -Wextra -Werror -g -fsanitize=address
+# FLAG = -Wall -Wextra -Werror -g -fsanitize=address
 
 READLINE_L = $(shell brew --prefix readline)/lib
 
@@ -28,7 +30,7 @@ obj/%.o: %.c $(HEADER)
 	@printf "\rcompiling...\033[K"
 
 $(NAME): $(OBJ)
-	@($(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME) -L $(READLINE_L))
+	@($(CC) -lreadline $(FLAG) $(OBJ) -o $(NAME) $(LD) -L $(READLINE_L))
 	@printf "\r\033[K\033[33mminishell compiled\033[0m\n"
 
 clean:

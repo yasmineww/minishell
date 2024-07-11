@@ -113,7 +113,7 @@ void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
 t_exp	*dup_list(t_exp *exp);
 void	handle_redir_in(t_list *list, int i);
-void	handle_redir_out(t_list *list, int i);
+int		handle_redir_out(t_list *list, int i);
 void	handle_append(t_list *list, int i);
 int		ft_lstsize(t_list *lst);
 void	handle_redirs(t_list *list);

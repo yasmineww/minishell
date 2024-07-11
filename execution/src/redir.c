@@ -12,6 +12,20 @@
 
 #include "../../minishell.h"
 
+int	check_ambiguous(char *s, char *val)
+{
+	int	i;
+
+	i = 0;
+	while(s[i])
+	{
+		if (check_space(&s[i]) && val)
+			return (ft_error("bash: ", s, " ambiguous redirect"), 1);// exit status to 1
+		i++;
+	}
+	return (0);
+}
+
 void	remove_redir(char **option, int i)
 {
 	while (option[i] && option[i + 2])
@@ -67,11 +81,16 @@ void	handle_redir_in(t_list *list, int i)
 	}
 }
 
-void	handle_redir_out(t_list *list, int i)
+int	handle_redir_out(t_list *list, int i)
 {
 	list->outfile = -1;
 	if (list->option[i + 1])
 	{
+		char *val = getenv(list->option[i + 1]);
+		if (val)
+			check_ambiguous(list->option[i + 1], val);
+		else
+			return (ft_error("bash: ", list->option[i + 1], " ambiguous redirect"), exit(1), 1); // exit status to 1
 		list->outfile = open(list->option[i + 1], O_RDWR
 				| O_CREAT | O_TRUNC, 0644);
 		if (list->outfile == -1)
@@ -83,6 +102,7 @@ void	handle_redir_out(t_list *list, int i)
 		close(list->outfile);
 		remove_redir(list->option, i);
 	}
+	return (0);
 }
 
 void	handle_append(t_list *list, int i)
