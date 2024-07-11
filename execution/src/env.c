@@ -58,6 +58,7 @@ void	find_key(char *envp, t_exp *exp)
 {
 	int	l;
 	int	j;
+	static char	*env_save;
 
 	l = 0;
 	j = 0;
@@ -72,6 +73,12 @@ void	find_key(char *envp, t_exp *exp)
 		j++;
 	}
 	exp->key[j] = '\0';
+	if (getcwd(NULL, 0))
+	{
+		env_save = getcwd(NULL, 0);
+		exp->pwd = ft_strdup(env_save);
+		free(env_save);
+	}
 	find_value(envp, exp, l + 1);
 }
 
@@ -80,7 +87,6 @@ int	ft_env(t_exp **exp, char **envp)
 	int			i;
 	t_exp		*tmp;
 	t_exp		*new;
-	static char	*env_save;
 
 	i = -1;
 	*exp = NULL;
@@ -100,12 +106,6 @@ int	ft_env(t_exp **exp, char **envp)
 				tmp = tmp->next;
 			tmp->next = new;
 		}
-	}
-	if (getcwd(NULL, 0))
-	{
-		env_save = getcwd(NULL, 0);
-		(*exp)->pwd = ft_strdup(env_save);
-		free(env_save);
 	}
 	return ((*exp)->status = 1, 1);
 }

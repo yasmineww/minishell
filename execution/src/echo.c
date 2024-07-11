@@ -53,7 +53,6 @@ int	ft_echo(char **cmd, t_exp *exp)
 {
 	int	no_nl;
 	int	i;
-	(void)exp;
 
 	no_nl = 0;
 	i = ft_echo_helper(cmd, &no_nl);
