@@ -6,11 +6,43 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 15:55:09 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:15:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	found_question_mark(char node, t_exp **exp, char *replace)
+{
+	char	*value;
+	int		j;
+
+	j = 0;
+	if (node == '?')
+	{
+		value = ft_itoa((*exp)->status);
+		while (*value)
+		{
+			replace[j++] = *value;
+			value++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+int	store_dollar(char *node, char *replace, int i)
+{
+	int	j;
+
+	j = 0;
+	if ((check_space(&node[i + 1]) || node[i + 1] == '\0'))
+	{
+		replace[j] = node[i];
+		return (1);
+	}
+	return (0);
+}
 
 char	*store_new_key(char *node, int len, t_exp **exp)
 {
@@ -35,27 +67,17 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 			in_single_quotes = !in_single_quotes;
 		else if (node[i] == '$' && !in_single_quotes)
 		{
-			if (check_space(&node[i + 1]) || node[i + 1] == '\0')
-			{
-				replace[j++] = node[i];
+			if (store_dollar(node, &replace[j], i) && j++)
 				break ;
-			}
-			else if (node[i + 1] == '?')
-			{
-				i++;
-				value = ft_itoa((*exp)->status);
-				while (*value)
-				{
-					replace[j++] = *value;
-					value++;
-				}
+			else if (found_question_mark(node[i + 1], exp, &replace[j]) && i++)
 				continue ;
-			}
 			i++;
 			if (node[i] == '$')
 				continue ;
 			end = get_key(&node[i]);
 			value = get_value(&node[i], end, exp);
+			if (end == 0 || !value)
+				(*exp)->ambiguous = 1;
 			if (value)
 			{
 				while (*value)

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 12:56:28 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:32:45 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	replace_with_value(char *node, t_exp **exp, char *replace, int *i)
 	return (0);
 }
 
-int	store_dollar(char *node, char *replace, int i)
+int	store_dollar_heredoc(char *node, char *replace, int i)
 {
 	int	j;
 
@@ -63,7 +63,7 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 		return (NULL);
 	while (node[++i])
 	{
-		if (store_dollar(node, &replace[j], i))
+		if (store_dollar_heredoc(node, &replace[j], i))
 			break ;
 		if (node[i] == '$')
 		{

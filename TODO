@@ -82,6 +82,7 @@ bash-3.2$ export ts=$tl
 
 // PATH kitprinta w _ makitprintaach f export
 ------------parsing------------
+add ctrl C exit status
 
 export a="ls "
 export a="ls -la" -- export a=" ls -la" --> $a$a
