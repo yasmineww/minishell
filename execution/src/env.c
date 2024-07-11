@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 23:43:08 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:38:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	find_value(char *env, t_exp *exp, int l)
 
 void	find_key(char *envp, t_exp *exp)
 {
-	int	l;
-	int	j;
+	int			l;
+	int			j;
 	static char	*env_save;
 
 	l = 0;

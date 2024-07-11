@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 23:47:15 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:45:59 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,14 @@ int	export(t_exp **exp, char *s)
 
 	i = 0;
 	cur = *exp;
-	if (s[i] && !isalpha_underscore(s[i], 1)) // mnb3d an7taj nzid ta lquotes 7it atb9a tsifthom
-		return (ft_error("export", s, "not a valid identifier"),(*exp)->status = 1, 1);
+	if (s[i] && !isalpha_underscore(s[i], 1))
+		return (ft_error("export", s, "not a valid identifier"),
+			(*exp)->status = 1, 1);
 	while (s[i] && (s[i] != '+' || s[i] != '='))
 	{
 		if (s[i] && !isalpha_underscore(s[i], 0))
-			return (ft_error("export", s, "not a valid identifier"),(*exp)->status = 1, 1);
+			return (ft_error("export", s, "not a valid identifier"),
+				(*exp)->status = 1, 1);
 		i++;
 		if (s[i] == '+')
 		{
@@ -111,7 +113,8 @@ int	export(t_exp **exp, char *s)
 				}
 			}
 			else
-				return (ft_error("export", s, "not a valid identifier"),(*exp)->status = 1, 1);
+				return (ft_error("export", s, "not a valid identifier"),
+					(*exp)->status = 1, 1);
 		}
 		else if (s[i] == '=')
 		{
@@ -129,7 +132,7 @@ int	export(t_exp **exp, char *s)
 			}
 			new = malloc(sizeof(t_exp));
 			if (!new)
-				return ((*exp)->status = 1 ,1);
+				return ((*exp)->status = 1, 1);
 			new->key = ft_substr(s, 0, old_i);
 			new->value = ft_strdup(s + old_i + 1);
 			new->next = NULL;
@@ -146,7 +149,7 @@ int	export(t_exp **exp, char *s)
 			}
 			new = malloc(sizeof(t_exp));
 			if (!new)
-				return ((*exp)->status = 1 ,1);
+				return ((*exp)->status = 1, 1);
 			new->key = ft_strdup(s);
 			new->value = NULL;
 			new->next = NULL;

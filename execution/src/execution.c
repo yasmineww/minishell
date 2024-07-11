@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:14:50 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:48:58 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	return (exp->status = 127, perror(cmd), exit(127), NULL);
 }
 
+// should be before the line count = ft_lstsize(list);
 void	check_value_export(t_list *list)
 {
 	int		i;
@@ -90,12 +91,12 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 
 int	exec(t_exp *exp, t_list *list, char **envp)
 {
-	int	fdpipe[2];
-	int	std_in;
-	int	std_out;
-	int	*pid;
-	int	i;
-	int	count;
+	int			fdpipe[2];
+	int			std_in;
+	int			std_out;
+	int			*pid;
+	int			i;
+	int			count;
 	static int	status;
 
 	if (!list || !list->option)
@@ -105,7 +106,6 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	pid = NULL;
 	i = 0;
 	signal(SIGQUIT, signal_handler2);
-	// check_value_export(list);
 	count = ft_lstsize(list);
 	if (count == 1 && is_builtin(list->option))
 		onecmd_builtin(exp, list);
@@ -122,7 +122,6 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				exit(1);
 			}
 			pid[i] = fork();
-			// catch signal command
 			if (pid[i] < 0)
 				perror("fork");
 			else if (pid[i] == 0)
@@ -212,7 +211,7 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 		exp->path = ft_split(tmp, ':');
 	if (!exp || !exp->path)
 		return (exp->status = 1, 1);
-	// free(tmp);
+	free(tmp);
 	exec(exp, list, envp);
 	tcsetattr(0, 0, &term);
 	return (0);
