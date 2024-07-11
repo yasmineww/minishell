@@ -26,14 +26,14 @@ int	ft_exit(char **cmd , t_exp *exp)
 		if (ft_isnumber(cmd[1]))
 			exit(my_atoi(cmd[1]));// replace with my atoi
 		else
-			return (write(2, "exit\n", 5), ft_error("exit", cmd[1], "numeric argument required"), exit(255), 1);
+			return (ft_error("exit", cmd[1], "numeric argument required"), exit(255), 1);
 	}
 	if (i > 2)
 	{
 			if (!ft_isnumber(cmd[1]))
-				return (write(2, "exit\n", 5), ft_error("exit", cmd[1], "numeric argument required"), exit(255), 1);
+				return (ft_error("exit", cmd[1], "numeric argument required"), exit(255), 1);
 			else
-				return (write(2, "exit\n", 5),ft_error("exit", NULL, "too many arguments"), exp->status = 1, 1);
+				return (ft_error("exit", NULL, "too many arguments"), exp->status = 1, 1);
 	}
 	return (exp->status = 1, 1);
 }

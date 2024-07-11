@@ -27,8 +27,7 @@ int	is_builtin(char **cmd)
 			return (1);
 		if (ft_strcmp(cmd[i], "exit") == 0)
 		{
-			///puts("ok");when i write exit, it enters this if statement twice
-			// printf("exit\n");
+			printf("exit\n");
 			return (1);
 		}
 		if (ft_strcmp(cmd[i], "echo") == 0)

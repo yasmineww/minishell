@@ -79,14 +79,11 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 	std_out = dup(1);
 	if (!list || !list->option || list->next)
 		return ;
-	if (is_builtin(list->option))
-	{
-		handle_redirs(list);
-		exec_builtin(&exp, list->option);
-		list->option[0] = NULL;
-		if (list->option[1])
-			list->option[1] = NULL;
-	}
+	handle_redirs(list);
+	exec_builtin(&exp, list->option);
+	list->option[0] = NULL;
+	if (list->option[1])
+		list->option[1] = NULL;
 	close(std_in);
 	close(std_out);
 }
