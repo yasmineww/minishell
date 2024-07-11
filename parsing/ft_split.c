@@ -6,13 +6,13 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:03:30 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/05/24 16:17:43 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:04:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	count_word(const char *str, char c)
+int	count_word(const char *str, char c)
 {
 	int	count;
 

@@ -6,13 +6,13 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:03:30 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/05 10:46:45 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:07:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	count_word_spaces(char *str)
+int	count_word_spaces(char *str)
 {
 	int	count;
 

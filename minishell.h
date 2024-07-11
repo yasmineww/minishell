@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 16:42:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:09:24 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);
 int		ft_intlen(int n);
 void	*ft_calloc(size_t count, size_t size);
+int		count_word_spaces(char *str);
 
 // ---------------------- parsing ----------------------
 
