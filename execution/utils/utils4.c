@@ -6,11 +6,24 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 12:12:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:19:00 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+int	my_atoi(char *str)
+{
+	long	res;
+
+	res = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		res = (res * 10) + (*str - '0');
+		str++;
+	}
+	return (res);
+}
 
 void	ft_putendl_fd(char *s, int fd)
 {

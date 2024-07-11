@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 12:13:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:19:24 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	ft_bzero(void *s, size_t n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
 char	*ft_strtrim(char *s1, char *set);
+int		my_atoi(char *str);
 
 #endif

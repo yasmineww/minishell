@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:32:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:12:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:18:45 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_exit(char **cmd , t_exp *exp)
 	if (i == 2)
 	{
 		if (ft_isnumber(cmd[1]))
-			exit(atoi(cmd[1]));// replace with my atoi
+			exit(my_atoi(cmd[1]));// replace with my atoi
 		else
 			return (write(2, "exit\n", 5), ft_error("exit", cmd[1], "numeric argument required"), exit(255), 1);
 	}
