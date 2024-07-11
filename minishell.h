@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 09:14:02 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:13:49 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,6 @@ void	expanding_heredoc(char **read, t_exp **exp);
 int		helper2(char *tmp, t_exp **exp);
 int		get_value_len(char *ptr, int j, int end, t_exp **exp);
 char	*store_new_key(char *node, int len, t_exp **exp);
-char	*ft_strtrim(char *s1, char *set);
-void	ft_putendl_fd(char *s, int fd);
-char	*ft_itoa(int n);
 void	catch_signal(void);
 void	signal_handler1(int sig);
 void	signal_handler2(int sig);

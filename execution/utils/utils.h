@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/09 15:48:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:13:13 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ char	*ft_strchr(const char *s, int c);
 int		isalpha_underscore(int c, int flag);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
+void	ft_putendl_fd(char *s, int fd);
+char	*ft_itoa(int n);
+char	*ft_strtrim(char *s1, char *set);
 
 #endif
