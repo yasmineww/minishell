@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 23:45:55 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:20:57 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	is_builtin(char **cmd)
 		if (ft_strcmp(cmd[i], "env") == 0)
 			return (1);
 		if (ft_strcmp(cmd[i], "exit") == 0)
+		{
+			///puts("ok");when i write exit, it enters this if statement twice
+			// printf("exit\n");
 			return (1);
+		}
 		if (ft_strcmp(cmd[i], "echo") == 0)
 			return (1);
 		if (ft_strcmp(cmd[i], "unset") == 0)

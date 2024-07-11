@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 22:00:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:06:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	read_me = readline("> ");
 	while (read_me)
 	{
-		if (g_sig)/////leaks
-		{
-			(*exp)->status = 1;
-			return ;
-		}
 		if (!bool && ft_strcmp(delim, read_me))
 			expanding_heredoc(&read_me, exp);
 		if (!ft_strcmp(delim, read_me))
@@ -104,4 +99,6 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 		}
 		temp = temp->next;
 	}
+	if (g_sig == 1)
+		(*exp)->status = 1;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 23:45:43 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:14:02 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-void	parsing(char *input, t_list **list, t_exp **exp);
+int		parsing(char *input, t_list **list, t_exp **exp);
 void	expanding(t_list **list, t_exp **exp);
 char	*ft_substr(char *s, int start, int len);
 int		ft_isalpha_num(char c);

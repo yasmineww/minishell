@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:50:33 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 16:12:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:14:08 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	signal_handler_doc(int sig)
 	if (sig == SIGINT)
 	{
 		g_sig = 1;
-		// (*exp)->status = 1;
 		close(0);
 	}
 }

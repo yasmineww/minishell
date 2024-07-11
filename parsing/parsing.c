@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 15:52:58 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:11:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	quotes_syntax_error(char *input)
 	return (0);
 }
 
-void	parsing(char *input, t_list **list, t_exp **exp)
+int	parsing(char *input, t_list **list, t_exp **exp)
 {
 	t_list	*temp;
 	char	*tmp;
@@ -83,13 +83,14 @@ void	parsing(char *input, t_list **list, t_exp **exp)
 	while ((*tmp >= 9 && *tmp <= 13) || *tmp == 32)
 		tmp++;
 	if (!*tmp)
-		return ;
+		return (1);
 	if (quotes_syntax_error(input) || syntax_error(input))
 	{
 		error_message(input, exp);
-		return ;
+		return (1);
 	}
 	input = add_space(input);
 	split_cmd(list, input);
 	temp = *list;
+	return (0);
 }

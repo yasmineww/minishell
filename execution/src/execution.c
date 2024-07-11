@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 23:44:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:14:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 	if (exp)
 		exp->path = ft_split(tmp, ':');
 	if (!exp || !exp->path)
-		return (exp->status = 1 ,1);
+		return (exp->status = 1, 1);
 	// free(tmp);
 	exec(exp, list, envp);
 	tcsetattr(0, 0, &term);
