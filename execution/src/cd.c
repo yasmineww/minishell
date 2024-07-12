@@ -82,6 +82,7 @@ int	ft_cd(char *path, t_exp *exp)
 	int		ret;
 	t_exp	*tmp;
 	int		home_found;
+	char	*cwd;
 
 	home_found = 0;
 	if (!path || path[0] == '\0')
@@ -112,14 +113,18 @@ int	ft_cd(char *path, t_exp *exp)
 	}
 	else if (!ft_strncmp(path, "..", 2))
 	{
-		if (!getcwd(NULL, 0))
+		cwd = getcwd(NULL, 0);
+		if (!cwd)
 		{
 			ft_error("bash: cd:", NULL,
 				"error in retrieving current directory");
 			chdir(exp->pwd);
 		}
 		else
+		{
+			free(cwd);
 			chdir("..");
+		}
 	}
 	else
 	{

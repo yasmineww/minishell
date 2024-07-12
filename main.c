@@ -29,6 +29,8 @@ int	setup_prompt(char **input, t_exp *exp)
 	if (!*input || isatty(0) == 0)
 	{
 		printf("exit\n");
+		free_env(exp);
+		free(exp->pwd);
 		return (1);
 	}
 	if (*input && *input[0] != '\0')
@@ -41,18 +43,32 @@ void	f()
 	system("leaks minishell");
 }
 
+void	set_pwd(t_exp *exp)
+{
+	static char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd)
+	{
+		// free(exp->pwd);
+		exp->pwd = ft_strdup(cwd);
+		free(cwd);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_list	*list;
 	t_exp	*exp;
 
-	atexit(f);
+	// atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;
 	list = NULL;
 	ft_env(&exp, envp);
+	set_pwd(exp);
 	if (exp)
 		(*exp).status = 0;
 	while (1)

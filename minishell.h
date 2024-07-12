@@ -124,6 +124,8 @@ char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd, t_exp *exp);
 int		ft_isnumber(char *s);
+void	free_env(t_exp *exp);
+
 
 // ---------------------- signals ----------------------
 

@@ -211,7 +211,7 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 		exp->path = ft_split(tmp, ':');
 	if (!exp || !exp->path)
 		return (exp->status = 1, 1);
-	free(tmp);
+	// free(tmp);
 	exec(exp, list, envp);
 	tcsetattr(0, 0, &term);
 	return (0);

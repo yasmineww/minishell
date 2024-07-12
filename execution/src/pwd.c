@@ -14,9 +14,13 @@
 
 int	ft_pwd(t_exp *exp)
 {
-	if (getcwd(NULL, 0))
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd)
 	{
-		printf("%s\n", getcwd(NULL, 0));
+		printf("%s\n", cwd);
+		free(cwd);
 		return (0);
 	}
 	else
