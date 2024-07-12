@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 18:44:19 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:52:29 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,11 @@ int	setup_prompt(char **input, t_exp *exp)
 {
 	*input = NULL;
 	rl_catch_signals = 0;
-	signal(SIGINT, signal_handler1);
-	// printf("exp->status = %d\n", exp->status);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 	*input = readline("Minishell$ ");
-	if (g_sig == -10)
-	{
-		// puts("ok");
+	if (g_sig == 4)
 		exp->status = 1;
-	}
 	if (!*input || isatty(0) == 0)
 	{
 		printf("exit\n");

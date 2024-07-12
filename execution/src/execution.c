@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 18:48:58 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:48:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	onecmd_builtin(t_exp *exp, t_list *list)
 	close(std_out);
 }
 
-int	exec(t_exp *exp, t_list *list, char **envp)
+int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 {
 	int			fdpipe[2];
 	int			std_in;
@@ -105,7 +105,10 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 	std_out = dup(1);
 	pid = NULL;
 	i = 0;
-	signal(SIGQUIT, signal_handler2);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	
+	// signal(SIGQUIT, signal_handler2);
 	count = ft_lstsize(list);
 	if (count == 1 && is_builtin(list->option))
 		onecmd_builtin(exp, list);
@@ -126,6 +129,8 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 				perror("fork");
 			else if (pid[i] == 0)
 			{
+				signal(SIGINT, SIG_DFL);
+				signal(SIGQUIT, SIG_DFL);
 				if (i > 0)
 				{
 					dup2(std_in, 0);
@@ -180,10 +185,25 @@ int	exec(t_exp *exp, t_list *list, char **envp)
 		while (i < count)
 		{
 			waitpid(pid[i], &status, 0);
-			if (WIFEXITED(status))
-				exp->status = WEXITSTATUS(status);
+			
+			// ft_exit_status(WTERMSIG(status) + 128);
+			
 			i++;
 		}
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			{
+				tcsetattr(STDIN_FILENO, TCSANOW, term);
+				write(1, "Quit: 3\n", 8);
+			}
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			{
+				tcsetattr(STDIN_FILENO, TCSANOW, term);
+				write(1, "\n", 1);
+			}
+			if (WIFEXITED(status))
+				exp->status = (WEXITSTATUS(status));
+			else if (WIFSIGNALED(status))
+				exp->status = WTERMSIG(status) + 128;
 		free(pid);
 		dup2(std_in, 0);
 		close(std_in);
@@ -212,7 +232,7 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 	if (!exp || !exp->path)
 		return (exp->status = 1, 1);
 	// free(tmp);
-	exec(exp, list, envp);
-	tcsetattr(0, 0, &term);
+	exec(exp, list, envp, &term);
+	// tcsetattr(0, 0, &term);
 	return (0);
 }

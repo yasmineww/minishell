@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 17:09:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:51:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		ft_pwd(t_exp *exp);
 int		countparams(char **s);
 void	print_env(t_exp **exp);
 int		ft_echo(char **cmd, t_exp *exp);
-int		exec(t_exp *exp, t_list *list, char **envp);
+int		exec(t_exp *exp, t_list *list, char **envp, struct termios *term);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
 void	find_key(char *envp, t_exp *exp);
@@ -129,9 +129,7 @@ void	free_env(t_exp *exp);
 
 // ---------------------- signals ----------------------
 
-void	signal_handler1(int sig);
-void	signal_handler2(int sig);
-void	catch_signal(void);
+void	signal_handler(int sig);
 void	signal_handler_doc(int sig);
 
 #endif
