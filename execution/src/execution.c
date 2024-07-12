@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/12 12:48:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:32:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 	i = 0;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	
-	// signal(SIGQUIT, signal_handler2);
 	count = ft_lstsize(list);
 	if (count == 1 && is_builtin(list->option))
 		onecmd_builtin(exp, list);
@@ -185,25 +183,22 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 		while (i < count)
 		{
 			waitpid(pid[i], &status, 0);
-			
-			// ft_exit_status(WTERMSIG(status) + 128);
-			
 			i++;
 		}
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-			{
-				tcsetattr(STDIN_FILENO, TCSANOW, term);
-				write(1, "Quit: 3\n", 8);
-			}
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			{
-				tcsetattr(STDIN_FILENO, TCSANOW, term);
-				write(1, "\n", 1);
-			}
-			if (WIFEXITED(status))
-				exp->status = (WEXITSTATUS(status));
-			else if (WIFSIGNALED(status))
-				exp->status = WTERMSIG(status) + 128;
+		{
+			tcsetattr(STDIN_FILENO, TCSANOW, term);
+			write(1, "Quit: 3\n", 8);
+		}
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			tcsetattr(STDIN_FILENO, TCSANOW, term);
+			write(1, "\n", 1);
+		}
+		if (WIFEXITED(status))
+			exp->status = (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status))
+			exp->status = WTERMSIG(status) + 128;
 		free(pid);
 		dup2(std_in, 0);
 		close(std_in);
@@ -233,6 +228,5 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 		return (exp->status = 1, 1);
 	// free(tmp);
 	exec(exp, list, envp, &term);
-	// tcsetattr(0, 0, &term);
 	return (0);
 }

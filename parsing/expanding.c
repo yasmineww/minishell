@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 18:18:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:39:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*store_new_key(char *node, int len, t_exp **exp)
 		else
 			replace[j++] = node[i];
 	}
-	replace[len] = '\0';
 	return (replace);
 }
 

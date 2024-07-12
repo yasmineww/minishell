@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 12:52:29 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:30:57 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	set_pwd(t_exp *exp)
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		// free(exp->pwd);
 		exp->pwd = ft_strdup(cwd);
 		free(cwd);
 	}
