@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 17:59:48 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:08:28 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	*list;
 	t_exp	*exp;
 
-	atexit(f);
-	atexit(f);
+	// atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;
@@ -92,6 +91,7 @@ int	main(int ac, char **av, char **envp)
 	set_pwd(exp);
 	if (exp)
 		(*exp).status = 0;
+	exp->ambiguous = 0; // to be removed
 	while (1)
 	{
 		if (setup_prompt(&input, exp))

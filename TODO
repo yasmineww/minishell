@@ -1,5 +1,8 @@
 ------------execution------------
-
+Minishell$ mkdir 1
+Minishell$ cd 1
+Minishell$ mkdir 2
+Minishell$ cd 2
 exit quotes handling numbers
 
 //oldpwd tadir cd 3ad dkhlo (optional)
@@ -164,3 +167,10 @@ MY TEST DONT DELETE
 		// 	temp = temp->next;
 		// 	puts("--------------------------------------");
 		// }
+\
+
+waaaaaaaa fink a PWD oldpwd unset
+Unset path 
+unset head two times
+_=/usr/bin/env
+export his="                '' '' "
