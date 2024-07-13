@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 14:30:57 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 09:54:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,37 @@ void	set_pwd(t_exp *exp)
 	}
 }
 
+void	free_list(t_list *list)
+{
+	t_list	*temp;
+	int 	i;
+
+	while (list)
+	{
+		temp = list;
+		free(temp->cmd);
+		temp->cmd = NULL;
+		i = 0;
+		while (temp->option[i])
+		{
+			free(temp->option[i]);
+			temp->option[i] = NULL;
+			i++;
+		}
+		free(temp->option);
+		temp->option = NULL;
+		list = temp->next;
+		free(temp);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_list	*list;
 	t_exp	*exp;
 
-	// atexit(f);
+	atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;
@@ -70,13 +94,36 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		if (setup_prompt(&input, exp) == 1)
+		{
+			free(input);///added this
 			break ;
+		}
 		if (parsing(input, &list, &exp))
 			continue ;
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list, exp, envp);
-		list = NULL;
 		input = NULL;
+		free_list(list);
+		int i = 0;
+		t_list *temp = list;
+		while (temp)
+		{
+			free(temp->cmd);
+			temp->cmd = NULL;
+			i = 0;
+			while (list->option[i])
+			{
+				free(list->option[i]);
+				list->option[i] = NULL;
+				i++;
+			}
+			free(list->option);
+			list->option = NULL;
+			list = temp->next;
+			free(temp);
+			temp = list;
+		}
+		list = NULL;
 	}
 }
