@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/12 14:32:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:53:38 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 	i = 0;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+
+	// signal(SIGQUIT, signal_handler2);
 	count = ft_lstsize(list);
 	if (count == 1 && is_builtin(list->option))
 		onecmd_builtin(exp, list);
@@ -183,6 +185,9 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 		while (i < count)
 		{
 			waitpid(pid[i], &status, 0);
+
+			// ft_exit_status(WTERMSIG(status) + 128);
+
 			i++;
 		}
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)

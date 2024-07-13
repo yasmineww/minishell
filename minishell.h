@@ -50,7 +50,7 @@ typedef struct s_exp
 	char			**path;
 	char			*key;
 	char			*value;
-	char			*oldpwd;
+	//char			*oldpwd; // still not sure i'll be working with this
 	char			*pwd;
 	struct s_exp	*next;
 }	t_exp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 12:19:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:41:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
 char	*ft_strtrim(char *s1, char *set);
 int		my_atoi(char *str);
+void	ft_free(char **s);
 
 #endif
