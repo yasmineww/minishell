@@ -12,6 +12,24 @@
 
 #include "../../minishell.h"
 
+static char	*ft_getcwd(t_exp *exp)
+{
+	while (exp)
+	{
+		if (ft_strcmp(exp->key, "PWD") == 0)
+		{
+			if (exp->value)
+				return (ft_strdup(exp->value));
+			else
+				return (NULL);
+		}
+		exp = exp->next;
+	}
+	return (NULL);
+}
+
+static void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
+
 void	update_cwd(t_exp *exp)
 {
 	char	*cwd;
@@ -20,11 +38,6 @@ void	update_cwd(t_exp *exp)
 
 	oldpwd = NULL;
 	cwd = getcwd(NULL, 0);
-	// if (!cwd)
-	// {
-	// 	ft_error("bash: cd:", NULL, "error in retrieving current directory");
-	// 	return ;
-	// }
 	tmp = exp;
 	while (tmp)
 	{
