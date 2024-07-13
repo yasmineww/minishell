@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/10 12:21:10 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 09:47:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	store_cmd(char *input, t_list **list)
 	{
 		add_back(list, s[i]);
 		free(s[i]);
+		s[i] = NULL;
 		i++;
 	}
 	free(s);
@@ -106,6 +107,7 @@ void	split_cmd(t_list **list, char *input)
 	int		i;
 
 	store_cmd(input, list);
+	free(input);
 	i = 0;
 	temp = *list;
 	while (temp)

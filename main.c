@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 13:43:39 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:53:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,32 @@ void	set_pwd(t_exp *exp)
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		// free(exp->pwd);
 		exp->pwd = ft_strdup(cwd);
 		free(cwd);
+	}
+}
+
+void	free_list(t_list *list)
+{
+	t_list	*temp;
+	int		i;
+
+	while (list)
+	{
+		temp = list;
+		free(temp->cmd);
+		temp->cmd = NULL;
+		i = 0;
+		while (temp->option[i])
+		{
+			free(temp->option[i]);
+			temp->option[i] = NULL;
+			i++;
+		}
+		free(temp->option);
+		temp->option = NULL;
+		list = temp->next;
+		free(temp);
 	}
 }
 
@@ -59,6 +82,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	*list;
 	t_exp	*exp;
 
+	atexit(f);
 	atexit(f);
 	(void)ac;
 	(void)av;
@@ -71,13 +95,19 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		if (setup_prompt(&input, exp) == 1)
+		{
+			free(input);///added this
 			break ;
+		}
 		if (parsing(input, &list, &exp))
 			continue ;
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list, exp, envp);
-		list = NULL;
 		input = NULL;
+		free_list(list);
+		list = NULL;
 	}
+	free_list(list);
+	list = NULL;
 }

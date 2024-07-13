@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/12 13:42:52 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:53:38 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,19 +191,19 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 			i++;
 		}
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-			{
-				tcsetattr(STDIN_FILENO, TCSANOW, term);
-				write(1, "Quit: 3\n", 8);
-			}
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			{
-				tcsetattr(STDIN_FILENO, TCSANOW, term);
-				write(1, "\n", 1);
-			}
-			if (WIFEXITED(status))
-				exp->status = (WEXITSTATUS(status));
-			else if (WIFSIGNALED(status))
-				exp->status = WTERMSIG(status) + 128;
+		{
+			tcsetattr(STDIN_FILENO, TCSANOW, term);
+			write(1, "Quit: 3\n", 8);
+		}
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			tcsetattr(STDIN_FILENO, TCSANOW, term);
+			write(1, "\n", 1);
+		}
+		if (WIFEXITED(status))
+			exp->status = (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status))
+			exp->status = WTERMSIG(status) + 128;
 		free(pid);
 		dup2(std_in, 0);
 		close(std_in);
@@ -233,7 +233,5 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 		return (exp->status = 1, 1);
 	// free(tmp);
 	exec(exp, list, envp, &term);
-	// tcsetattr(0, 0, &term);
-	ft_free(exp->path);
 	return (0);
 }

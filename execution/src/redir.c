@@ -46,7 +46,8 @@ void	handle_redirs(t_list *list, t_exp *exp)
 			handle_redir_out(list, i, exp);
 		else if (list->option[i] && !ft_strncmp(list->option[i], "<", 1))
 			handle_redir_in(list, i, exp);
-		i++;
+		else
+			i++;
 	}
 }
 

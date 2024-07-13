@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 12:51:32 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:39:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_exp
 	char			**path;
 	char			*key;
 	char			*value;
-	char			*oldpwd;
+	//char			*oldpwd; // still not sure i'll be working with this
 	char			*pwd;
 	struct s_exp	*next;
 }	t_exp;
@@ -125,7 +125,6 @@ void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd, t_exp *exp);
 int		ft_isnumber(char *s);
 void	free_env(t_exp *exp);
-
 
 // ---------------------- signals ----------------------
 

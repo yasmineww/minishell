@@ -12,6 +12,24 @@
 
 #include "../../minishell.h"
 
+static char	*ft_getcwd(t_exp *exp)
+{
+	while (exp)
+	{
+		if (ft_strcmp(exp->key, "PWD") == 0)
+		{
+			if (exp->value)
+				return (ft_strdup(exp->value));
+			else
+				return (NULL);
+		}
+		exp = exp->next;
+	}
+	return (NULL);
+}
+
+static void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
+
 void	update_cwd(t_exp *exp)
 {
 	char	*cwd;
@@ -20,11 +38,6 @@ void	update_cwd(t_exp *exp)
 
 	oldpwd = NULL;
 	cwd = getcwd(NULL, 0);
-	// if (!cwd)
-	// {
-	// 	ft_error("bash: cd:", NULL, "error in retrieving current directory");
-	// 	return ;
-	// }
 	tmp = exp;
 	while (tmp)
 	{
@@ -41,7 +54,7 @@ void	update_cwd(t_exp *exp)
 		if (ft_strcmp(exp->key, "PWD") == 0)
 		{
 			free(exp->value);
-			exp->value = cwd;
+			exp->value = ft_strdup(cwd);
 		}
 		if (ft_strcmp(exp->key, "OLDPWD") == 0)
 		{
@@ -53,10 +66,9 @@ void	update_cwd(t_exp *exp)
 		}
 		exp = exp->next;
 	}
-	if (!oldpwd)
-		free(cwd);
 	free(cwd);
-	free(oldpwd);
+	if (oldpwd)
+		free(oldpwd);
 }
 
 void	ft_error(char *str1, char *str2, char *str3)
@@ -75,57 +87,74 @@ void	ft_error(char *str1, char *str2, char *str3)
 	}
 	write(1, "\n", 1);
 }
+static int	find_home(t_exp *exp)
+{
+	int	ret;
 
-// check if !home found flag is really used
+	if (exp->value == NULL)
+		return (exp->status = 1,
+			ft_error("bash: cd:", "HOME not set", NULL), 1);
+	ret = chdir(exp->value);
+	if (ret)
+		return (ft_error("bash: cd:", exp->value,
+				"No such file or directory"), exp->status = 1, 1);
+	exp->pwd = ft_strdup(exp->value);
+	// if (exp->pwd && ret == 0)
+				// 	free(exp->pwd);
+	return (0);
+}
+
+static int	ft_find_home(t_exp *exp)
+{
+	int	res;
+
+	while (exp)
+	{
+		if (ft_strcmp(exp->key, "HOME") == 0)
+		{
+			res = find_home(exp);
+			if (res == 0)
+				return (update_cwd(exp), exp->status = 0, 0);
+			return (res);
+		}
+		exp = exp->next;
+	}
+	return (exp->status = 1,
+		ft_error("bash: cd:", "HOME not set", NULL), 1);
+}
+
+int	ft_cd_home(t_exp *exp)
+{
+	return (ft_find_home(exp));
+}
+
+static int	two_dots(t_exp *exp)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		ft_error("bash: cd:", NULL,
+			"error in retrieving current directory");
+		chdir(exp->pwd);
+	}
+	else
+	{
+		free(cwd);
+		chdir("..");
+	}
+	return (0);
+}
+
 int	ft_cd(char *path, t_exp *exp)
 {
 	int		ret;
-	t_exp	*tmp;
-	int		home_found;
-	char	*cwd;
 
-	home_found = 0;
 	if (!path || path[0] == '\0')
-	{
-		tmp = exp;
-		while (tmp)
-		{
-			if (ft_strcmp(tmp->key, "HOME") == 0)
-			{
-				if (tmp->value == NULL)
-				{
-					ft_error("bash: cd:", "HOME not set", NULL);
-					return (exp->status = 1, 1);
-				}
-				else
-					ret = chdir(tmp->value);
-				if (exp->pwd)
-					free(exp->pwd);
-				exp->pwd = ft_strdup(tmp->value);
-				home_found = 1;
-				break ;
-			}
-			tmp = tmp->next;
-		}
-		if (!home_found)
-			return (ft_error("bash: cd:", "HOME not set",
-					NULL), exp->status = 1, 1);
-	}
+		return (ft_cd_home(exp));
 	else if (!ft_strncmp(path, "..", 2))
-	{
-		cwd = getcwd(NULL, 0);
-		if (!cwd)
-		{
-			ft_error("bash: cd:", NULL,
-				"error in retrieving current directory");
-			chdir(exp->pwd);
-		}
-		else
-		{
-			free(cwd);
-			chdir("..");
-		}
-	}
+		return (two_dots(exp));
 	else
 	{
 		ret = chdir(path);

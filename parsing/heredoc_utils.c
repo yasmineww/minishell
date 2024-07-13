@@ -79,11 +79,9 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 
 void	expanding_heredoc(char **read, t_exp **exp)
 {
-	int		i;
 	int		len;
 	char	*replace;
 
-	i = 0;
 	len = helper2(*read, exp);
 	replace = store_new_key2(*read, len, exp);
 	*read = ft_strdup(replace);
