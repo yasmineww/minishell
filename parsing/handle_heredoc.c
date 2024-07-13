@@ -79,12 +79,10 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 {
 	t_list		*temp;
 	int			i;
-	int			j;
 
 	temp = *list;
 	if (temp)
 		temp->infile = 0;
-	j = 0;
 	while (temp)
 	{
 		i = 0;
