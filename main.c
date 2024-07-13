@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 09:54:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 10:27:36 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_pwd(t_exp *exp)
 void	free_list(t_list *list)
 {
 	t_list	*temp;
-	int 	i;
+	int		i;
 
 	while (list)
 	{
@@ -105,25 +105,8 @@ int	main(int ac, char **av, char **envp)
 		execute(list, exp, envp);
 		input = NULL;
 		free_list(list);
-		int i = 0;
-		t_list *temp = list;
-		while (temp)
-		{
-			free(temp->cmd);
-			temp->cmd = NULL;
-			i = 0;
-			while (list->option[i])
-			{
-				free(list->option[i]);
-				list->option[i] = NULL;
-				i++;
-			}
-			free(list->option);
-			list->option = NULL;
-			list = temp->next;
-			free(temp);
-			temp = list;
-		}
 		list = NULL;
 	}
+	free_list(list);
+	list = NULL;
 }
