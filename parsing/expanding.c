@@ -6,47 +6,38 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 15:39:54 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:53:41 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*store_new_key(char *node, int len, t_exp **exp)
+void	store_new_key(char *node, t_exp **exp, char *replace, int quotes)
 {
 	int		i;
 	int		j;
-	char	*replace;
-	int		in_double_quotes;
-	int		in_single_quotes;
 
 	i = -1;
 	j = 0;
-	in_double_quotes = 0;
-	in_single_quotes = 0;
-	replace = ft_calloc(1, len + 1);
-	if (!replace)
-		return (NULL);
 	while (node[++i])
 	{
-		if (node[i] == '"' && !in_single_quotes)
-			in_double_quotes = !in_double_quotes;
-		else if (node[i] == '\'' && !in_double_quotes)
-			in_single_quotes = !in_single_quotes;
-		else if (node[i] == '$' && !in_single_quotes)
+		if (node[i] == '"' && !(quotes & 1))
+			quotes = !((quotes >> 1) & 1) << 1;
+		else if (node[i] == '\'' && !((quotes >> 1) & 1))
+			quotes = !(quotes & 1);
+		else if (node[i] == '$' && !(quotes & 1))
 		{
 			if (store_dollar(node, &replace[j], i) && j++)
 				break ;
 			else if (found_question_mark(node[i + 1], exp, &replace[j]) && i++)
 				continue ;
-			i++;
-			if (replace_with_value(node, exp, &replace[j], &i))
+			if (node[++i] == '$')
 				continue ;
+			i += replace_with_value(node + i, exp, replace, &j);
 		}
 		else
 			replace[j++] = node[i];
 	}
-	return (replace);
 }
 
 int	get_value_len(char *ptr, int j, int end, t_exp **exp)
@@ -106,7 +97,9 @@ void	expanding(t_list **list, t_exp **exp)
 		while (tmp->option[i])
 		{
 			len = helper2(tmp->option[i], exp);
-			replace = store_new_key(tmp->option[i], len, exp);
+			replace = ft_calloc(1, len + 1);
+			if (replace)
+				store_new_key(tmp->option[i], exp, replace, 0);
 			tmp->option[i] = ft_strdup(replace);
 			free(replace);
 			i++;

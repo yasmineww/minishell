@@ -6,34 +6,29 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/11 16:36:52 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:09:33 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	replace_with_value_heredoc(char *node, t_exp **exp, char *replace, int *i)
+int	replace_with_value_heredoc(char *node, t_exp **exp, char *replace, int *j)
 {
 	int		end;
 	char	*value;
-	int		j;
 
-	j = 0;
-	if (node[*i] == '$')
-		return (1);
-	end = get_key(&node[*i]);
-	value = get_value(&node[*i], end, exp);
+	end = get_key(node);
+	value = get_value(node, end, exp);
 	if (value)
 	{
 		while (*value)
 		{
-			replace[j] = *value;
-			j++;
+			replace[*j] = *value;
+			(*j)++;
 			value++;
 		}
 	}
-	*i += end - 1;
-	return (0);
+	return (end - 1);
 }
 
 int	store_dollar_heredoc(char *node, char *replace, int i)
@@ -67,9 +62,9 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 			break ;
 		if (node[i] == '$')
 		{
-			i++;
-			if (replace_with_value_heredoc(node, exp, &replace[j], &i) == 1)
+			if (node[++i] == '$')
 				continue ;
+			i += replace_with_value_heredoc(node + i, exp, replace, &j);
 		}
 		else
 			replace[j++] = node[i];

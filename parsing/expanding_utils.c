@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 15:39:31 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:13:22 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,14 @@ int	store_dollar(char *node, char *replace, int i)
 	return (0);
 }
 
-int	replace_with_value(char *node, t_exp **exp, char *replace, int *i)
+int	replace_with_value(char *node, t_exp **exp, char *replace, int *j)
 {
 	int		end;
 	char	*value;
-	int		j;
 
-	j = 0;
-	if (node[*i] == '$')
-		return (1);
-	end = get_key(&node[*i]);
-	value = get_value(&node[*i], end, exp);
-	if ((end == 0 || !value) && node[*i] != '\'' && node[*i] != '"')
+	end = get_key(node);
+	value = get_value(node, end, exp);
+	if ((end == 0 || !value) && *node != '\'' && *node != '"')
 		(*exp)->ambiguous = 1;
 	if (value)
 	{
@@ -63,13 +59,12 @@ int	replace_with_value(char *node, t_exp **exp, char *replace, int *i)
 			(*exp)->ambiguous = 1;
 		while (*value)
 		{
-			replace[j] = *value;
-			j++;
+			replace[*j] = *value;
+			(*j)++;
 			value++;
 		}
 	}
-	*i += end - 1;
-	return (0);
+	return (end - 1);
 }
 
 char	*get_value(char *ptr, int end, t_exp **exp)

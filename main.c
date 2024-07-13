@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 10:27:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:57:24 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,8 @@ int	main(int ac, char **av, char **envp)
 		(*exp).status = 0;
 	while (1)
 	{
-		if (setup_prompt(&input, exp) == 1)
-		{
-			free(input);///added this
+		if (setup_prompt(&input, exp))
 			break ;
-		}
 		if (parsing(input, &list, &exp))
 			continue ;
 		handle_heredoc(&list, &exp);
@@ -107,6 +104,5 @@ int	main(int ac, char **av, char **envp)
 		free_list(list);
 		list = NULL;
 	}
-	free_list(list);
 	list = NULL;
 }
