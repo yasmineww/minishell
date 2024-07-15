@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/06/07 15:51:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/14 23:42:13 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,19 @@ void	sort_list(t_exp *exp)
 		}
 		lptr = ptr1;
 	}
+}
+
+void	ft_lstadd_back(t_exp **head, t_exp *new)
+{
+	t_exp	*last;
+
+	if (!head)
+		return ;
+	if (!(*head))
+	{
+		*head = new;
+		return ;
+	}
+	last = last_node(*head);
+	last->next = new;
 }

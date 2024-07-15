@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 18:51:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:39:15 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print_env(t_exp **exp)
 {
 	while (*exp)
 	{
+		if (ft_strncmp((*exp)->key, "OLDPWD", 6) == 0)
+			(*exp)->value = NULL;// mazal hna
 		if ((*exp)->value != NULL)
 			printf("%s=%s\n", (*exp)->key, (*exp)->value);
 		*exp = (*exp)->next;
