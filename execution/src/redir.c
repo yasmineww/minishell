@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/15 17:25:55 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:29:54 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	handle_redir_in(t_list *list, int i, t_exp *exp)
 	if (list->option[i + 1])
 	{
 		if (exp->ambiguous)
-			return (ft_error("Minishel: ", list->option[i + 1],
+			return (ft_error("Minishell: ", list->option[i + 1],
 					"ambiguous redirect"), exp->ambiguous = 0, exit(1), 1);
 		list->infile = open(list->option[i + 1], O_RDONLY);
 		if (list->infile == -1)
@@ -78,7 +78,7 @@ int	handle_redir_out(t_list *list, int i, t_exp *exp)
 	if (list->option[i + 1])
 	{
 		if (exp->ambiguous)
-			return (ft_error("Minishel: ", list->option[i + 1],
+			return (ft_error("Minishell: ", list->option[i + 1],
 					"ambiguous redirect"), exp->ambiguous = 0, exit(1), 1);
 		list->outfile = open(list->option[i + 1], O_RDWR
 				| O_CREAT | O_TRUNC, 0644);
@@ -100,7 +100,7 @@ int	handle_append(t_list *list, int i, t_exp *exp)
 	if (list->option[i + 1])
 	{
 		if (exp->ambiguous)
-			return (ft_error("Minishel: ", list->option[i + 1],
+			return (ft_error("Minishell: ", list->option[i + 1],
 					"ambiguous redirect"), exp->ambiguous = 0, exit(1), 1);
 		list->outfile = open(list->option[i + 1], O_RDWR
 				| O_CREAT | O_APPEND, 0644);
