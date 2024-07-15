@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 01:50:43 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:43:22 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <termios.h>
 
 // #define malloc(x) NULL; to be removed
-
 
 int	g_sig;
 
@@ -131,7 +130,7 @@ int		handle_redir_in(t_list *list, int i, t_exp *exp);
 int		handle_redir_out(t_list *list, int i, t_exp *exp);
 int		handle_append(t_list *list, int i, t_exp *exp);
 int		ft_lstsize(t_list *lst);
-void	handle_redirs(t_list *list, t_exp *exp);
+int		handle_redirs(t_list *list, t_exp *exp);
 char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd, t_exp *exp);
@@ -149,6 +148,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd);
 void	setup_signals(int i);
 int		onecmd_builtin(t_exp *exp, t_list *list);
 void	child_io(t_exec *data, t_list *list);
+int		ft_unset_helper(t_exp *exp, char **s);
 
 // ---------------------- signals ----------------------
 
