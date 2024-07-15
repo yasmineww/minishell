@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 19:14:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/15 01:50:43 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 
 int	g_sig;
 
+typedef struct s_exec
+{
+	int	fdpipe[2];
+	int	std_in;
+	int	std_out;
+	int	*pid;
+	int	status;
+	int	i;
+	int	count;
+}	t_exec;
 typedef struct s_env
 {
 	char			*key;
@@ -127,6 +137,18 @@ void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd, t_exp *exp);
 int		ft_isnumber(char *s);
 void	free_env(t_exp *exp);
+char	*ft_getoldpwd(t_exp *exp);
+void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd);
+int		find_home(t_exp *exp);
+int		ft_find_home(t_exp *exp);
+void	update_cwd(t_exp *exp);
+void	ft_lstadd_back(t_exp **head, t_exp *new);
+t_exp	*last_node(t_exp *head);
+void	parent_io(t_exec *data, t_list *list);
+char	*get_cmd_path(t_exp *exp, char *cmd);
+void	setup_signals(int i);
+int		onecmd_builtin(t_exp *exp, t_list *list);
+void	child_io(t_exec *data, t_list *list);
 
 // ---------------------- signals ----------------------
 
