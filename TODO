@@ -1,5 +1,77 @@
 ------------execution------------
 
+➜  minishell-1 git:(main) ✗ bash
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ echo $PWD
+/Users/mbenchel/Desktop/minishell-1
+bash-3.2$ export PWD=jdfhdfghdsfghd
+bash-3.2$ echo $OLDPWD
+
+bash-3.2$ cd ..
+bash-3.2$ echo $PWD
+/Users/mbenchel/Desktop
+bash-3.2$ echo $OLDPWD
+jdfhdfghdsfghd
+bash-3.2$ pwd
+/Users/mbenchel/Desktop
+bash-3.2$ export HOME=djfdhsgf
+bash-3.2$ cd
+bash: cd: djfdhsgf: No such file or directory
+bash-3.2$ export PWD=dgfdhsgf
+bash-3.2$ pwd
+/Users/mbenchel/Desktop
+bash-3.2$ echo $PWD
+dgfdhsgf
+bash-3.2$ 
+// should be before the line count = ft_lstsize(list);
+void	check_value_export(t_list *list)
+{
+	int		i;
+	int		j;
+	char	**s;
+
+	i = 0;
+	j = 0;
+	while (list->option[i])
+	{
+		if (ft_strlen(list->option[i]) > 0)
+			j++;
+		i++;
+	}
+	s = malloc(sizeof(char *) * (j + 1));
+	if (!s)
+		exit(1);
+	i = 0;
+	j = 0;
+	while (list->option[i])
+	{
+		if (ft_strlen(list->option[i]) > 0)
+		{
+			s[j] = list->option[i];
+			j++;
+		}
+		i++;
+	}
+	s[j] = NULL;
+	list->option = s;
+}
+export makhasch tprinta _ w f env makhshach t unsetta
+
+unset USER lhead joj mrat
+
+ila t unseta pwd w oldpwd khask t3awd t7thom
+
+oldpwd madkhloch flbdya
+
+UNSET MAKATLOOPICH
+
+define malloc null
+
+initialize exp->ambiguous somewhere
+
 exit quotes handling numbers
 
 //oldpwd tadir cd 3ad dkhlo (optional)
@@ -12,15 +84,6 @@ exit quotes handling numbers
 
 
 env -i ./minishell
-ls > a > b < c > d
-marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a   b  "
-marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
-bash: $a: ambiguous redirect
-marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a    "
-marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
-marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$
-ambiguous redirect
- << $""
 checki wach mor spaces wach kayn character
 
 
@@ -146,7 +209,14 @@ cat << 6 << 8 | << 2
 < infile builtin export >> outfile
 /dev/stdin < cat
 /dev/stdin < cat | cat > /dev/stdin
-
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a   b  "
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
+bash: $a: ambiguous redirect
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ export a=" a    "
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$ ls > $a
+marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$
+ambiguous redirect
+ << $""
 
 
 
