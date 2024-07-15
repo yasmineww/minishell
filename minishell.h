@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 01:34:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/15 01:50:43 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+
+// #define malloc(x) NULL; to be removed
+
 
 int	g_sig;
 
