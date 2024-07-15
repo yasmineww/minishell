@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 23:43:22 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:50:36 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # include <readline/history.h>
 # include <termios.h>
 
-// #define malloc(x) NULL; to be removed
+// #define malloc(x) NULL;
+
 
 int	g_sig;
 
@@ -76,6 +77,8 @@ int		ft_isalpha_num(char c);
 int		ft_intlen(int n);
 void	*ft_calloc(size_t count, size_t size);
 int		count_word_spaces(char *str);
+int		ft_lstsize(t_list *lst);
+void	ft_lstadd_back(t_exp **head, t_exp *new);
 
 // ---------------------- parsing ----------------------
 
@@ -129,7 +132,6 @@ t_exp	*dup_list(t_exp *exp);
 int		handle_redir_in(t_list *list, int i, t_exp *exp);
 int		handle_redir_out(t_list *list, int i, t_exp *exp);
 int		handle_append(t_list *list, int i, t_exp *exp);
-int		ft_lstsize(t_list *lst);
 int		handle_redirs(t_list *list, t_exp *exp);
 char	*find_path(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
@@ -141,7 +143,6 @@ void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd);
 int		find_home(t_exp *exp);
 int		ft_find_home(t_exp *exp);
 void	update_cwd(t_exp *exp);
-void	ft_lstadd_back(t_exp **head, t_exp *new);
 t_exp	*last_node(t_exp *head);
 void	parent_io(t_exec *data, t_list *list);
 char	*get_cmd_path(t_exp *exp, char *cmd);
@@ -153,6 +154,6 @@ int		ft_unset_helper(t_exp *exp, char **s);
 // ---------------------- signals ----------------------
 
 void	signal_handler(int sig);
-void	signal_handler_doc(int sig);
+void	signal_handler_heredoc(int sig);
 
 #endif

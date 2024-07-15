@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/12 18:05:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:33:52 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 	bool = 0;
 	fd = dup(0);
 	delim = rm_quotes((temp->option[i + 1]), &bool);
-	signal(SIGINT, signal_handler_doc);
+	signal(SIGINT, signal_handler_heredoc);
 	read_me = readline("> ");
 	while (read_me)
 	{

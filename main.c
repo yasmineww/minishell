@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 01:51:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:31:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int	setup_prompt(char **input, t_exp *exp)
 {
 	*input = NULL;
+	exp->ambiguous = 0;
 	rl_catch_signals = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
@@ -35,11 +36,6 @@ int	setup_prompt(char **input, t_exp *exp)
 	return (0);
 }
 
-void	f()
-{
-	system("leaks minishell");
-}
-
 void	set_pwd(t_exp *exp)
 {
 	static char	*cwd;
@@ -50,6 +46,8 @@ void	set_pwd(t_exp *exp)
 		exp->pwd = ft_strdup(cwd);
 		free(cwd);
 	}
+	if (exp)
+		(*exp).status = 0;
 }
 
 void	free_list(t_list *list)
@@ -76,6 +74,11 @@ void	free_list(t_list *list)
 	}
 }
 
+void	f()
+{
+	system("leaks minishell");
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
@@ -89,9 +92,6 @@ int	main(int ac, char **av, char **envp)
 	list = NULL;
 	ft_env(&exp, envp);
 	set_pwd(exp);
-	if (exp)
-		(*exp).status = 0;
-	exp->ambiguous = 0; // to be removed
 	while (1)
 	{
 		if (setup_prompt(&input, exp))
@@ -101,9 +101,7 @@ int	main(int ac, char **av, char **envp)
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list, exp, envp);
-		input = NULL;
 		free_list(list);
 		list = NULL;
 	}
-	list = NULL;
 }

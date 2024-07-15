@@ -1,4 +1,5 @@
 ------------execution------------
+// #define malloc(x) NULL; /////
 Minishell$ mkdir 1
 Minishell$ cd 1
 Minishell$ mkdir 2
