@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 17:24:00 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:31:39 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ int	setup_prompt(char **input, t_exp *exp)
 	if (*input && *input[0] != '\0')
 		add_history(*input);
 	return (0);
-}
-
-void	f()
-{
-	system("leaks minishell");
 }
 
 void	set_pwd(t_exp *exp)
@@ -77,6 +72,11 @@ void	free_list(t_list *list)
 		list = temp->next;
 		free(temp);
 	}
+}
+
+void	f()
+{
+	system("leaks minishell");
 }
 
 int	main(int ac, char **av, char **envp)
