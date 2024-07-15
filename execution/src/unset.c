@@ -6,11 +6,31 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 23:47:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:44:20 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	ft_unset_helper(t_exp *exp, char **s)
+{
+	int	i;
+
+	i = 1;
+	while (s[i])
+	{
+		if (ft_strchr(s[i], '='))
+		{
+			ft_error("minishell: unset: `", s[i], "': not a valid identifier");
+			exp->status = 1;
+			i++;
+			continue ;
+		}
+		ft_unset(&exp, s[i]);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_unset(t_exp **exp, char *key)
 {
