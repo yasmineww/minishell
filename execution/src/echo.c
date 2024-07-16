@@ -3,20 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 22:07:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:20:01 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+void	function_skipp_it(char *string)
+{
+	int	index;
+
+	index = 0;
+	while (string[index])
+	{
+		if (check_space(&string[index]) && !check_space(&string[index + 1]))
+			write(1, " ", 1);
+		if (!check_space(&string[index]))
+			write(1, string, 1);
+		index++;
+	}
+}
+
 void	echo_print(char **cmd, int i, int no_nl)
 {
+	int	index;
+
+	index = 0;
 	while (cmd[i])
 	{
-		write(1, cmd[i], ft_strlen(cmd[i]));
+		while (cmd[i][index] == ' ' || cmd[i][index] == '\t')
+			index++ ;
+		function_skipp_it(&cmd[i][index]);
+		index = 0;
 		i++;
 		if (cmd[i])
 			write(1, " ", 1);
