@@ -1,4 +1,9 @@
 ------------execution------------
+
+waaaaaaaa fink a PWD oldpwd unset
+Unset path
+unset head two times
+_=/usr/bin/env
 // #define malloc(x) NULL; /////
 Minishell$ mkdir 1
 Minishell$ cd 1
@@ -174,6 +179,7 @@ drwxr-xr-x   4 mbenchel  candidate    136 May 24 16:45 execution
 -rw-r--r--   1 mbenchel  candidate   1304 May 24 20:09 main.c
 
 Fixed parsing-----------------------------------------------------------------------------------
+export his="                '' '' "
 export tjs"""'"="asdsd"
 this one should be sent by the parser like this tjs'="asdsd"
 and then the executer will treat it as invalid identifier
@@ -222,11 +228,7 @@ marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minish
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$
 ambiguous redirect
  << $""
-
-
-
-
-
+Test main----------------------------------------------------------------------------------------------------
 MY TEST DONT DELETE
 
 		// t_list *temp = list;
@@ -239,10 +241,3 @@ MY TEST DONT DELETE
 		// 	temp = temp->next;
 		// 	puts("--------------------------------------");
 		// }
-\
-
-waaaaaaaa fink a PWD oldpwd unset
-Unset path
-unset head two times
-_=/usr/bin/env
-export his="                '' '' "

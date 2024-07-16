@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/16 12:20:01 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:29:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	function_skipp_it(char *string)
 	{
 		if (check_space(&string[index]) && !check_space(&string[index + 1]))
 			write(1, " ", 1);
-		if (!check_space(&string[index]))
-			write(1, string, 1);
+		else if (!check_space(&string[index]))
+			write(1, &string[index], 1);
 		index++;
 	}
 }
