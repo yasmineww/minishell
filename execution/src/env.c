@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/13 19:39:15 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:16:53 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ void	free_env(t_exp *exp)
 
 void	print_env(t_exp **exp)
 {
-	while (*exp)
+	t_exp *tmp;
+
+	tmp = *exp;
+	while (tmp)
 	{
-		if (ft_strncmp((*exp)->key, "OLDPWD", 6) == 0)
-			(*exp)->value = NULL;// mazal hna
-		if ((*exp)->value != NULL)
-			printf("%s=%s\n", (*exp)->key, (*exp)->value);
-		*exp = (*exp)->next;
+		if (ft_strncmp(tmp->key, "OLDPWD", 6) == 0)
+			tmp->value = NULL;// mazal hna lkhdma
+		if (tmp->value != NULL)
+			printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
 }
 
@@ -58,8 +61,8 @@ void	find_value(char *env, t_exp *exp, int l)
 
 void	find_key(char *envp, t_exp *exp)
 {
-	int			l;
-	int			j;
+	int	l;
+	int	j;
 
 	l = 0;
 	j = 0;

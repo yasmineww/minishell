@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/15 23:18:12 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:20:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	setup_signals(int i)
 	}
 }
 
-int	onecmd_builtin(t_exp *exp, t_list *list)
+int	onecmd_builtin(t_exp **exp, t_list *list)
 {
 	int	std_in;
 	int	std_out;
@@ -75,10 +75,10 @@ int	onecmd_builtin(t_exp *exp, t_list *list)
 	std_in = dup(0);
 	std_out = dup(1);
 	if (!list || !list->option || list->next)
-		return (exp->status = 1, 1);
-	if (handle_redirs(list, exp))
+		return ((*exp)->status = 1, 1);
+	if (handle_redirs(list, *exp))
 		return (1);
-	exec_builtin(&exp, list->option);
+	exec_builtin(exp, list->option);
 	list->option[0] = NULL;
 	if (list->option[1])
 		list->option[1] = NULL;

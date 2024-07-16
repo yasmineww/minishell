@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/15 23:23:09 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:20:25 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 	{
 		if (handle_redirs(list, exp))
 			exit(1);
+		if (exp->ambiguous)
+		{
+			//free the old one 2d array ig
+			list->option = ft_split_spaces(list->option[0]);
+		}
 		list->option[0] = get_cmd_path(exp, list->option[0]);
-		if (list->option[0]
-			&& execve(list->option[0], list->option, envp) == -1)
+		if (list->option[0] && execve(list->option[0], list->option, envp))
 		{
 			perror("execve");
 			exp->status = 127;
@@ -88,13 +92,13 @@ void	children_wait(t_exec *data, t_exp *exp, struct termios *term)
 		exp->status = WEXITSTATUS(data->status);
 }
 
-int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
+int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
 {
 	t_exec	data;
 
 	data = (t_exec){0}; // concept of initialization vs assignement
 	if (!list || !list->option)
-		return (exp->status = 1, 1);
+		return ((*exp)->status = 1, 1);
 	data.std_in = dup(0);
 	data.std_out = dup(1);
 	data.pid = NULL;
@@ -105,10 +109,10 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 		return (onecmd_builtin(exp, list));
 	data.pid = malloc(sizeof(int) * data.count);
 	if (!data.pid)
-		return (exp->status = 1, 1);
-	if (cmd_process(exp, list, envp, &data))
-		return (exp->status = 1, 1);
-	children_wait(&data, exp, term);
+		return ((*exp)->status = 1, 1);
+	if (cmd_process(*exp, list, envp, &data))
+		return ((*exp)->status = 1, 1);
+	children_wait(&data, *exp, term);
 	free(data.pid);
 	dup2(data.std_in, 0);
 	close(data.std_in);
@@ -117,7 +121,7 @@ int	exec(t_exp *exp, t_list *list, char **envp, struct termios *term)
 	return (0);
 }
 
-int	execute(t_list *list, t_exp *exp, char **envp)
+int	execute(t_list *list, t_exp **exp, char **envp)
 {
 	char			*tmp;
 	struct termios	term;
@@ -130,11 +134,11 @@ int	execute(t_list *list, t_exp *exp, char **envp)
 	}
 	tmp = find_path(exp);
 	if (!tmp)
-		return (exp->status = 1, 1);
-	if (exp)
-		exp->path = ft_split(tmp, ':');
-	if (!exp || !exp->path)
-		return (exp->status = 1, 1);
+		return ((*exp)->status = 1, 1);
+	if (*exp)
+		(*exp)->path = ft_split(tmp, ':');
+	if (!(*exp) || !(*exp)->path)
+		return ((*exp)->status = 1, 1);
 	// free(tmp);
 	exec(exp, list, envp, &term);
 	return (0);

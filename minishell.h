@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 14:43:34 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:35:17 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,15 +122,15 @@ int		exec(t_exp **exp, t_list *list, char **envp, struct termios *term);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
 void	find_key(char *envp, t_exp *exp);
-int		exporthelp(t_exp **exp, char **s);
-void	sort_list(t_exp **exp);
-void	print_exp(t_exp **exp);
-t_exp	*dup_list(t_exp **exp);
+int		exporthelp(t_exp *exp, char **s);
+void	sort_list(t_exp *exp);
+void	print_exp(t_exp *exp);
+t_exp	*dup_list(t_exp *exp);
 int		handle_redir_in(t_list *list, int i, t_exp *exp);
 int		handle_redir_out(t_list *list, int i, t_exp *exp);
 int		handle_append(t_list *list, int i, t_exp *exp);
 int		handle_redirs(t_list *list, t_exp *exp);
-char	*find_path(t_exp *exp);
+char	*find_path(t_exp **exp);
 void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd, t_exp *exp);
 int		ft_isnumber(char *s);
