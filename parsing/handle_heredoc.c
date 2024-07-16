@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 17:33:52 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:22:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,29 @@ char	*rm_quotes(char *s1, int *bool)
 		return (NULL);
 	while (*s1)
 	{
-		if (*s1 == '\'' || *s1 == '"')
+		if (*s1 == '\'')
 		{
 			s1++;
+			while (*s1 != '\'' && *s1)
+			{
+				copy[i] = *s1;
+				i++;
+				s1++;
+			}
+			s1++;
 			*bool = 1;
+		}
+		else if (*s1 == '"')
+		{
+			s1++;
+			while (*s1 != '\"' && *s1)
+			{
+				copy[i] = *s1;
+				i++;
+				s1++;
+			}
+			s1++;
+			*bool = 2;
 		}
 		else
 		{
