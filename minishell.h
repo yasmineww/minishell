@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/15 23:50:36 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/16 02:29:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		replace_with_value(char *node, t_exp **exp, char *replace, int *i);
 
 // ---------------------- execution ----------------------
 
-int		execute(t_list *list, t_exp *exp, char **envp);
+int		execute(t_list *list, t_exp **exp, char **envp);
 int		is_builtin(char **cmd);
 int		exec_builtin(t_exp **exp, char **cmd);
 int		ft_cd(char *path, t_exp *exp);
@@ -121,14 +121,14 @@ int		ft_pwd(t_exp *exp);
 int		countparams(char **s);
 void	print_env(t_exp **exp);
 int		ft_echo(char **cmd, t_exp *exp);
-int		exec(t_exp *exp, t_list *list, char **envp, struct termios *term);
+int		exec(t_exp **exp, t_list *list, char **envp, struct termios *term);
 int		ft_unset(t_exp **exp, char *key);
 int		export(t_exp **exp, char *s);
 void	find_key(char *envp, t_exp *exp);
-int		exporthelp(t_exp *exp, char **s);
-void	sort_list(t_exp *exp);
-void	print_exp(t_exp *exp);
-t_exp	*dup_list(t_exp *exp);
+int		exporthelp(t_exp **exp, char **s);
+void	sort_list(t_exp **exp);
+void	print_exp(t_exp **exp);
+t_exp	*dup_list(t_exp **exp);
 int		handle_redir_in(t_list *list, int i, t_exp *exp);
 int		handle_redir_out(t_list *list, int i, t_exp *exp);
 int		handle_append(t_list *list, int i, t_exp *exp);
@@ -147,9 +147,9 @@ t_exp	*last_node(t_exp *head);
 void	parent_io(t_exec *data, t_list *list);
 char	*get_cmd_path(t_exp *exp, char *cmd);
 void	setup_signals(int i);
-int		onecmd_builtin(t_exp *exp, t_list *list);
+int		onecmd_builtin(t_exp **exp, t_list *list);
 void	child_io(t_exec *data, t_list *list);
-int		ft_unset_helper(t_exp *exp, char **s);
+int		ft_unset_helper(t_exp **exp, char **s);
 
 // ---------------------- signals ----------------------
 
