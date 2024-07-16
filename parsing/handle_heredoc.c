@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 12:22:15 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:46:38 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,30 @@ void	free_pointers(char *read_me, char *delim, int *td, t_list *temp)
 	temp->infile = td[0];
 }
 
-char	*rm_quotes(char *s1, int *bool)
+char	*rm_quotes(char *s1, int *bool, int i)
 {
 	char	*copy;
-	int		i;
+	char	quote_type;
 
-	copy = malloc (ft_strlen(s1) + 1);
-	i = 0;
+	copy = malloc(ft_strlen(s1) + 1);
 	if (!s1 || !copy)
 		return (NULL);
 	while (*s1)
 	{
-		if (*s1 == '\'')
+		if (*s1 == '\'' || *s1 == '"')
 		{
-			s1++;
-			while (*s1 != '\'' && *s1)
-			{
-				copy[i] = *s1;
-				i++;
+			quote_type = *s1++;
+			if (quote_type == '\'')
+				*bool = 1;
+			else
+				*bool = 2;
+			while (*s1 && *s1 != quote_type)
+				copy[i++] = *s1++;
+			if (*s1)
 				s1++;
-			}
-			s1++;
-			*bool = 1;
-		}
-		else if (*s1 == '"')
-		{
-			s1++;
-			while (*s1 != '\"' && *s1)
-			{
-				copy[i] = *s1;
-				i++;
-				s1++;
-			}
-			s1++;
-			*bool = 2;
 		}
 		else
-		{
-			copy[i] = *s1;
-			i++;
-			s1++;
-		}
+			copy[i++] = *s1++;
 	}
 	copy[i] = '\0';
 	return (copy);
@@ -78,7 +61,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		perror("file descriptor error\n");
 	bool = 0;
 	fd = dup(0);
-	delim = rm_quotes((temp->option[i + 1]), &bool);
+	delim = rm_quotes((temp->option[i + 1]), &bool, 0);
 	signal(SIGINT, signal_handler_heredoc);
 	read_me = readline("> ");
 	while (read_me)
