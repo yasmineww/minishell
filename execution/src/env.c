@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/16 22:16:53 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:25:53 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ int	ft_env(t_exp **exp, char **envp)
 
 	i = -1;
 	*exp = NULL;
+	if (!envp)
+		return (1);
 	while (envp[++i])
 	{
 		new = malloc(sizeof(t_exp));
 		if (!new)
-			return ((*exp)->status = 1, 1);
+			return (exit(1), 1);
 		find_key(envp[i], new);
 		new->next = NULL;
 		if (!*exp)

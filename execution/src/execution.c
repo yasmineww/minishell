@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 15:43:39 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:36:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,7 @@ int	execute(t_list *list, t_exp **exp, char **envp)
 		return ((*exp)->status = 1, 1);
 	// free(tmp);
 	exec(exp, list, envp, &term);
+	if (list->infile)
+		close(list->infile);
 	return (0);
 }
