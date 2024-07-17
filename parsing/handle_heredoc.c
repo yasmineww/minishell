@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 13:46:38 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:13:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_pointers(char *read_me, char *delim, int *td, t_list *temp)
 	free(read_me);
 	free(delim);
 	close(td[1]);
+	close(td[0]);
 	temp->infile = td[0];
 }
 
@@ -74,6 +75,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i)
 		read_me = readline("> ");
 	}
 	dup2(fd, 0);
+	close(fd);
 	free_pointers(read_me, delim, td, temp);
 }
 

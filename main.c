@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 14:05:42 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/17 09:03:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	setup_prompt(char **input, t_exp *exp)
 {
 	*input = NULL;
-	exp->ambiguous = 0;
+	// exp->ambiguous = 0;
 	rl_catch_signals = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
@@ -100,7 +100,7 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
-		execute(list, exp, envp);
+		execute(list, &exp, envp);
 		free_list(list);
 		list = NULL;
 	}
