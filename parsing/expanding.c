@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 17:53:41 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:04:12 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ void	store_new_key(char *node, t_exp **exp, char *replace, int quotes)
 		{
 			if (store_dollar(node, &replace[j], i) && j++)
 				break ;
-			else if (found_question_mark(node[i + 1], exp, &replace[j]) && i++)
+			else if (found_question_mark(node[i + 1], exp, replace, &j))
+			{
+				i++;
 				continue ;
-			if (node[++i] == '$')
+			}
+			else if (node[++i] == '$')
 				continue ;
 			i += replace_with_value(node + i, exp, replace, &j);
 		}
@@ -71,6 +74,7 @@ int	helper2(char *tmp, t_exp **exp)
 	{
 		if (tmp[j] == '$')
 		{
+			(*exp)->expanded = 1;
 			if (tmp[j + 1] && tmp[j + 1] == '?')
 				len += ft_intlen((*exp)->status);
 			else
@@ -100,6 +104,8 @@ void	expanding(t_list **list, t_exp **exp)
 			replace = ft_calloc(1, len + 1);
 			if (replace)
 				store_new_key(tmp->option[i], exp, replace, 0);
+			if (tmp->option[i][0] == '"')
+				(*exp)->ambiguous = 0;
 			tmp->option[i] = ft_strdup(replace);
 			free(replace);
 			i++;

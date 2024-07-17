@@ -6,24 +6,22 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 11:36:00 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:06:22 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	found_question_mark(char node, t_exp **exp, char *replace)
+int	found_question_mark(char node, t_exp **exp, char *replace, int *j)
 {
 	char	*value;
-	int		j;
 
-	j = 0;
 	if (node == '?')
 	{
 		value = ft_itoa((*exp)->status);
 		while (*value)
 		{
-			replace[j++] = *value;
+			replace[(*j)++] = *value;
 			value++;
 		}
 		return (1);
@@ -51,7 +49,7 @@ int	replace_with_value(char *node, t_exp **exp, char *replace, int *j)
 
 	end = get_key(node);
 	value = get_value(node, end, exp);
-	if ((end == 0 || !value) && *node != '\'' && *node != '"')
+	if (end == 0 || !value)
 		(*exp)->ambiguous = 1;
 	if (value)
 	{

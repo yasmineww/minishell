@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 22:35:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:38:56 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_list
 typedef struct s_exp
 {
 	int				ambiguous;
+	int				expanded;
 	int				status;
 	char			**path;
 	char			*key;
@@ -104,7 +105,7 @@ void	handle_heredoc(t_list **list, t_exp **exp);
 void	expanding_heredoc(char **read, t_exp **exp);
 int		helper2(char *tmp, t_exp **exp);
 int		get_value_len(char *ptr, int j, int end, t_exp **exp);
-int		found_question_mark(char node, t_exp **exp, char *replace);
+int		found_question_mark(char node, t_exp **exp, char *replace, int *j);
 int		store_dollar(char *node, char *replace, int i);
 int		replace_with_value(char *node, t_exp **exp, char *replace, int *i);
 

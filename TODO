@@ -1,5 +1,10 @@
 ------------execution------------
 
+waaaaaaaa fink a PWD oldpwd unset
+Unset path
+unset head two times
+_=/usr/bin/env
+
 error management
 is a directory . /
 
@@ -151,6 +156,7 @@ export a="ls -la" -- export a=" ls -la" --> $a$a
 export a='$HOME'
 
 Fixed parsing-----------------------------------------------------------------------------------
+export his="                '' '' "
 export tjs"""'"="asdsd"
 this one should be sent by the parser like this tjs'="asdsd"
 and then the executer will treat it as invalid identifier
@@ -247,10 +253,3 @@ MY TEST DONT DELETE
 		// 	temp = temp->next;
 		// 	puts("--------------------------------------");
 		// }
-\
-
-waaaaaaaa fink a PWD oldpwd unset
-Unset path
-unset head two times
-_=/usr/bin/env
-export his="                '' '' "
