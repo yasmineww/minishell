@@ -1,9 +1,10 @@
 ------------execution------------
+
+error management
+is a directory . /
+
+
 // #define malloc(x) NULL; /////
-Minishell$ mkdir 1
-Minishell$ cd 1
-Minishell$ mkdir 2
-Minishell$ cd 2
 exit quotes handling numbers
 
 ➜  minishell-1 git:(main) ✗ bash
@@ -66,17 +67,13 @@ void	check_value_export(t_list *list)
 }
 export makhasch tprinta _ w f env makhshach t unsetta
 
-unset USER lhead joj mrat
-
 ila t unseta pwd w oldpwd khask t3awd t7thom
 
 oldpwd madkhloch flbdya
 
-UNSET MAKATLOOPICH
 
 define malloc null
 
-initialize exp->ambiguous somewhere
 
 
 //oldpwd tadir cd 3ad dkhlo (optional)
@@ -89,7 +86,6 @@ initialize exp->ambiguous somewhere
 
 
 env -i ./minishell
-checki wach mor spaces wach kayn character
 
 
 exit status dial lbuiltins  b7al exit
@@ -97,13 +93,7 @@ exit status dial lbuiltins  b7al exit
 
 /bin/cat terminal save etat ? ctrl+ C
 
-split and create array in export cmd="ls -l"
-bash-3.2$ export var="ls                -la"
-bash-3.2$ echo $var
-la -la
-this is what i send
-node.option[0] : export
-node.option[1] : var=ls -la
+
 Minishell$ export cmd = "ls -la"
 export =: not a valid identifier
 bash-3.2$ export cmd = "ls -la"
@@ -160,19 +150,6 @@ export a="ls -la" -- export a=" ls -la" --> $a$a
 
 export a='$HOME'
 
-export var="ls -la"
-bash-3.2$ $var
-total 224
-drwxr-xr-x  13 mbenchel  candidate    442 May 26 15:30 .
-drwxr-xr-x  31 mbenchel  candidate   1054 May 25 22:26 ..
--rw-r--r--@  1 mbenchel  candidate   6148 May 24 22:54 .DS_Store
-drwxr-xr-x  15 mbenchel  candidate    510 May 26 12:57 .git
--rw-r--r--   1 mbenchel  candidate   1073 May  5 15:54 LICENSE
--rw-r--r--   1 mbenchel  candidate    937 May 25 22:31 Makefile
--rw-r--r--   1 mbenchel  candidate     49 May  5 15:54 README.md
-drwxr-xr-x   4 mbenchel  candidate    136 May 24 16:45 execution
--rw-r--r--   1 mbenchel  candidate   1304 May 24 20:09 main.c
-
 Fixed parsing-----------------------------------------------------------------------------------
 export tjs"""'"="asdsd"
 this one should be sent by the parser like this tjs'="asdsd"
@@ -224,8 +201,39 @@ ambiguous redirect
  << $""
 
 
+split and create array in export cmd="ls -l"
+bash-3.2$ export var="ls                -la"
+bash-3.2$ echo $var HFGEFGJERBHDFGHDFGD
+la -la
+this is what i send
+node.option[0] : export
+node.option[1] : var=ls -la
 
 
+Minishell$ mkdir 1
+Minishell$ cd 1
+Minishell$ mkdir 2
+Minishell$ cd 2
+rm -rf ../../1
+
+export var="ls -la"
+bash-3.2$ $var
+total 224
+drwxr-xr-x  13 mbenchel  candidate    442 May 26 15:30 .
+drwxr-xr-x  31 mbenchel  candidate   1054 May 25 22:26 ..
+-rw-r--r--@  1 mbenchel  candidate   6148 May 24 22:54 .DS_Store
+drwxr-xr-x  15 mbenchel  candidate    510 May 26 12:57 .git
+-rw-r--r--   1 mbenchel  candidate   1073 May  5 15:54 LICENSE
+-rw-r--r--   1 mbenchel  candidate    937 May 25 22:31 Makefile
+-rw-r--r--   1 mbenchel  candidate     49 May  5 15:54 README.md
+drwxr-xr-x   4 mbenchel  candidate    136 May 24 16:45 execution
+-rw-r--r--   1 mbenchel  candidate   1304 May 24 20:09 main.c
+
+unset USER lhead joj mrat
+UNSET MAKATLOOPICH
+initialize exp->ambiguous somewhere
+
+-----------------------------------------------------------------------------------
 
 MY TEST DONT DELETE
 
