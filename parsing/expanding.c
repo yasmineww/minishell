@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 17:53:41 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:51:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	helper2(char *tmp, t_exp **exp)
 	{
 		if (tmp[j] == '$')
 		{
+			(*exp)->expanded = 1;
 			if (tmp[j + 1] && tmp[j + 1] == '?')
 				len += ft_intlen((*exp)->status);
 			else

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 09:03:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:01:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,29 @@ void	function_skipp_it(char *string)
 	}
 }
 
-void	echo_print(char **cmd, int i, int no_nl)
+void	echo_print(char **cmd, int i, int no_nl, t_exp *exp)
 {
 	int	index;
 
 	index = 0;
 	while (cmd[i])
 	{
-		while (cmd[i][index] == ' ' || cmd[i][index] == '\t')
-			index++ ;
-		function_skipp_it(&cmd[i][index]);
 		index = 0;
+		if (exp->expanded == 1)
+		{
+			while (cmd[i][index] == ' ' || cmd[i][index] == '\t')
+				index++;
+			function_skipp_it(&cmd[i][index]);
+		}
+		else
+		{
+			while (cmd[i][index])
+			{
+				write(1, &cmd[i][index], 1);
+				index++;
+			}
+		}
 		i++;
-		if (cmd[i])
-			write(1, " ", 1);
 	}
 	if (!no_nl)
 		write(1, "\n", 1);
@@ -77,7 +86,7 @@ int	ft_echo(char **cmd, t_exp *exp)
 
 	no_nl = 0;
 	i = ft_echo_helper(cmd, &no_nl);
-	echo_print(cmd, i, no_nl);
+	echo_print(cmd, i, no_nl, exp);
 	exp->status = 0;
 	return (0);
 }

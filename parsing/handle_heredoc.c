@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 22:13:12 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 09:04:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*rm_quotes(char *s1, int *bool, int i)
 			quote_type = *s1++;
 			if (quote_type == '\'')
 				*bool = 1;
-			else
+			else if (quote_type == '"')
 				*bool = 2;
 			while (*s1 && *s1 != quote_type)
 				copy[i++] = *s1++;
