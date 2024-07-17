@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 15:44:21 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 22:48:22 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
 	{
 		if (ft_strcmp(exp->key, "PWD") == 0)
 		{
-			free(exp->value);
+			if (exp->value)
+				free(exp->value);
 			exp->value = ft_strdup(cwd);
 		}
 		if (ft_strcmp(exp->key, "OLDPWD") == 0)
 		{
-			free(exp->value);
+			// if(exp->value) ymkn 7it katfreeya list flkhr dakchi 3lach double free idan solution hia oldpwd w pwd nt7km fihom ana
+				// free(exp->value);
 			if (oldpwd)
 				exp->value = oldpwd;
 			else

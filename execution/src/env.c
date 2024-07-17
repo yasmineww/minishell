@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 17:25:53 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 22:37:33 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,49 @@ void	find_key(char *envp, t_exp *exp)
 	find_value(envp, exp, l + 1);
 }
 
+int	setup_env_ignored(t_exp **exp)
+{
+	t_exp	*new;
+
+	new = *exp;
+	new = malloc(sizeof(t_exp));
+	if (!new)
+		return (exit(1), 1);
+	new->key = ft_strdup("PWD");
+	new->value = getcwd(NULL, 0);
+	new->next = NULL;
+	*exp = new;
+	new = malloc(sizeof(t_exp));
+	if (!new)
+		return (exit(1), 1);
+	new->key = ft_strdup("SHLVL");
+	new->value = ft_strdup("1");
+	new->next = NULL;
+	(*exp)->next = new;
+	new = malloc(sizeof(t_exp));
+	if (!new)
+		return (exit(1), 1);
+	new->key = ft_strdup("_");
+	new->value = ft_strdup("/usr/bin/env");
+	new->next = NULL;
+	(*exp)->next->next = new;
+	new = malloc(sizeof(t_exp));
+	if (!new)
+		return (exit(1), 1);
+	new->key = ft_strdup("PATH");
+	new->value = ft_strdup("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin");
+	new->next = NULL;
+	(*exp)->next->next->next = new;
+	new = malloc(sizeof(t_exp));
+	if (!new)
+		return (exit(1), 1);
+	new->key = ft_strdup("OLDPWD");
+	new->value = NULL;
+	new->next = NULL;
+	(*exp)->next->next->next->next = new;
+	return (0);
+}
+
 int	ft_env(t_exp **exp, char **envp)
 {
 	int			i;
@@ -88,8 +131,8 @@ int	ft_env(t_exp **exp, char **envp)
 
 	i = -1;
 	*exp = NULL;
-	if (!envp)
-		return (1);
+	if (!envp || !*envp)
+		return (setup_env_ignored(exp));
 	while (envp[++i])
 	{
 		new = malloc(sizeof(t_exp));
@@ -107,5 +150,5 @@ int	ft_env(t_exp **exp, char **envp)
 			tmp->next = new;
 		}
 	}
-	return ((*exp)->status = 1, 1);
+	return (1);
 }
