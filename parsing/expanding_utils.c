@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/17 09:56:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:22:31 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	found_question_mark(char node, t_exp **exp, char *replace)
 		value = ft_itoa((*exp)->status);
 		while (*value)
 		{
-			
-	puts("hey");
 			replace[j++] = *value;
 			value++;
 		}
@@ -53,7 +51,7 @@ int	replace_with_value(char *node, t_exp **exp, char *replace, int *j)
 
 	end = get_key(node);
 	value = get_value(node, end, exp);
-	if ((end == 0 || !value) && *node != '\'' && *node != '"')
+	if (end == 0 || !value)
 		(*exp)->ambiguous = 1;
 	if (value)
 	{
