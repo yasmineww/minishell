@@ -5,8 +5,6 @@ Unset path
 unset head two times
 _=/usr/bin/env
 
-error management
-is a directory . /
 
 
 // #define malloc(x) NULL; /////

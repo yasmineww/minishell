@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/16 22:20:25 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:43:39 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,22 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 		list->option[0] = get_cmd_path(exp, list->option[0]);
 		if (list->option[0] && execve(list->option[0], list->option, envp))
 		{
-			perror("execve");
+			if (list->option[0][0] && (list->option[0][0] == '.' || list->option[0][0] == '/'))
+			{
+				if (list->option[0][0] == '.')
+				{
+					ft_error("Minishell:", list->option[0], ": filename argument required");
+					exp->status = 2;
+					exit(2);
+				}
+				else if (list->option[0][0] == '/')
+				{
+					ft_error("Minishell:", list->option[0], ": is a directory");
+					exp->status = 126;
+					exit(126);
+				}
+			}
+			ft_error("Minishell:", list->option[0], ": command not found");
 			exp->status = 127;
 			exit(127);
 		}

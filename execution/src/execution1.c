@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/16 22:20:51 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:05:16 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	}
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
-	return (exp->status = 127, perror(cmd), exit(127), NULL);
+	return (exp->status = 127,
+		ft_error("Minishell:", cmd, ": command not found"),
+		exit(127), NULL);
 }
 
 void	setup_signals(int i)

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/13 19:54:02 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:43:47 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	two_dots(t_exp *exp)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		ft_error("bash: cd:", NULL,
+		ft_error("Minishell: cd:", NULL,
 			"error in retrieving current directory");
 		chdir(exp->pwd);
 	}
@@ -78,7 +78,7 @@ int	ft_cd(char *path, t_exp *exp)
 	{
 		ret = chdir(path);
 		if (ret != 0)
-			return (ft_error("bash: cd:", path, "No such file or directory")
+			return (ft_error("Minishell: cd:", path, "No such file or directory")
 				, exp->status = 1, 1);
 	}
 	update_cwd(exp);
