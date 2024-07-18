@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 22:37:33 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:19:45 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ void	print_env(t_exp **exp)
 	tmp = *exp;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, "OLDPWD", 6) == 0)
-			tmp->value = NULL;// mazal hna lkhdma
+		if (!ft_strncmp(tmp->key, "OLDPWD", 6) || !ft_strncmp(tmp->key, "PWD", 3))
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		if (tmp->value != NULL)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
@@ -80,46 +83,48 @@ void	find_key(char *envp, t_exp *exp)
 	find_value(envp, exp, l + 1);
 }
 
-int	setup_env_ignored(t_exp **exp)
+t_exp	*create_node(char *key, char *value)
 {
 	t_exp	*new;
 
-	new = *exp;
 	new = malloc(sizeof(t_exp));
 	if (!new)
-		return (exit(1), 1);
-	new->key = ft_strdup("PWD");
-	new->value = getcwd(NULL, 0);
+		return (NULL);
+	new->key = ft_strdup(key);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = NULL;
 	new->next = NULL;
-	*exp = new;
-	new = malloc(sizeof(t_exp));
+	return (new);
+}
+
+int	setup_env_ignored(t_exp **exp)
+{
+	t_exp	*new;
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	new = create_node("PWD", pwd);
 	if (!new)
 		return (exit(1), 1);
-	new->key = ft_strdup("SHLVL");
-	new->value = ft_strdup("1");
-	new->next = NULL;
-	(*exp)->next = new;
-	new = malloc(sizeof(t_exp));
+	ft_lstadd_back(exp, new);
+	new = create_node("SHLVL", "1");
 	if (!new)
 		return (exit(1), 1);
-	new->key = ft_strdup("_");
-	new->value = ft_strdup("/usr/bin/env");
-	new->next = NULL;
-	(*exp)->next->next = new;
-	new = malloc(sizeof(t_exp));
+	ft_lstadd_back(exp, new);
+	new = create_node("OLDPWD", NULL);
 	if (!new)
 		return (exit(1), 1);
-	new->key = ft_strdup("PATH");
-	new->value = ft_strdup("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin");
-	new->next = NULL;
-	(*exp)->next->next->next = new;
-	new = malloc(sizeof(t_exp));
+	ft_lstadd_back(exp, new);
+	new = create_node("HOME", _);
 	if (!new)
 		return (exit(1), 1);
-	new->key = ft_strdup("OLDPWD");
-	new->value = NULL;
-	new->next = NULL;
-	(*exp)->next->next->next->next = new;
+	ft_lstadd_back(exp, new);
+	new = create_node("PATH", PATH);
+	if (!new)
+		return (exit(1), 1);
+	ft_lstadd_back(exp, new);
 	return (0);
 }
 

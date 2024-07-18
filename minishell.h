@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/17 19:33:46 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:56:06 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 
 int	g_sig;
 
-// # define PATH /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+# define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
+# define _ "/usr/bin/env"
 
 typedef struct s_exec
 {
@@ -63,6 +64,7 @@ typedef struct s_exp
 	char			**path;
 	char			*key;
 	char			*value;
+	int				dir_changed;
 	//char			*oldpwd; // still not sure i'll be working with this
 	char			*pwd;
 	struct s_exp	*next;
@@ -150,6 +152,7 @@ void	setup_signals(int i);
 int		onecmd_builtin(t_exp **exp, t_list *list);
 void	child_io(t_exec *data, t_list *list);
 int		ft_unset_helper(t_exp **exp, char **s);
+t_exp	*create_node(char *key, char *value);
 
 // ---------------------- signals ----------------------
 

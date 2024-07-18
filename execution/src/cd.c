@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 15:43:47 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:03:09 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ void	update_cwd(t_exp *exp)
 {
 	char	*cwd;
 	char	*oldpwd;
+	t_exp	*tmp;
 
+	tmp = last_node(exp);
 	oldpwd = ft_getoldpwd(exp);
+	tmp = create_node("OLDPWD", oldpwd);
+	ft_lstadd_back(&exp, tmp);
 	cwd = getcwd(NULL, 0);
 	cwd_oldpwd(exp, cwd, oldpwd);
-	free(cwd);
-	if (oldpwd)
-		free(oldpwd);
+	// free(cwd);
+	// if (oldpwd)
+	// 	free(oldpwd);
 }
 
 void	ft_error(char *str1, char *str2, char *str3)
