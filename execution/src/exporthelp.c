@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/18 16:17:32 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:32:22 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ void	swap_values(t_exp *a, t_exp *b)
 
 void	print_exp(t_exp *exp)
 {
-	while (exp)
+	t_exp	*tmp;
+
+	tmp = exp;
+	while (tmp)
 	{
-		if (!exp->value)
-			printf("declare -x %s\n", exp->key);
+		if (!tmp->value)
+			printf("declare -x %s\n", tmp->key);
 		else
-			printf("declare -x %s=\"%s\"\n", exp->key, exp->value);
-		exp = exp->next;
+			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
 }
 

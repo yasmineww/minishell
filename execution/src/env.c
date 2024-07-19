@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/18 16:19:45 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:30:25 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ void	print_env(t_exp **exp)
 	tmp = *exp;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, "OLDPWD", 6) || !ft_strncmp(tmp->key, "PWD", 3))
-		{
-			tmp = tmp->next;
-			continue ;
-		}
 		if (tmp->value != NULL)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
@@ -144,6 +139,12 @@ int	ft_env(t_exp **exp, char **envp)
 		if (!new)
 			return (exit(1), 1);
 		find_key(envp[i], new);
+		if (!ft_strcmp(new->key, "OLDPWD"))
+		{
+			if (new->value)
+				free(new->value);
+			new->value = NULL;
+		}
 		new->next = NULL;
 		if (!*exp)
 			*exp = new;

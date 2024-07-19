@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 16:05:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:24:33 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	onecmd_builtin(t_exp **exp, t_list *list)
 		return ((*exp)->status = 1, 1);
 	if (handle_redirs(list, *exp))
 		return (1);
-	exec_builtin(exp, list->option);
+	exec_builtin(exp, list->option, list);
 	list->option[0] = NULL;
 	if (list->option[1])
 		list->option[1] = NULL;

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 16:43:21 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:40:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,15 @@ int	ft_reset_value(t_exp **exp, char *s, int i)
 	return (0);
 }
 
-int	export(t_exp **exp, char *s)
+int	export(t_exp **exp, char *s, t_list *list)
 {
 	int		i;
 
 	i = 0;
+	if (!ft_strncmp(s, "PWD", 3))
+		list->pwd_unset = 0;
+	if (!ft_strncmp(s, "OLDPWD", 6))
+		list->oldpwd_unset = 0;
 	if (ft_export_input(s))
 		return (ft_error("export", s, "not a valid identifier"),
 			(*exp)->status = 1, 1);

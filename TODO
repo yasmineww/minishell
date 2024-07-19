@@ -1,39 +1,23 @@
 ------------execution------------
 
-waaaaaaaa fink a PWD oldpwd unset
-Unset path
-unset head two times
-_=/usr/bin/env
+tcsetattr
 
+bash-3.2$ <  /dev/stdin cat > /dev/stdin
+bash-3.2$ <  /dev/stdin cat > /dev/stdinf
+
+underscore variable last arg of the last command ls -la _=-la
+
+envp 7wlo l array
+
+$gdf ls
+fd leaks on error exit
+
+waaaaaaaa fink a PWD oldpwd unset
+_=/usr/bin/env
 
 exit quotes handling numbers
 
-➜  minishell-1 git:(main) ✗ bash
 
-The default interactive shell is now zsh.
-To update your account to use zsh, please run `chsh -s /bin/zsh`.
-For more details, please visit https://support.apple.com/kb/HT208050.
-bash-3.2$ echo $PWD
-/Users/mbenchel/Desktop/minishell-1
-bash-3.2$ export PWD=jdfhdfghdsfghd
-bash-3.2$ echo $OLDPWD
-
-bash-3.2$ cd ..
-bash-3.2$ echo $PWD
-/Users/mbenchel/Desktop
-bash-3.2$ echo $OLDPWD
-jdfhdfghdsfghd
-bash-3.2$ pwd
-/Users/mbenchel/Desktop
-bash-3.2$ export HOME=djfdhsgf
-bash-3.2$ cd
-bash: cd: djfdhsgf: No such file or directory
-bash-3.2$ export PWD=dgfdhsgf
-bash-3.2$ pwd
-/Users/mbenchel/Desktop
-bash-3.2$ echo $PWD
-dgfdhsgf
-bash-3.2$
 // should be before the line count = ft_lstsize(list);
 void	check_value_export(t_list *list)
 {
@@ -70,7 +54,6 @@ export makhasch tprinta _ w f env makhshach t unsetta
 
 ila t unseta pwd w oldpwd khask t3awd t7thom
 
-oldpwd madkhloch flbdya
 
 //oldpwd tadir cd 3ad dkhlo (optional)
 // Check the PWD in the env so we can update it each time we change the directory if the PWD is not
@@ -230,7 +213,35 @@ unset USER lhead joj mrat
 UNSET MAKATLOOPICH
 initialize exp->ambiguous somewhere
 // #define malloc(x) NULL; /////
+Unset path
+unset head two times
+oldpwd madkhloch flbdya
+➜  minishell-1 git:(main) ✗ bash
 
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ echo $PWD
+/Users/mbenchel/Desktop/minishell-1
+bash-3.2$ export PWD=jdfhdfghdsfghd
+bash-3.2$ echo $OLDPWD
+
+bash-3.2$ cd ..
+bash-3.2$ echo $PWD
+/Users/mbenchel/Desktop
+bash-3.2$ echo $OLDPWD
+jdfhdfghdsfghd
+bash-3.2$ pwd
+/Users/mbenchel/Desktop
+bash-3.2$ export HOME=djfdhsgf
+bash-3.2$ cd
+bash: cd: djfdhsgf: No such file or directory
+bash-3.2$ export PWD=dgfdhsgf
+bash-3.2$ pwd
+/Users/mbenchel/Desktop
+bash-3.2$ echo $PWD
+dgfdhsgf
+bash-3.2$
 -----------------------------------------------------------------------------------
 
 MY TEST DONT DELETE

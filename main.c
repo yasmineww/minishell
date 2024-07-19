@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/17 21:07:06 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:26:55 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ int	main(int ac, char **av, char **envp)
 	char	*input;
 	t_list	*list;
 	t_exp	*exp;
+	int		pwd_oldpwd;
 
 	// atexit(f);
+	pwd_oldpwd = 0;
 	(void)ac;
 	(void)av;
 	g_sig = 0;

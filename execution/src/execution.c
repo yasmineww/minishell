@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 21:36:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:23:41 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 	{
 		if (handle_redirs(list, exp))
 			exit(1);
-		exec_builtin(&exp, list->option);
+		exec_builtin(&exp, list->option, list);
 		dup2(data->fdpipe[0], 0);
 		close(data->fdpipe[0]);
 		dup2(data->fdpipe[1], 1);
@@ -148,9 +148,7 @@ int	execute(t_list *list, t_exp **exp, char **envp)
 		return (0);
 	}
 	tmp = find_path(exp);
-	if (!tmp)
-		return ((*exp)->status = 1, 1);
-	if (*exp)
+	if (*exp && tmp)
 		(*exp)->path = ft_split(tmp, ':');
 	if (!(*exp) || !(*exp)->path)
 		return ((*exp)->status = 1, 1);

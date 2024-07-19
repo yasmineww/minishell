@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 22:48:22 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:23:14 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_getoldpwd(t_exp *exp)
 {
 	while (exp)
 	{
-		if (ft_strcmp(exp->key, "PWD") == 0)
+		if (!ft_strncmp(exp->key, "PWD", 3))
 		{
 			if (exp->value)
 				return (ft_strdup(exp->value));
@@ -79,7 +79,7 @@ int	ft_find_home(t_exp *exp)
 		{
 			res = find_home(exp);
 			if (res == 0)
-				return (update_cwd(exp), exp->status = 0, 0);
+				return (exp->status = 0, 0);
 			return (res);
 		}
 		exp = exp->next;
