@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/17 15:10:24 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:28:22 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 int	setup_prompt(char **input, t_exp *exp)
 {
+	int	stat;
+
 	*input = NULL;
 	exp->ambiguous = 0;
 	exp->expanded = 0;
@@ -27,10 +29,11 @@ int	setup_prompt(char **input, t_exp *exp)
 		exp->status = 1;
 	if (!*input || isatty(0) == 0)
 	{
+		stat = exp->status;
 		printf("exit\n");
 		free_env(exp);
 		// free(exp->pwd);
-		return (1);
+		exit (stat);
 	}
 	if (*input && *input[0] != '\0')
 		add_history(*input);

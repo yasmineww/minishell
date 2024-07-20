@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 16:05:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:27:09 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	int		i;
 
 	if (!cmd)
-		exit(1);
+		return NULL;
 	i = 0;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
