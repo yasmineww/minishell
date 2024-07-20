@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 15:35:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:49:38 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **envp)
 	t_exp	*exp;
 	int		pwd_oldpwd;
 
-	// atexit(f);
+	atexit(f);
 	pwd_oldpwd = 0;
 	(void)ac;
 	(void)av;
