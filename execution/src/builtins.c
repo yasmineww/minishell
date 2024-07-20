@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 14:12:59 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:28:46 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,6 @@ int	is_builtin(char **cmd)
 	}
 	return (0);
 }
-// int	is_builtin(char **cmd)
-// {
-// 	if (*cmd)
-// 	{
-// 		if (ft_strcmp(cmd[0], "cd") == 0)
-// 			return (1);
-// 		if (ft_strcmp(cmd[0], "pwd") == 0)
-// 			return (1);
-// 		if (ft_strcmp(cmd[0], "env") == 0)
-// 			return (1);
-// 		if (ft_strcmp(cmd[0], "exit") == 0)
-// 			return (1);
-// 		if (ft_strcmp(cmd[0], "echo") == 0)
-// 			return (1);
-// 		if (ft_strcmp(cmd[0], "unset") == 0)
-// 			return (1);
-// 		if (ft_strcmp(cmd[0], "export") == 0)
-// 			return (1);
-// 	}
-// 	return (0);
-// }
 
 int	ft_2dlen(char **s)
 {

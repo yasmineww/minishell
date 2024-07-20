@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/19 13:23:14 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:20:13 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	find_home(t_exp *exp)
 {
 	int	ret;
 
+	printf("exp->value = %p\n", exp->pwd);
 	if (exp->value == NULL)
 		return (exp->status = 1,
 			ft_error("Minishell: cd:", "HOME not set", NULL), 1);
@@ -63,9 +64,8 @@ int	find_home(t_exp *exp)
 	if (ret)
 		return (ft_error("Minishell: cd:", exp->value,
 				"No such file or directory"), exp->status = 1, 1);
+	free(exp->pwd);
 	exp->pwd = ft_strdup(exp->value);
-	// if (exp->pwd && ret == 0)
-				// 	free(exp->pwd);
 	return (0);
 }
 
@@ -81,6 +81,8 @@ int	ft_find_home(t_exp *exp)
 			if (res == 0)
 				return (exp->status = 0, 0);
 			return (res);
+			// else // wa9ila break 7sn
+				// break ;
 		}
 		exp = exp->next;
 	}

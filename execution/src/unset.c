@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/19 16:28:53 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:29:10 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	ft_unset(t_exp **exp, char *key, t_list *list)
 				list->pwd_unset = 1;
 			if (!ft_strncmp(cur->key, "OLDPWD", 6))
 				list->oldpwd_unset = 1;
-			printf("ft_unset pwd_unset: %d\n", list->pwd_unset);
-			printf("ft_unset oldpwd_unset: %d\n", list->oldpwd_unset);
 			if (!prev)
 				*exp = cur->next;
 			else

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/19 16:38:11 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:10:59 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	update_cwd(t_exp *exp, t_list *list)
 	oldpwd = ft_getoldpwd(exp);
 	cwd = getcwd(NULL, 0);
 	cwd_oldpwd(exp, cwd, oldpwd);
-	printf("pwd flag after updating cwd: %d\n", list->pwd_unset);
-	printf("oldpwd flag after updating cwd: %d\n", list->oldpwd_unset);
 	if (list->pwd_unset == 1)
 	{
 		puts("create pwd node");
@@ -88,8 +86,6 @@ int	ft_cd(char *path, t_exp *exp, t_list *list)
 {
 	int		ret;
 
-	printf("cd list->pwd_unset = %d\n", list->pwd_unset);
-	printf("cd list->oldpwd_unset = %d\n", list->oldpwd_unset);
 	if (!path || path[0] == '\0')
 		ft_cd_home(exp);
 	else if (!ft_strncmp(path, "..", 2))
@@ -101,11 +97,7 @@ int	ft_cd(char *path, t_exp *exp, t_list *list)
 			return (ft_error("Minishell: cd:", path, "No such file or directory")
 				, exp->status = 1, 1);
 	}
-	printf("------------------list->pwd_unset = %d\n", list->pwd_unset);
-	printf("------------------list->oldpwd_unset = %d\n", list->oldpwd_unset);
 	update_cwd(exp, list);
-	printf("-after-----------------list->pwd_unset = %d\n", list->pwd_unset);
-	printf("--after----------------list->oldpwd_unset = %d\n", list->oldpwd_unset);
 	exp->status = 0;
 	return (0);
 }

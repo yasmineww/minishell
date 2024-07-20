@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 15:41:57 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:09:48 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		get_value_len(char *ptr, int j, int end, t_exp **exp);
 int		found_question_mark(char node, t_exp **exp, char *replace, int *j);
 int		store_dollar(char *node, char *replace, int i);
 int		replace_with_value(char *node, t_exp **exp, char *replace, int *i);
+void	free_list(t_list *list);
 
 // ---------------------- execution ----------------------
 
