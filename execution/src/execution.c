@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 16:46:25 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:05:13 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 	{
 		if (handle_redirs(list, exp))
 			exit(1);
-		if (exp->ambiguous)
+		if (exp->test)
 		{
 			//free the old one 2d array ig
 			list->option = ft_split_spaces(list->option[0]);

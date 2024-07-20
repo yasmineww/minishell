@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 22:06:31 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:35:23 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_list
 typedef struct s_exp
 {
 	int				ambiguous;
+	int				test;
 	int				expanded;
 	int				status;
 	char			**path;
@@ -72,6 +73,20 @@ typedef struct s_exp
 	char			*pwd;
 	struct s_exp	*next;
 }	t_exp;
+
+// typedef struct s_flag
+// {
+// 	int	ambiguous;
+// 	int	test;
+// 	int	expanded;
+// 	int	status;
+// }	t_flag;
+
+// typedef struct s_mini
+// {
+// 	t_list	*list;
+// 	t_exp	*exp;
+// }	t_mini;
 
 // ---------------------- utils ----------------------
 

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/17 15:06:22 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:04:04 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	replace_with_value(char *node, t_exp **exp, char *replace, int *j)
 	if (value)
 	{
 		if (count_word_spaces(value) > 1)
-			(*exp)->ambiguous = 1;
+			(*exp)->test = 1;
 		while (*value)
 		{
 			replace[*j] = *value;
