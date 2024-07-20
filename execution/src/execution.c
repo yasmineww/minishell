@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 15:42:02 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:46:25 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,11 @@ int	execute(t_list *list, t_exp **exp, char **envp)
 	}
 	tmp = find_path(exp);
 	if (*exp && tmp)
+	{
+		if ((*exp)->path)
+			ft_free((*exp)->path);
 		(*exp)->path = ft_split(tmp, ':');
+	}
 	if (!(*exp) || !(*exp)->path)
 		return ((*exp)->status = 1, 1);
 	// free(tmp);
