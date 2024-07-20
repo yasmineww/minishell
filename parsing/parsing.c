@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/19 17:12:53 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:10:34 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ int	parsing(char *input, t_list **list, t_exp **exp)
 	while ((*tmp >= 9 && *tmp <= 13) || *tmp == 32)
 		tmp++;
 	if (!*tmp)
+	{
+		free(input);
 		return (1);
+	}
 	if (quotes_syntax_error(input) || syntax_error(input))
 	{
 		error_message(input, exp);

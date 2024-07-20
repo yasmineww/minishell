@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 15:49:38 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:11:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	setup_prompt(char **input, t_exp *exp)
 		stat = exp->status;
 		printf("exit\n");
 		free_env(exp);
-		// free(exp->pwd);
+		free(exp->pwd);
 		exit (stat);
 	}
 	if (*input && *input[0] != '\0')
