@@ -1,5 +1,8 @@
 ------------execution------------
 
+cd ""
+cd "$a"
+
 tcsetattr
 
 bash-3.2$ <  /dev/stdin cat > /dev/stdin
