@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 15:43:55 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:19:45 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_2dlen(char **s)
 	return (i);
 }
 
-int	exec_builtin(t_exp **exp, char **cmd)
+int	exec_builtin(t_exp **exp, char **cmd, t_list *list)
 {
 	if (!cmd || !*cmd)
 		return (0);
@@ -84,7 +84,7 @@ int	exec_builtin(t_exp **exp, char **cmd)
 			return (ft_error("Minishell: cd:", "too many arguments",
 					NULL), (*exp)->status = 1, 1);
 		else
-			return (ft_cd(cmd[1], *exp));
+			return (ft_cd(cmd[1], *exp, list));
 	}
 	if (ft_strcmp(cmd[0], "pwd") == 0)
 		return (ft_pwd(*exp));
@@ -95,8 +95,8 @@ int	exec_builtin(t_exp **exp, char **cmd)
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		return (ft_echo(cmd, *exp));
 	if (ft_strcmp(cmd[0], "unset") == 0)
-		return (ft_unset_helper(exp, cmd));
+		return (ft_unset_helper(exp, cmd, list));
 	if (ft_strcmp(cmd[0], "export") == 0)
-		return (exporthelp(*exp, cmd));
+		return (exporthelp(*exp, cmd, list));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/19 13:26:57 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:35:55 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <termios.h>
 
 int	g_sig;
+
+# define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
+# define _ "/usr/bin/env"
 
 typedef struct s_exec
 {
@@ -50,6 +53,8 @@ typedef struct s_list
 	char			*cmd;
 	int				infile;
 	int				outfile;
+	int				oldpwd_unset;
+	int				pwd_unset;
 	struct s_list	*next;
 }	t_list;
 
@@ -113,17 +118,17 @@ int		replace_with_value(char *node, t_exp **exp, char *replace, int *i);
 
 int		execute(t_list *list, t_exp **exp, char **envp);
 int		is_builtin(char **cmd);
-int		exec_builtin(t_exp **exp, char **cmd);
-int		ft_cd(char *path, t_exp *exp);
+int		exec_builtin(t_exp **exp, char **cmd , t_list *list);
+int		ft_cd(char *path, t_exp *exp, t_list *list);
 int		ft_pwd(t_exp *exp);
 int		countparams(char **s);
 void	print_env(t_exp **exp);
 int		ft_echo(char **cmd, t_exp *exp);
 int		exec(t_exp **exp, t_list *list, char **envp, struct termios *term);
-int		ft_unset(t_exp **exp, char *key);
-int		export(t_exp **exp, char *s);
+int		ft_unset(t_exp **exp, char *key, t_list *list);
+int		export(t_exp **exp, char *s, t_list *list);
 void	find_key(char *envp, t_exp *exp);
-int		exporthelp(t_exp *exp, char **s);
+int		exporthelp(t_exp *exp, char **s, t_list *list);
 void	sort_list(t_exp *exp);
 void	print_exp(t_exp *exp);
 t_exp	*dup_list(t_exp *exp);
@@ -140,14 +145,16 @@ char	*ft_getoldpwd(t_exp *exp);
 void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd);
 int		find_home(t_exp *exp);
 int		ft_find_home(t_exp *exp);
-void	update_cwd(t_exp *exp);
+void	update_cwd(t_exp *exp, t_list *list);
 t_exp	*last_node(t_exp *head);
 void	parent_io(t_exec *data, t_list *list);
 char	*get_cmd_path(t_exp *exp, char *cmd);
 void	setup_signals(int i);
 int		onecmd_builtin(t_exp **exp, t_list *list);
 void	child_io(t_exec *data, t_list *list);
-int		ft_unset_helper(t_exp **exp, char **s);
+int		ft_unset_helper(t_exp **exp, char **s, t_list *list);
+t_exp	*create_node(char *key, char *value);
+int		isalpha_underscore(int c, int flag);
 
 // ---------------------- signals ----------------------
 

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 15:33:44 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:35:59 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	print_env(t_exp **exp)
 	tmp = *exp;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, "OLDPWD", 6) == 0)
-			tmp->value = NULL;// mazal hna lkhdma
 		if (tmp->value != NULL)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
@@ -80,6 +78,51 @@ void	find_key(char *envp, t_exp *exp)
 	find_value(envp, exp, l + 1);
 }
 
+t_exp	*create_node(char *key, char *value)
+{
+	t_exp	*new;
+
+	new = malloc(sizeof(t_exp));
+	if (!new)
+		return (NULL);
+	new->key = ft_strdup(key);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+int	setup_env_ignored(t_exp **exp)
+{
+	t_exp	*new;
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	new = create_node("PWD", pwd);
+	if (!new)
+		return (exit(1), 1);
+	ft_lstadd_back(exp, new);
+	new = create_node("SHLVL", "1");
+	if (!new)
+		return (exit(1), 1);
+	ft_lstadd_back(exp, new);
+	new = create_node("OLDPWD", NULL);
+	if (!new)
+		return (exit(1), 1);
+	ft_lstadd_back(exp, new);
+	new = create_node("HOME", _);
+	if (!new)
+		return (exit(1), 1);
+	ft_lstadd_back(exp, new);
+	new = create_node("PATH", PATH);
+	if (!new)
+		return (exit(1), 1);
+	ft_lstadd_back(exp, new);
+	return (0);
+}
+
 int	ft_env(t_exp **exp, char **envp)
 {
 	int			i;
@@ -88,12 +131,20 @@ int	ft_env(t_exp **exp, char **envp)
 
 	i = -1;
 	*exp = NULL;
+	if (!envp || !*envp)
+		return (setup_env_ignored(exp));
 	while (envp[++i])
 	{
 		new = malloc(sizeof(t_exp));
 		if (!new)
-			return ((*exp)->status = 1, 1);
+			return (exit(1), 1);
 		find_key(envp[i], new);
+		if (!ft_strcmp(new->key, "OLDPWD"))
+		{
+			if (new->value)
+				free(new->value);
+			new->value = NULL;
+		}
 		new->next = NULL;
 		if (!*exp)
 			*exp = new;
@@ -105,5 +156,5 @@ int	ft_env(t_exp **exp, char **envp)
 			tmp->next = new;
 		}
 	}
-	return ((*exp)->status = 1, 1);
+	return (1);
 }

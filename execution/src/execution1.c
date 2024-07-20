@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/19 13:27:09 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:36:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	int		i;
 
 	if (!cmd)
-		return NULL;
+		return (NULL);
 	i = 0;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
@@ -80,7 +80,7 @@ int	onecmd_builtin(t_exp **exp, t_list *list)
 		return ((*exp)->status = 1, 1);
 	if (handle_redirs(list, *exp))
 		return (1);
-	exec_builtin(exp, list->option);
+	exec_builtin(exp, list->option, list);
 	list->option[0] = NULL;
 	if (list->option[1])
 		list->option[1] = NULL;

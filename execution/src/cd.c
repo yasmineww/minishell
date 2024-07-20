@@ -6,23 +6,41 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 15:43:47 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:38:11 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	update_cwd(t_exp *exp)
+void	update_cwd(t_exp *exp, t_list *list)
 {
 	char	*cwd;
 	char	*oldpwd;
+	t_exp	*cur;
 
+	cur = exp;
 	oldpwd = ft_getoldpwd(exp);
 	cwd = getcwd(NULL, 0);
 	cwd_oldpwd(exp, cwd, oldpwd);
-	free(cwd);
-	if (oldpwd)
-		free(oldpwd);
+	printf("pwd flag after updating cwd: %d\n", list->pwd_unset);
+	printf("oldpwd flag after updating cwd: %d\n", list->oldpwd_unset);
+	if (list->pwd_unset == 1)
+	{
+		puts("create pwd node");
+		cur = create_node("PWD", cwd);
+		ft_lstadd_back(&exp, cur);
+		list->pwd_unset = 0;
+	}
+	if (list->oldpwd_unset == 1)//unset kolchi
+	{
+		puts("create oldpwd node");
+		cur = create_node("OLDPWD", oldpwd);
+		ft_lstadd_back(&exp, cur);
+		list->oldpwd_unset = 0;
+	}
+	// free(cwd);
+	// if (oldpwd)
+	// 	free(oldpwd);
 }
 
 void	ft_error(char *str1, char *str2, char *str3)
@@ -66,14 +84,16 @@ static int	two_dots(t_exp *exp)
 	return (0);
 }
 
-int	ft_cd(char *path, t_exp *exp)
+int	ft_cd(char *path, t_exp *exp, t_list *list)
 {
 	int		ret;
 
+	printf("cd list->pwd_unset = %d\n", list->pwd_unset);
+	printf("cd list->oldpwd_unset = %d\n", list->oldpwd_unset);
 	if (!path || path[0] == '\0')
-		return (ft_cd_home(exp));
+		ft_cd_home(exp);
 	else if (!ft_strncmp(path, "..", 2))
-		return (two_dots(exp));
+		two_dots(exp);
 	else
 	{
 		ret = chdir(path);
@@ -81,7 +101,11 @@ int	ft_cd(char *path, t_exp *exp)
 			return (ft_error("Minishell: cd:", path, "No such file or directory")
 				, exp->status = 1, 1);
 	}
-	update_cwd(exp);
+	printf("------------------list->pwd_unset = %d\n", list->pwd_unset);
+	printf("------------------list->oldpwd_unset = %d\n", list->oldpwd_unset);
+	update_cwd(exp, list);
+	printf("-after-----------------list->pwd_unset = %d\n", list->pwd_unset);
+	printf("--after----------------list->oldpwd_unset = %d\n", list->oldpwd_unset);
 	exp->status = 0;
 	return (0);
 }

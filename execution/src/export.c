@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/14 23:44:25 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:40:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,15 @@ int	ft_reset_value(t_exp **exp, char *s, int i)
 	return (0);
 }
 
-int	export(t_exp **exp, char *s)
+int	export(t_exp **exp, char *s, t_list *list)
 {
 	int		i;
 
 	i = 0;
+	if (!ft_strncmp(s, "PWD", 3))
+		list->pwd_unset = 0;
+	if (!ft_strncmp(s, "OLDPWD", 6))
+		list->oldpwd_unset = 0;
 	if (ft_export_input(s))
 		return (ft_error("export", s, "not a valid identifier"),
 			(*exp)->status = 1, 1);
@@ -124,104 +128,3 @@ int	export(t_exp **exp, char *s)
 		return (ft_new_key(exp, s));
 	return (0);
 }
-
-// int	export(t_exp **exp, char *s)
-// {
-// 	t_exp	*new;
-// 	t_exp	*cur;
-// 	int		i;
-// 	int		old_i;
-
-// 	i = 0;
-// 	cur = *exp;
-// 	if (s[i] && !isalpha_underscore(s[i], 1))
-// 		return (ft_error("export", s, "not a valid identifier"),
-// 			(*exp)->status = 1, 1);
-// 	while (s[i] && (s[i] != '+' || s[i] != '='))
-// 	{
-// 		if (s[i] && !isalpha_underscore(s[i], 0))
-// 			return (ft_error("export", s, "not a valid identifier"),
-// 				(*exp)->status = 1, 1);
-// 		i++;
-// 		if (s[i] == '+')
-// 		{
-// 			i++;
-// 			if (s[i] == '=')
-// 			{
-// 				while (cur)
-// 				{
-// 					if (ft_strncmp(cur->key, s, i - 2) == 0)
-// 					{
-// 						cur->value = ft_strjoin(cur->value, s + i + 1);
-// 						return (0);
-// 					}
-// 					else
-// 					{
-// 						while (cur)
-// 						{
-// 							if (ft_strncmp(cur->key, s, i - 2) == 0)
-// 							{
-// 								cur->value = ft_strjoin(cur->value, s + i + 1);
-// 								return (0);
-// 							}
-// 							cur = cur->next;
-// 						}
-// 						new = malloc(sizeof(t_exp));
-// 						if (!new)
-// 							return ((*exp)->status = 1, 1);
-// 						new->key = ft_substr(s, 0, i - 1);
-// 						new->value = ft_strdup(s + i + 1);
-// 						new->next = NULL;
-// 						ft_lstadd_back(exp, new);
-// 						return (0);
-// 					}
-// 					cur = cur->next;
-// 				}
-// 			}
-// 			else
-// 				return (ft_error("export", s, "not a valid identifier"),
-// 					(*exp)->status = 1, 1);
-// 		}
-// 		else if (s[i] == '=')
-// 		{
-// 			old_i = i;
-// 			i = 0;
-// 			while (cur)
-// 			{
-// 				if (ft_strncmp(cur->key, s, old_i - 1) == 0
-// 					&& cur->key[old_i] == '\0')
-// 				{
-// 					cur->value = ft_strdup(s + old_i + 1);
-// 					return (0);
-// 				}
-// 				cur = cur->next;
-// 			}
-// 			new = malloc(sizeof(t_exp));
-// 			if (!new)
-// 				return ((*exp)->status = 1, 1);
-// 			new->key = ft_substr(s, 0, old_i);
-// 			new->value = ft_strdup(s + old_i + 1);
-// 			new->next = NULL;
-// 			ft_lstadd_back(exp, new);
-// 			return (0);
-// 		}
-// 		else if (!ft_strchr(s, '=') && !ft_strchr(s, '+'))
-// 		{
-// 			while (cur)
-// 			{
-// 				if (ft_strcmp(cur->key, s) == 0)
-// 					return (0);
-// 				cur = cur->next;
-// 			}
-// 			new = malloc(sizeof(t_exp));
-// 			if (!new)
-// 				return ((*exp)->status = 1, 1);
-// 			new->key = ft_strdup(s);
-// 			new->value = NULL;
-// 			new->next = NULL;
-// 			ft_lstadd_back(exp, new);
-// 			return (0);
-// 		}
-// 	}
-// 	return (0);
-// }
