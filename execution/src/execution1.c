@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 15:30:35 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:38:46 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	int		i;
 
 	if (!cmd)
-		exit(1);
+		return (NULL);
 	i = 0;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
