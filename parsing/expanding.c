@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 15:29:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:26:56 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,13 @@ int	get_value_len(char *ptr, int j, int end, t_exp **exp)
 	while (env)
 	{
 		if (!ft_strcmp(env->key, ptr2))
+		{
+			free(ptr2);
 			return (ft_strlen(env->value));
+		}
 		env = env->next;
 	}
+	free(ptr2);
 	return (0);
 }
 
