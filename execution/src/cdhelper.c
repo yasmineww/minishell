@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cdhelper.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 18:14:13 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 19:00:40 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
 			// if(exp->value) ymkn 7it katfreeya list flkhr dakchi 3lach double free idan solution hia oldpwd w pwd nt7km fihom ana
 				// free(exp->value);
 			if (oldpwd)
-				exp->value = oldpwd;
+            {
+                if (exp->value)
+                    free(exp->value);
+                exp->value = oldpwd;
+            }
 			else
 			{
 				if (exp->value)

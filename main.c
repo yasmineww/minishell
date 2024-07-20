@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:30:43 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:48:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	*list;
 	t_exp	*exp;
 
-	// atexit(f);
+	atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;
@@ -99,8 +99,7 @@ int	main(int ac, char **av, char **envp)
 	set_pwd(exp);
 	while (1)
 	{
-		if (setup_prompt(&input, exp))
-			break ;
+		setup_prompt(&input, exp);
 		if (parsing(input, &list, &exp))
 			continue ;
 		handle_heredoc(&list, &exp);
