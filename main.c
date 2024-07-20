@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 18:48:51 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 22:16:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	free_list(t_list *list)
 		free(temp->cmd);
 		temp->cmd = NULL;
 		i = 0;
+		if (temp->flag)
+			temp->option -= temp->flag;
 		while (temp->option[i])
 		{
 			free(temp->option[i]);
@@ -90,7 +92,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	*list;
 	t_exp	*exp;
 
-	atexit(f);
+	// atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;

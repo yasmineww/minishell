@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:26:56 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/20 22:15:38 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	expanding(t_list **list, t_exp **exp)
 	while (tmp)
 	{
 		i = 0;
+		tmp->flag = 0;
 		while (tmp->option[i])
 		{
 			len = helper2(tmp->option[i], exp);
@@ -110,6 +111,12 @@ void	expanding(t_list **list, t_exp **exp)
 				store_new_key(tmp->option[i], exp, replace, 0);
 			if (tmp->option[i][0] == '"')
 				(*exp)->ambiguous = 0;
+			if ((i == 0) && (*replace == '\0'))
+			{
+				tmp->option++;
+				tmp->flag += 1;
+				continue ;
+			}
 			free(tmp->option[i]);
 			tmp->option[i] = ft_strdup(replace);
 			free(replace);

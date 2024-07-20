@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:09:48 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 22:06:31 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_exec
 	int	i;
 	int	count;
 }	t_exec;
+
 typedef struct s_env
 {
 	char			*key;
@@ -51,6 +52,7 @@ typedef struct s_list
 {
 	char			**option;
 	char			*cmd;
+	int				flag;
 	int				infile;
 	int				outfile;
 	int				oldpwd_unset;
