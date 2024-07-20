@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/19 17:26:55 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:36:40 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **envp)
 	t_exp	*exp;
 	int		pwd_oldpwd;
 
-	// atexit(f);
+	atexit(f);
 	pwd_oldpwd = 0;
 	(void)ac;
 	(void)av;
@@ -100,11 +100,16 @@ int	main(int ac, char **av, char **envp)
 		if (setup_prompt(&input, exp))
 			break ;
 		if (parsing(input, &list, &exp))
+		{
+			free(input);
 			continue ;
+		}
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
 		execute(list, &exp, envp);
 		free_list(list);
 		list = NULL;
+		free(input);
 	}
+	free_env(exp);
 }
