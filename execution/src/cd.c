@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 17:10:59 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:11:52 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	update_cwd(t_exp *exp, t_list *list)
 {
+	(void)list;
 	char	*cwd;
 	char	*oldpwd;
 	t_exp	*cur;
@@ -22,20 +23,21 @@ void	update_cwd(t_exp *exp, t_list *list)
 	oldpwd = ft_getoldpwd(exp);
 	cwd = getcwd(NULL, 0);
 	cwd_oldpwd(exp, cwd, oldpwd);
-	if (list->pwd_unset == 1)
-	{
-		puts("create pwd node");
-		cur = create_node("PWD", cwd);
-		ft_lstadd_back(&exp, cur);
-		list->pwd_unset = 0;
-	}
-	if (list->oldpwd_unset == 1)//unset kolchi
-	{
-		puts("create oldpwd node");
-		cur = create_node("OLDPWD", oldpwd);
-		ft_lstadd_back(&exp, cur);
-		list->oldpwd_unset = 0;
-	}
+	free(cwd);
+	// if (list->pwd_unset == 1)
+	// {
+	// 	puts("create pwd node");
+	// 	cur = create_node("PWD", cwd);
+	// 	ft_lstadd_back(&exp, cur);
+	// 	list->pwd_unset = 0;
+	// }
+	// if (list->oldpwd_unset == 1)//unset kolchi
+	// {
+	// 	puts("create oldpwd node");
+	// 	cur = create_node("OLDPWD", oldpwd);
+	// 	ft_lstadd_back(&exp, cur);
+	// 	list->oldpwd_unset = 0;
+	// }
 	// free(cwd);
 	// if (oldpwd)
 	// 	free(oldpwd);
