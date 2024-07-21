@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:08:21 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:28:03 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	parent_io(t_exec *data, t_list *list)
 {
 	if (data->i > 0)
+		close(data->std_in);
+	else if (data->std_in != 0)
 		close(data->std_in);
 	if (list->next)
 	{
@@ -101,6 +103,8 @@ void	child_io(t_exec *data, t_list *list)
 		dup2(data->std_in, 0);
 		close(data->std_in);
 	}
+	else if (data->std_in != 0)
+		close(data->std_in);
 	if (list->next)
 	{
 		close(data->fdpipe[0]);
