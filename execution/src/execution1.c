@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 18:07:42 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:08:21 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parent_io(t_exec *data, t_list *list)
 		close(data->fdpipe[1]);
 		data->std_in = data->fdpipe[0];
 	}
-	// else (ma3rftch mzl)
+	// else
 	// {
 	// 	close(data->std_out);
 	// }
@@ -51,7 +51,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
 	return (exp->status = 127,
-		ft_error("Minishell:", cmd, ": command not found"),
+		ft_error("Minishell:", cmd, ": command not found\n"),
 		exit(127), NULL);
 }
 

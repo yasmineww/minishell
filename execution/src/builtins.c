@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 17:28:46 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:05:58 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	exec_builtin(t_exp **exp, char **cmd, t_list *list)
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
 		if (ft_2dlen(cmd) > 2)
-			return (ft_error("Minishell: cd:", "too many arguments",
+			return (ft_error("Minishell: cd:", "too many arguments\n",
 					NULL), (*exp)->status = 1, 1);
 		else
 			return (ft_cd(cmd[1], *exp, list));

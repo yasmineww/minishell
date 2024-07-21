@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 17:29:10 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:07:02 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_unset_helper(t_exp **exp, char **s, t_list *list)
 	{
 		if (ft_strchr(s[i], '=') || !isalpha_underscore(s[i][0], 1))
 		{
-			ft_error("minishell: unset: `", s[i], "': not a valid identifier");
+			ft_error("minishell: unset: `", s[i], "': not a valid identifier\n");
 			(*exp)->status = 1;
 			i++;
 			continue ;

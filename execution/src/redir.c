@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:14 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:06:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	handle_redir_in(t_list *list, int i, t_exp *exp)
 	{
 		if (exp->ambiguous)
 		{
-			ft_error("Minishell:", list->option[i + 1], "ambiguous redirect");
+			ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
 			exp->ambiguous = 0;
 			exp->status = 1;
 			return (1);
@@ -66,7 +66,7 @@ int	handle_redir_in(t_list *list, int i, t_exp *exp)
 		list->infile = open(list->option[i + 1], O_RDONLY);
 		if (list->infile == -1)
 		{
-			ft_error("Minishell:", list->option[i + 1], "No such file or directory");
+			ft_error("Minishell:", list->option[i + 1], "No such file or directory\n");
 			return ((exp->status = 1), 1);
 		}
 		dup2(list->infile, 0);
@@ -83,7 +83,7 @@ int	handle_redir_out(t_list *list, int i, t_exp *exp)
 	{
 		if (exp->ambiguous)
 		{
-			ft_error("Minishell: ", list->option[i + 1], "ambiguous redirect");
+			ft_error("Minishell: ", list->option[i + 1], "ambiguous redirect\n");
 			exp->ambiguous = 0;
 			exp->status = 1;
 			return (1);
@@ -92,7 +92,7 @@ int	handle_redir_out(t_list *list, int i, t_exp *exp)
 				| O_CREAT | O_TRUNC, 0644);
 		if (list->outfile == -1)
 		{
-			ft_error("Minishell:", list->option[i + 1], "No such file or directory");
+			ft_error("Minishell:", list->option[i + 1], "No such file or directory\n");
 			return ((exp->status = 1), 1);
 		}
 		dup2(list->outfile, 1);
@@ -109,7 +109,7 @@ int	handle_append(t_list *list, int i, t_exp *exp)
 	{
 		if (exp->ambiguous)
 		{
-			ft_error("Minishell: ", list->option[i + 1], "ambiguous redirect");
+			ft_error("Minishell: ", list->option[i + 1], "ambiguous redirect\n");
 			exp->ambiguous = 0;
 			exp->status = 1;
 			return (1);
@@ -118,7 +118,7 @@ int	handle_append(t_list *list, int i, t_exp *exp)
 				| O_CREAT | O_APPEND, 0644);
 		if (list->outfile == -1)
 		{
-			ft_error("Minishell:", list->option[i + 1], "No such file or directory");
+			ft_error("Minishell:", list->option[i + 1], "No such file or directory\n");
 			return ((exp->status = 1), 1);
 		}
 		dup2(list->outfile, 1);

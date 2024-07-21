@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 18:51:56 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:05:47 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	ft_error(char *str1, char *str2, char *str3)
 		write(2, ": ", 2);
 		write(2, str3, ft_strlen(str3));
 	}
-	write(1, "\n", 1);
 }
 
 static int	two_dots(t_exp *exp)
@@ -68,7 +67,7 @@ static int	two_dots(t_exp *exp)
 	if (!cwd)
 	{
 		ft_error("Minishell: cd:", NULL,
-			"error in retrieving current directory");
+			"error in retrieving current directory\n");
 		chdir(exp->pwd);
 	}
 	else
@@ -91,7 +90,7 @@ int	ft_cd(char *path, t_exp *exp, t_list *list)
 	{
 		ret = chdir(path);
 		if (ret != 0)
-			return (ft_error("Minishell: cd:", path, "No such file or directory")
+			return (ft_error("Minishell: cd:", path, "No such file or directory\n")
 				, exp->status = 1, 1);
 	}
 	update_cwd(exp, list);

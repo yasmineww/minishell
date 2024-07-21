@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/19 13:40:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:06:42 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	export(t_exp **exp, char *s, t_list *list)
 	if (!ft_strncmp(s, "OLDPWD", 6))
 		list->oldpwd_unset = 0;
 	if (ft_export_input(s))
-		return (ft_error("export", s, "not a valid identifier"),
+		return (ft_error("export", s, "not a valid identifier\n"),
 			(*exp)->status = 1, 1);
 	while (s[i] && s[i] != '+' && s[i] != '=')
 		i++;

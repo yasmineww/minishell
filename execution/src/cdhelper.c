@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 13:08:15 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:06:14 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	find_home(t_exp *exp)
 
 	if (exp->value == NULL)
 		return (exp->status = 1,
-			ft_error("Minishell: cd:", "HOME not set", NULL), 1);
+			ft_error("Minishell: cd:", "HOME not set\n", NULL), 1);
 	ret = chdir(exp->value);
 	if (ret)
 		return (ft_error("Minishell: cd:", exp->value,
-				"No such file or directory"), exp->status = 1, 1);
+				"No such file or directory\n"), exp->status = 1, 1);
 	if (exp->pwd)
 		free(exp->pwd);
 	exp->pwd = ft_strdup(exp->value);
@@ -97,5 +97,5 @@ int	ft_find_home(t_exp *exp)
 		tmp = tmp->next;
 	}
 	return (exp->status = 1,
-		ft_error("Minishell: cd:", "HOME not set", NULL), 1);
+		ft_error("Minishell: cd:", "HOME not set\n", NULL), 1);
 }
