@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cdhelper.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/20 19:00:40 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:08:15 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
 			// if(exp->value) ymkn 7it katfreeya list flkhr dakchi 3lach double free idan solution hia oldpwd w pwd nt7km fihom ana
 				// free(exp->value);
 			if (oldpwd)
-            {
-                if (exp->value)
-                    free(exp->value);
-                exp->value = oldpwd;
-            }
+			{
+				if (exp->value)
+					free(exp->value);
+				exp->value = oldpwd;
+			}
 			else
 			{
 				if (exp->value)
@@ -80,19 +80,21 @@ int	find_home(t_exp *exp)
 int	ft_find_home(t_exp *exp)
 {
 	int	res;
+	t_exp *tmp;
 
-	while (exp)
+	tmp = exp;
+	while (tmp)
 	{
-		if (ft_strcmp(exp->key, "HOME") == 0)
+		if (ft_strcmp(tmp->key, "HOME") == 0)
 		{
-			res = find_home(exp);
+			res = find_home(tmp);
 			if (res == 0)
-				return (exp->status = 0, 0);
+				return (tmp->status = 0, 0);
 			return (res);
 			// else // wa9ila break 7sn
 				// break ;
 		}
-		exp = exp->next;
+		tmp = tmp->next;
 	}
 	return (exp->status = 1,
 		ft_error("Minishell: cd:", "HOME not set", NULL), 1);
