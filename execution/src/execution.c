@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:08:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 00:36:07 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,7 @@ int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
 		return ((*exp)->status = 1, 1);
 	children_wait(&data, *exp, term);
 	free(data.pid);
-	dup2(data.std_in, 0);
 	close(data.std_in);
-	dup2(data.std_out, 1);
 	close(data.std_out);
 	return (0);
 }
