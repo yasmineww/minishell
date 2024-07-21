@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 13:06:27 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:10:27 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	free_env(t_exp *exp)
+void	free_env(t_exp *exp, int flag)
 {
 	t_exp	*tmp;
 
@@ -20,7 +20,7 @@ void	free_env(t_exp *exp)
 	{
 		tmp = exp;
 		exp = exp->next;
-		if (ft_strcmp(tmp->key, "HOME") == 0)
+		if (ft_strcmp(tmp->key, "HOME") == 0 && flag == 1)
 			free(tmp->pwd);
 		free(tmp->key);
 		free(tmp->value);

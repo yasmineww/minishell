@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 23:43:03 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/19 13:18:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:21:42 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	exporthelp(t_exp *exp, char **s, t_list *list)
 		new = dup_list(exp);
 		sort_list(new);
 		print_exp(new);
+		free_env(new, 0);
 	}
 	else if (s[1] && exp)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 23:35:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:24:16 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
-
+# include <dirent.h>
 int	g_sig;
 
 # define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
@@ -158,7 +158,7 @@ char	*find_path(t_exp **exp);
 void	ft_error(char *str1, char *str2, char *str3);
 int		ft_exit(char **cmd, t_exp *exp);
 int		ft_isnumber(char *s);
-void	free_env(t_exp *exp);
+void	free_env(t_exp *exp, int flag);
 char	*ft_getoldpwd(t_exp *exp);
 void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd);
 int		find_home(t_exp *exp);

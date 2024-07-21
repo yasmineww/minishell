@@ -1,12 +1,5 @@
 ------------execution------------
 
-zombie process
-Minishell$ $dhsgfdhsf
-Minishell$ exit
-exit
-Minishell$ exit
-exit
-
 cd ""
 cd "$a"
 

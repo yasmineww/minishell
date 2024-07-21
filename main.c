@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 22:16:05 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:16:01 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	setup_prompt(char **input, t_exp *exp)
 		stat = exp->status;
 		printf("exit\n");
 		ft_free(exp->path);
-		free_env(exp);
+		free_env(exp, 1);
 		free(exp->pwd);
 		exit (stat);
 	}
@@ -106,7 +106,8 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		handle_heredoc(&list, &exp);
 		expanding(&list, &exp);
-		execute(list, &exp, envp);
+		if (list->option[0])
+			execute(list, &exp, envp);
 		free_list(list);
 		list = NULL;
 	}
