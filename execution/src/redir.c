@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/22 00:32:13 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:05:41 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	handle_redirs(t_list *list, t_exp *exp)
 	int	i;
 
 	i = 0;
-	if (!list->option)
-		return (exp->status = 1, 1);
 	while (list->option[i])
 	{
 		if (!ft_strncmp(list->option[i], "<<", 2))

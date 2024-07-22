@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/22 15:45:23 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:16:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int ac, char **av, char **envp)
 	list = NULL;
 	ft_env(&exp, envp);
 	set_pwd(exp);
+	printf("parent *******getpid = %d\n", getpid());
 	while (1)
 	{
 		setup_prompt(&input, exp);

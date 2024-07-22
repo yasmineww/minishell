@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/22 00:36:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:14:50 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,21 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 		close(data->fdpipe[1]);
 		exit(0);
 	}
-	else
+	else if (list->option[0])
 	{
 		if (handle_redirs(list, exp))
 			exit(1);
-		if (exp->test)
-		{
-			//free the old one 2d array ig
-			list->option = ft_split_spaces(list->option[0]);
-		}
+		if (!list->option[0])
+			exit(0);
+		// if (exp->test)
+		// {
+		// 	//free the old one 2d array ig
+		// 	list->option = ft_split_spaces(list->option[0]);
+		// }
 		list->option[0] = get_cmd_path(exp, list->option[0]);
 		if (list->option[0] && execve(list->option[0], list->option, envp))
 		{
+			printf("option[0] = %s\n", list->option[0]);
 			if (list->option[0][0] && list->option[0][0] == '/')
 			{
 				opendir(list->option[0]);
@@ -67,6 +70,7 @@ int	cmd_process(t_exp *exp, t_list *list, char **envp, t_exec *data)
 			setup_signals(1);
 			child_io(data, list);
 			cmd_exec(exp, list, envp, data);
+			// exit(0);
 		}
 		else
 			parent_io(data, list);
@@ -106,6 +110,7 @@ int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
 	data = (t_exec){0}; // concept of initialization vs assignement
 	if (!list || !list->option)
 		return ((*exp)->status = 1, 1);
+	int dups = dup(0);
 	data.std_in = dup(0);
 	data.std_out = dup(1);
 	data.pid = NULL;
@@ -117,10 +122,23 @@ int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
 	data.pid = malloc(sizeof(int) * data.count);
 	if (!data.pid)
 		return ((*exp)->status = 1, 1);
+	printf("count = %d\n", data.count);
+	int i = 0;
+	while (list)
+	{
+		while (list->option[i])
+		{
+			fprintf(stderr, "option[%d] = %s\n", i, list->option[i]);
+			i++;
+		}
+		list = list->next;
+	}
 	if (cmd_process(*exp, list, envp, &data))
 		return ((*exp)->status = 1, 1);
 	children_wait(&data, *exp, term);
 	free(data.pid);
+	dup2(dups, 0);
+	close(dups);
 	close(data.std_in);
 	close(data.std_out);
 	return (0);
