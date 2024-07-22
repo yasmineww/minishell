@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/22 23:16:18 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:16:37 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	free_list(t_list *list)
 		free(temp->cmd);
 		temp->cmd = NULL;
 		i = 0;
-		if (temp->flag)
-			temp->option -= temp->flag;
 		while (temp->option[i])
 		{
 			free(temp->option[i]);
@@ -106,7 +104,7 @@ int	main(int ac, char **av, char **envp)
 		if (parsing(input, &list, &exp))
 			continue ;
 		handle_heredoc(&list, &exp);
-		expanding(&list, &exp);
+		expanding(&list, &exp, NULL);
 		execute(list, &exp, envp);
 		free_list(list);
 		list = NULL;

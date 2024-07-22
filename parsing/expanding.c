@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 22:15:38 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/22 21:30:00 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,21 @@ void	store_new_key(char *node, t_exp **exp, char *replace, int quotes)
 	while (node[++i])
 	{
 		if (node[i] == '"' && !(quotes & 1))
+		{
+			(*exp)->is_quote = 1;
 			quotes = !((quotes >> 1) & 1) << 1;
+		}
 		else if (node[i] == '\'' && !((quotes >> 1) & 1))
+		{
+			(*exp)->is_quote = 1;
 			quotes = !(quotes & 1);
+		}
 		else if (node[i] == '$' && !(quotes & 1))
 		{
-			if (store_dollar(node, &replace[j], i) && j++)
+			if (store_dollar(node, &replace[j], i))
 				break ;
-			else if (found_question_mark(node[i + 1], exp, replace, &j))
-			{
-				i++;
+			else if (found_question_mark(node[i + 1], exp, replace, &j) && ++i)
 				continue ;
-			}
 			else if (node[++i] == '$')
 				continue ;
 			i += replace_with_value(node + i, exp, replace, &j);
@@ -91,37 +94,62 @@ int	helper2(char *tmp, t_exp **exp)
 	return (len);
 }
 
-void	expanding(t_list **list, t_exp **exp)
+void	rm_empty_option(char ***option, int count)
 {
+	char	**arr;
+	int		j;
 	int		i;
-	int		len;
+
+	i = 0;
+	j = 0;
+	arr = malloc(sizeof(char *) * (count + 1));
+	if (!arr)
+		return ;
+	arr[count] = NULL;
+	while ((*option)[i])
+	{
+		if ((*option)[i][0] != '\0')
+		{
+			if ((*option)[i][0] == 1)
+				(*option)[i][0] = 0;
+			arr[j++] = (*option)[i];
+		}
+		else
+			free((*option)[i]);
+		i++;
+	}
+	free(*option);
+	(*option) = arr;
+}
+
+void	expanding(t_list **list, t_exp **exp, char	*replace)
+{
 	t_list	*tmp;
-	char	*replace;
+	int		i;
+	int		count;
 
 	tmp = *list;
 	while (tmp)
 	{
-		i = 0;
-		tmp->flag = 0;
-		while (tmp->option[i])
+		i = -1;
+		count = 0;
+		while (tmp->option[++i])
 		{
-			len = helper2(tmp->option[i], exp);
-			replace = ft_calloc(1, len + 1);
+			replace = ft_calloc(1, helper2(tmp->option[i], exp) + 1);
 			if (replace)
 				store_new_key(tmp->option[i], exp, replace, 0);
 			if (tmp->option[i][0] == '"')
 				(*exp)->ambiguous = 0;
-			if ((i == 0) && (*replace == '\0'))
-			{
-				tmp->option++;
-				tmp->flag += 1;
-				continue ;
-			}
+			if (*replace != '\0')
+				count++;
+			if (*replace == '\0' && (*exp)->is_quote && ++count)
+				*replace = 1;
 			free(tmp->option[i]);
 			tmp->option[i] = ft_strdup(replace);
 			free(replace);
-			i++;
+			(*exp)->is_quote = 0;
 		}
+		rm_empty_option(&tmp->option, count);
 		tmp = tmp->next;
 	}
 }
