@@ -71,12 +71,7 @@ env -i ./minishell
 /bin/cat terminal save etat ? ctrl+ C
 
 
-Minishell$ export cmd = "ls -la"
-export =: not a valid identifier
-bash-3.2$ export cmd = "ls -la"
-bash: export: `=': not a valid identifier
-bash: export: `ls -la': not a valid identifier
-declare -x ls -la shoudlnt be exported
+
 
 
 ---------- error management -------
@@ -85,8 +80,7 @@ $USER_$HOME
 
 test $cmd -a
 
-bash: .: filename argument required
-.: usage: . filename [arguments]
+
 bash-3.2$ ..
 bash: ..: command not found
 bash-3.2$ ./execution/
@@ -247,7 +241,12 @@ ls -a
 bash-3.2$ echo $_
 -a
 underscore variable last arg of the last command ls -la _=-la
-
+Minishell$ export cmd = "ls -la"
+export =: not a valid identifier
+bash-3.2$ export cmd = "ls -la"
+bash: export: `=': not a valid identifier
+bash: export: `ls -la': not a valid identifier
+declare -x ls -la shoudlnt be exported
 -----------------------------------------------------------------------------------
 
 MY TEST DONT DELETE
