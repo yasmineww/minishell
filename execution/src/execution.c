@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/22 23:30:12 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:36:55 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,6 @@ int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
 	data.pid = malloc(sizeof(int) * data.count);
 	if (!data.pid)
 		return ((*exp)->status = 1, 1);
-	// printf("count = %d\n", data.count);
-	// int i = 0;
-	// while (list)
-	// {
-	// 	while (list->option[i])
-	// 	{
-	// 		fprintf(stderr, "option[%d] = %s\n", i, list->option[i]);
-	// 		i++;
-	// 	}
-	// 	list = list->next;
-	// }
 	if (cmd_process(*exp, list, envp, &data))
 		return ((*exp)->status = 1, 1);
 	children_wait(&data, *exp, term);
