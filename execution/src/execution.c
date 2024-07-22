@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 00:47:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:50:48 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 		list->option[0] = get_cmd_path(exp, list->option[0]);
 		if (list->option[0] && execve(list->option[0], list->option, envp))
 		{
-			printf("option[0] = %s\n", list->option[0]);
 			if (list->option[0][0] && list->option[0][0] == '/')
 			{
 				opendir(list->option[0]);
