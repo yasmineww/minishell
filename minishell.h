@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/22 22:45:16 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:29:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	*ft_calloc(size_t count, size_t size);
 int		count_word_spaces(char *str);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_back(t_exp **head, t_exp *new);
+int		ft_2dlen(char **s);
 
 // ---------------------- parsing ----------------------
 

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/22 23:05:41 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:29:50 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 void	remove_redir(char **option, int i)
 {
+	if (ft_2dlen(option) < 3)
+	{
+		option[i] = NULL;
+		if (option[i + 1])
+			option[i + 1] = NULL;
+		return ;
+	}
 	while (option[i] && option[i + 2])
 	{
 		option[i] = option[i + 2];
