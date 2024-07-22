@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/22 23:36:55 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:41:13 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 			if (list->option[0][0] && list->option[0][0] == '/')
 			{
 				opendir(list->option[0]);
-				ft_error("Minishell:", list->option[0], ": is a directory\n");
+				ft_error("Minishell:", list->option[0], "is a directory\n");
 				exp->status = 126;
 				exit(126);
 			}
-			ft_error("Minishell:", list->option[0], ": command not found\n");
+			ft_error("Minishell:", list->option[0], "command not found\n");
 			exp->status = 127;
 			exit(127);
 		}
@@ -132,10 +132,42 @@ int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
 	return (0);
 }
 
+void	update_underscore(t_exp **exp, char *last_arg)
+{
+	t_exp	*tmp;
+	t_exp	*new;
+
+	tmp = *exp;
+	while(tmp)
+	{
+		if (!ft_strcmp(tmp->key, "_"))
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(last_arg);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	new = create_node("_", last_arg);
+	if (new)
+		ft_lstadd_back(exp, new);
+}
+
+char *get_last_arg(char **option)
+{
+	int	i;
+
+	i = 0;
+	while (option[i + 1])
+		i++;
+	return (option[i]);
+}
+
 int	execute(t_list *list, t_exp **exp, char **envp)
 {
 	char			*tmp;
 	struct termios	term;
+	char	*last_arg;
 
 	tcgetattr(0, &term);
 	if (g_sig == 1)
@@ -153,6 +185,9 @@ int	execute(t_list *list, t_exp **exp, char **envp)
 	if (!(*exp) || !(*exp)->path)
 		return ((*exp)->status = 1, 1);
 	// free(tmp);
+	last_arg = get_last_arg(list->option);
+	if (last_arg)
+		update_underscore(exp, last_arg);
 	exec(exp, list, envp, &term);
 	if (list->infile)
 		close(list->infile);

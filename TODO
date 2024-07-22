@@ -1,21 +1,5 @@
 ------------execution------------
- cat | ls
-
-minishell 94969 mbenchel  cwd    DIR   1,12      476             9528199 /Users/mbenchel/Desktop/minishell-2
-minishell 94969 mbenchel  txt    REG   1,12    88384             9558020 /Users/mbenchel/Desktop/minishell-2/minishell
-minishell 94969 mbenchel  txt    REG   1,12   275776             8934002 /Users/mbenchel/.brew/Cellar/readline/8.2.10/lib/libreadline.8.2.dylib
-minishell 94969 mbenchel  txt    REG    1,7  1572480 1152921500312402812 /usr/lib/dyld
-minishell 94969 mbenchel    0u   CHR  16,12    0t502                 713 /dev/ttys012
-minishell 94969 mbenchel    1u   CHR  16,12    0t502                 713 /dev/ttys012
-minishell 94969 mbenchel    2u   CHR  16,12    0t502                 713 /dev/ttys012
-minishell 94969 mbenchel    3u   CHR  16,12    0t502                 713 /dev/ttys012
-
-ls -a
-.               LICENSE         TODO            minishell       parsing
-..              Makefile        execution       minishell.h
-.git            README.md       main.c          obj
-bash-3.2$ echo $_
--a
+<< 6 << 7 leak fd
 
 protect dup with custom ft_dup
 cd ""
@@ -23,14 +7,11 @@ cd "$a"
 
 tcsetattr
 
-bash-3.2$ <  /dev/stdin cat > /dev/stdin
-bash-3.2$ <  /dev/stdin cat > /dev/stdinf
-
 underscore variable last arg of the last command ls -la _=-la
 
 envp 7wlo l array
 
-$gdf ls
+
 fd leaks on error exit
 
 waaaaaaaa fink a PWD oldpwd unset
@@ -262,6 +243,13 @@ bash-3.2$ pwd
 bash-3.2$ echo $PWD
 dgfdhsgf
 bash-3.2$
+
+ls -a
+.               LICENSE         TODO            minishell       parsing
+..              Makefile        execution       minishell.h
+.git            README.md       main.c          obj
+bash-3.2$ echo $_
+-a
 -----------------------------------------------------------------------------------
 
 MY TEST DONT DELETE
