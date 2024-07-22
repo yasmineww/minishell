@@ -10,7 +10,12 @@ minishell 94969 mbenchel    1u   CHR  16,12    0t502                 713 /dev/tt
 minishell 94969 mbenchel    2u   CHR  16,12    0t502                 713 /dev/ttys012
 minishell 94969 mbenchel    3u   CHR  16,12    0t502                 713 /dev/ttys012
 
-
+ls -a
+.               LICENSE         TODO            minishell       parsing
+..              Makefile        execution       minishell.h
+.git            README.md       main.c          obj
+bash-3.2$ echo $_
+-a
 
 protect dup with custom ft_dup
 cd ""

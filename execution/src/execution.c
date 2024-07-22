@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/22 00:36:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:21:57 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 	}
 	else
 	{
+		if (!list->option[0])
+			exit(0);
 		if (handle_redirs(list, exp))
 			exit(1);
 		if (exp->test)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/21 18:24:16 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:45:16 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <dirent.h>
+
 int	g_sig;
 
 # define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
@@ -48,11 +49,18 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_flag
+{
+	int	ambiguous;
+	int	test;
+	int	expanded;
+}	t_flag;
+
 typedef struct s_list
 {
+	t_flag			flags;
 	char			**option;
 	char			*cmd;
-	int				flag;
 	int				infile;
 	int				outfile;
 	int				oldpwd_unset;
@@ -62,10 +70,11 @@ typedef struct s_list
 
 typedef struct s_exp
 {
-	int				ambiguous;
 	int				test;
 	int				expanded;
 	int				status;
+	int				is_quote;
+	int				ambiguous;
 	char			**path;
 	char			*key;
 	char			*value;
@@ -74,19 +83,13 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
-// typedef struct s_flag
-// {
-// 	int	ambiguous;
-// 	int	test;
-// 	int	expanded;
-// 	int	status;
-// }	t_flag;
 
-// typedef struct s_mini
-// {
-// 	t_list	*list;
-// 	t_exp	*exp;
-// }	t_mini;
+typedef struct s_mini
+{
+	int		status;
+	t_list	*list;
+	t_exp	*exp;
+}	t_mini;
 
 // ---------------------- utils ----------------------
 
@@ -120,7 +123,7 @@ int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
 int		parsing(char *input, t_list **list, t_exp **exp);
-void	expanding(t_list **list, t_exp **exp);
+void	expanding(t_list **list, t_exp **exp, char *replace);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp **exp);
 void	handle_heredoc(t_list **list, t_exp **exp);

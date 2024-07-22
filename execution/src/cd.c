@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:05:47 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/22 21:46:25 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_error(char *str1, char *str2, char *str3)
 	}
 	if (str3)
 	{
-		write(2, ": ", 2);
+		// write(2, ": ", 1);
 		write(2, str3, ft_strlen(str3));
 	}
 }
