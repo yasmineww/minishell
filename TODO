@@ -7,7 +7,6 @@ cd "$a"
 
 tcsetattr
 
-underscore variable last arg of the last command ls -la _=-la
 
 envp 7wlo l array
 
@@ -67,9 +66,6 @@ ila t unseta pwd w oldpwd khask t3awd t7thom
 
 
 env -i ./minishell
-
-
-exit status dial lbuiltins  b7al exit
 
 
 /bin/cat terminal save etat ? ctrl+ C
@@ -250,6 +246,8 @@ ls -a
 .git            README.md       main.c          obj
 bash-3.2$ echo $_
 -a
+underscore variable last arg of the last command ls -la _=-la
+
 -----------------------------------------------------------------------------------
 
 MY TEST DONT DELETE

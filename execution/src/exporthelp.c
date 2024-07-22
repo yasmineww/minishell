@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 00:21:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:46:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_exp(t_exp *exp)
 	tmp = exp;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, "_", 2) != 0)
+		if (ft_strncmp(tmp->key, "_", 2) == 0)
 			tmp = tmp->next;
 		if (!tmp->value)
 			printf("declare -x %s\n", tmp->key);
