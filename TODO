@@ -1,4 +1,13 @@
 ------------execution------------
+
+Minishell$ export a="ls"
+Minishell$ < $a
+Minishell: ls: No such file or directory
+Minishell$
+
+fd leak
+
+
 << 6 << 7 leak fd
 
 protect dup with custom ft_dup

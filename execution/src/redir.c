@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 14:05:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:25:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	handle_redirs(t_list *list, t_exp *exp)
 		}
 		else if (list->option[i] && !ft_strncmp(list->option[i], ">>", 2))
 		{
-			if (exp->ambiguous)
+			if (exp->ambiguous || exp->test)
 			{
 				ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
 				exp->ambiguous = 0;
@@ -58,7 +58,7 @@ int	handle_redirs(t_list *list, t_exp *exp)
 		}
 		else if (list->option[i] && !ft_strncmp(list->option[i], ">", 1))
 		{
-			if (exp->ambiguous)
+			if (exp->ambiguous || exp->test)
 			{
 				ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
 				exp->ambiguous = 0;
@@ -70,7 +70,7 @@ int	handle_redirs(t_list *list, t_exp *exp)
 		}
 		else if (list->option[i] && !ft_strncmp(list->option[i], "<", 1))
 		{
-			if (exp->ambiguous)
+			if (exp->ambiguous || exp->test)
 			{
 				ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
 				exp->ambiguous = 0;
