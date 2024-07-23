@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 00:42:29 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:26:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ int	ft_cd(char *path, t_exp *exp, t_list *list)
 {
 	int		ret;
 
-	if (!path || path[0] == '\0')
+	if (path && path[0] == '\0')
+		return (0);
+	if (!path)
 		ft_find_home(exp);
 	else if (!ft_strncmp(path, "..", 2))
 		two_dots(exp);
