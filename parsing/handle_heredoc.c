@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 12:06:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:54:34 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,24 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 {
 	t_list		*temp;
 	int			i;
+	int			count = 0;
 
 	temp = *list;
 	if (temp)
 		temp->infile = 0;
 	while (temp)
 	{
-		i = 0;
-		while (temp->option[i])
+		i = -1;
+		count = 0;
+		while (temp->option[++i])
 		{
 			if (!ft_strcmp(temp->option[i], "<<"))
+			{
+				if (count > 0)
+					close(temp->infile);
+				count++;
 				find_delimiter(temp, exp, i, 0);
-			i++;
+			}
 		}
 		temp = temp->next;
 	}
