@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 00:20:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:02:07 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	setup_env_ignored(t_exp **exp)
 	if (!new)
 		return (exit(1), 1);
 	ft_lstadd_back(exp, new);
-	new = create_node("HOME", _);
+	new = create_node("HOME", UNDERSC);
 	if (!new)
 		return (exit(1), 1);
 	ft_lstadd_back(exp, new);

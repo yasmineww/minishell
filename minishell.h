@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 11:58:07 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:03:53 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 int	g_sig;
 
 # define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
-# define _ "/usr/bin/env"
+# define UNDERSC "/usr/bin/env"
 
 typedef struct s_exec
 {

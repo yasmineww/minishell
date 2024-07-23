@@ -2,8 +2,7 @@
 << 6 << 7 leak fd
 
 protect dup with custom ft_dup
-cd ""
-cd "$a"
+
 
 tcsetattr
 
@@ -12,9 +11,11 @@ envp 7wlo l array
 
 
 fd leaks on error exit
+/bin/cat terminal save etat ? ctrl+ C
 
 waaaaaaaa fink a PWD oldpwd unset
-_=/usr/bin/env
+ila t unseta pwd w oldpwd khask t3awd t7thom
+env -i ./minishell
 
 exit quotes handling numbers
 
@@ -51,9 +52,7 @@ void	check_value_export(t_list *list)
 	s[j] = NULL;
 	list->option = s;
 }
-export makhasch tprinta _ w f env makhshach t unsetta
 
-ila t unseta pwd w oldpwd khask t3awd t7thom
 
 
 //oldpwd tadir cd 3ad dkhlo (optional)
@@ -65,10 +64,8 @@ ila t unseta pwd w oldpwd khask t3awd t7thom
 // if the return value is not -1 we should update the index of PWD in the env
 
 
-env -i ./minishell
 
 
-/bin/cat terminal save etat ? ctrl+ C
 
 
 
@@ -247,6 +244,8 @@ bash-3.2$ export cmd = "ls -la"
 bash: export: `=': not a valid identifier
 bash: export: `ls -la': not a valid identifier
 declare -x ls -la shoudlnt be exported
+cd ""
+cd "$a"
 -----------------------------------------------------------------------------------
 
 MY TEST DONT DELETE
