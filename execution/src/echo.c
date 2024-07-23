@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/17 11:01:09 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:22:31 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	echo_print(char **cmd, int i, int no_nl, t_exp *exp)
 {
 	int	index;
 
-	index = 0;
 	while (cmd[i])
 	{
 		index = 0;
@@ -49,6 +48,8 @@ void	echo_print(char **cmd, int i, int no_nl, t_exp *exp)
 				index++;
 			}
 		}
+		if (cmd[i + 1])
+			write(1, " ", 1);
 		i++;
 	}
 	if (!no_nl)

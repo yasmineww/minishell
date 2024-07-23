@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/22 21:30:00 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:09:28 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ void	store_new_key(char *node, t_exp **exp, char *replace, int quotes)
 	j = 0;
 	while (node[++i])
 	{
+		if (node[i] == '"' || node[i] == '\'')
+			(*exp)->is_quote = 1;
 		if (node[i] == '"' && !(quotes & 1))
-		{
-			(*exp)->is_quote = 1;
 			quotes = !((quotes >> 1) & 1) << 1;
-		}
 		else if (node[i] == '\'' && !((quotes >> 1) & 1))
-		{
-			(*exp)->is_quote = 1;
 			quotes = !(quotes & 1);
-		}
 		else if (node[i] == '$' && !(quotes & 1))
 		{
 			if (store_dollar(node, &replace[j], i))
@@ -122,7 +118,7 @@ void	rm_empty_option(char ***option, int count)
 	(*option) = arr;
 }
 
-void	expanding(t_list **list, t_exp **exp, char	*replace)
+void	expanding(t_list **list, t_exp **exp, char *replace)
 {
 	t_list	*tmp;
 	int		i;

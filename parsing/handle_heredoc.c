@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:28:25 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:06:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,15 @@ char	*rm_quotes(char *s1, int *bool, int i)
 	return (copy);
 }
 
-void	find_delimiter(t_list *temp, t_exp **exp, int i)
+void	find_delimiter(t_list *temp, t_exp **exp, int i, int bool)
 {
 	char		*read_me;
-	int			bool;
 	char		*delim;
 	int			td[2];
 	int			fd;
 
 	if (pipe(td) == -1)
 		perror("file descriptor error\n");
-	bool = 0;
 	fd = dup(0);
 	delim = rm_quotes((temp->option[i + 1]), &bool, 0);
 	signal(SIGINT, signal_handler_heredoc);
@@ -93,7 +91,7 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 		while (temp->option[i])
 		{
 			if (!ft_strcmp(temp->option[i], "<<"))
-				find_delimiter(temp, exp, i);
+				find_delimiter(temp, exp, i, 0);
 			i++;
 		}
 		temp = temp->next;

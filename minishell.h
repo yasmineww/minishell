@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/22 23:29:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:58:07 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
-
 typedef struct s_mini
 {
 	int		status;
@@ -140,7 +139,7 @@ void	free_list(t_list *list);
 
 int		execute(t_list *list, t_exp **exp, char **envp);
 int		is_builtin(char **cmd);
-int		exec_builtin(t_exp **exp, char **cmd , t_list *list);
+int		exec_builtin(t_exp **exp, char **cmd, t_list *list);
 int		ft_cd(char *path, t_exp *exp, t_list *list);
 int		ft_pwd(t_exp *exp);
 int		countparams(char **s);
