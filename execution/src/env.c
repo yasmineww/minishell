@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 12:02:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:14:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	free_env(t_exp *exp, int flag)
+void	free_env(t_exp *exp, int flag, t_mini *mini)
 {
 	t_exp	*tmp;
 
@@ -21,7 +21,7 @@ void	free_env(t_exp *exp, int flag)
 		tmp = exp;
 		exp = exp->next;
 		if (ft_strcmp(tmp->key, "HOME") == 0 && flag == 1)
-			free(tmp->pwd);
+			free(mini->pwd);
 		free(tmp->key);
 		free(tmp->value);
 		free(tmp);

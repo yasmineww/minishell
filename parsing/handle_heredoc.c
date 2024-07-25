@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/25 19:08:13 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:12:06 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	free_pointers(char *read_me, char *delim, int *td, t_list *temp)
 	free(delim);
 	close(td[1]);
 	temp->infile = td[0];
-	close (td[0]);
-	close(temp->infile);
 }
 
 char	*rm_quotes(char *s1, int *bool, int i)
@@ -83,6 +81,7 @@ void	handle_heredoc(t_mini *mini)
 {
 	t_list		*temp;
 	int			i;
+	int			count;
 
 	temp = mini->list;
 	if (temp)

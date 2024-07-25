@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:43:37 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/13 09:47:09 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:53:56 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	add_back(t_list **list, char *content)
 		return ;
 	node->option = NULL;
 	node->infile = 0;
+	node->flags.ambiguous = 0;
+	node->flags.expanded = 0;
+	node->flags.special = 0;
 	node->cmd = ft_strdup(content);
 	node->next = NULL;
 	if ((*list) == NULL)

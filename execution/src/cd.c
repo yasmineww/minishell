@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 11:26:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:16:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	update_cwd(t_exp *exp, t_list *list)
+void	update_cwd(t_mini *mini)
 {
-	(void)list;
 	char	*cwd;
 	char	*oldpwd;
-	t_exp	*cur;
+	// t_exp	*cur;
 
-	cur = exp;
-	oldpwd = ft_getoldpwd(exp);
+	// cur = mini->exp;
+	oldpwd = ft_getoldpwd(mini->exp);
 	cwd = getcwd(NULL, 0);
-	cwd_oldpwd(exp, cwd, oldpwd);
+	cwd_oldpwd(mini->exp, cwd, oldpwd);
 	free(cwd);
 	// if (list->pwd_unset == 1)
 	// {
@@ -59,7 +58,7 @@ void	ft_error(char *str1, char *str2, char *str3)
 	}
 }
 
-static int	two_dots(t_exp *exp)
+static int	two_dots(t_mini *mini)
 {
 	char	*cwd;
 
@@ -68,7 +67,7 @@ static int	two_dots(t_exp *exp)
 	{
 		ft_error("Minishell: cd:", NULL,
 			"error in retrieving current directory\n");
-		chdir(exp->pwd);
+		chdir(mini->pwd);
 	}
 	else
 	{
@@ -78,24 +77,24 @@ static int	two_dots(t_exp *exp)
 	return (0);
 }
 
-int	ft_cd(char *path, t_exp *exp, t_list *list)
+int	ft_cd(char *path, t_mini *mini)
 {
 	int		ret;
 
 	if (path && path[0] == '\0')
 		return (0);
 	if (!path)
-		ft_find_home(exp);
+		ft_find_home(mini->exp, mini);
 	else if (!ft_strncmp(path, "..", 2))
-		two_dots(exp);
+		two_dots(mini);
 	else
 	{
 		ret = chdir(path);
 		if (ret != 0)
 			return (ft_error("Minishell: cd:", path, "No such file or directory\n")
-				, exp->status = 1, 1);
+				, mini->status = 1, 1);
 	}
-	update_cwd(exp, list);
-	exp->status = 0;
+	update_cwd(mini);
+	mini->status = 0;
 	return (0);
 }

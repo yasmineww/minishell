@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 23:34:33 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:28:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,10 @@ typedef struct s_exec
 	int	count;
 }	t_exec;
 
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_flag
 {
 	int	ambiguous;
-	int	test;
+	int	special;
 	int	expanded;
 }	t_flag;
 
@@ -73,19 +66,21 @@ typedef struct s_exp
 	int				test;
 	int				expanded;
 	int				status;
-	int				is_quote;
 	int				ambiguous;
 	char			**path;
 	char			*key;
 	char			*value;
 	//char			*oldpwd; // still not sure i'll be working with this
-	char			*pwd;
+	// char			*pwd;
 	struct s_exp	*next;
 }	t_exp;
 
 typedef struct s_mini
 {
+	char	*pwd;
+	int		is_quote;
 	int		status;
+	char	*replace;
 	t_list	*list;
 	t_exp	*exp;
 }	t_mini;
@@ -102,6 +97,15 @@ int		count_word_spaces(char *str);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_back(t_exp **head, t_exp *new);
 int		ft_2dlen(char **s);
+int		isalpha_underscore(int c, int flag);
+t_exp	*create_node(char *key, char *value);
+t_exp	*last_node(t_exp *head);
+int		ft_isnumber(char *s);
+void	sort_list(t_exp *exp);
+int		countparams(char **s);
+t_exp	*dup_list(t_exp *exp);
+void	ft_error(char *str1, char *str2, char *str3);
+
 
 // ---------------------- parsing ----------------------
 
@@ -123,59 +127,51 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-void	expanding(t_list **list, t_exp **exp, char *replace);
+void	expanding(t_mini *mini, int i, int count);
 int		get_key(char *ptr);
-char	*get_value(char *ptr, int end, t_exp **exp);
-void	handle_heredoc(t_list **list, t_exp **exp);
-void	expanding_heredoc(char **read, t_exp **exp);
-int		helper2(char *tmp, t_exp **exp);
-int		get_value_len(char *ptr, int j, int end, t_exp **exp);
-int		found_question_mark(char node, t_exp **exp, char *replace, int *j);
+char	*get_value(char *ptr, int end, t_exp *exp);
+void	handle_heredoc(t_mini *mini);
+void	expanding_heredoc(char **read, t_mini *mini);
+int		helper2(char *tmp, t_mini *mini);
+int		get_value_len(char *ptr, int j, int end, t_exp *exp);
+int		found_quest(char node, t_mini *mini, int *j);
 int		store_dollar(char *node, char *replace, int i);
-int		replace_with_value(char *node, t_exp **exp, char *replace, int *i);
+int		replace_with_value(t_list *list, char *node, t_mini *mini, int *j);
 void	free_list(t_list *list);
 
 // ---------------------- execution ----------------------
 
-int		execute(t_list *list, t_exp **exp, char **envp);
+int		execute(t_mini *mini, char **envp);
 int		is_builtin(char **cmd);
-int		exec_builtin(t_exp **exp, char **cmd, t_list *list);
-int		ft_cd(char *path, t_exp *exp, t_list *list);
-int		ft_pwd(t_exp *exp);
-int		countparams(char **s);
+int		exec_builtin(t_mini *mini, char **cmd);
+int		ft_cd(char *path, t_mini *mini);
+int		ft_pwd(t_mini *mini);
 void	print_env(t_exp **exp);
-int		ft_echo(char **cmd, t_exp *exp);
-int		exec(t_exp **exp, t_list *list, char **envp, struct termios *term);
-int		ft_unset(t_exp **exp, char *key, t_list *list);
-int		export(t_exp **exp, char *s, t_list *list);
+int		ft_echo(char **cmd, t_exp *exp, t_mini *mini);
+int		exec(t_mini *mini, char **envp, struct termios *term);
+int		ft_unset(t_mini *mini, char *key);
+int		export(t_mini *mini, char *s);
 void	find_key(char *envp, t_exp *exp);
-int		exporthelp(t_exp *exp, char **s, t_list *list);
-void	sort_list(t_exp *exp);
+int		exporthelp(t_mini *mini, char **s);
 void	print_exp(t_exp *exp);
-t_exp	*dup_list(t_exp *exp);
-int		handle_redir_in(t_list *list, int i, t_exp *exp);
-int		handle_redir_out(t_list *list, int i, t_exp *exp);
-int		handle_append(t_list *list, int i, t_exp *exp);
-int		handle_redirs(t_list *list, t_exp *exp);
+int		handle_redir_in(t_mini *mini, int i);
+int		handle_redir_out(t_mini *mini, int i);
+int		handle_append(t_mini *mini, int i);
+int		handle_redirs(t_mini *mini);
 char	*find_path(t_exp **exp);
-void	ft_error(char *str1, char *str2, char *str3);
-int		ft_exit(char **cmd, t_exp *exp);
-int		ft_isnumber(char *s);
-void	free_env(t_exp *exp, int flag);
+int		ft_exit(char **cmd, t_mini *mini);
+void	free_env(t_exp *exp, int flag, t_mini *mini);
 char	*ft_getoldpwd(t_exp *exp);
 void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd);
-int		find_home(t_exp *exp);
-int		ft_find_home(t_exp *exp);
-void	update_cwd(t_exp *exp, t_list *list);
-t_exp	*last_node(t_exp *head);
+int		find_home(t_exp *exp, t_mini *mini);
+int		ft_find_home(t_exp *exp, t_mini *mini);
+void	update_cwd(t_mini *mini);
 void	parent_io(t_exec *data, t_list *list);
-char	*get_cmd_path(t_exp *exp, char *cmd);
-void	setup_signals(int i);
-int		onecmd_builtin(t_exp **exp, t_list *list);
+char	*get_cmd_path(t_exp *exp, char *cmd, t_mini *mini);
+int		onecmd_builtin(t_mini *mini);
 void	child_io(t_exec *data, t_list *list);
-int		ft_unset_helper(t_exp **exp, char **s, t_list *list);
-t_exp	*create_node(char *key, char *value);
-int		isalpha_underscore(int c, int flag);
+int		ft_unset_helper(t_mini *mini, char **s);
+void	setup_signals(int i);
 
 // ---------------------- signals ----------------------
 

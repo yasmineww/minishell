@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 14:25:18 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:49:37 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,53 @@ void	remove_redir(char **option, int i)
 		option[i + 1] = NULL;
 }
 
-int	handle_redirs(t_list *list, t_exp *exp)
+int	handle_redirs(t_mini *mini)
 {
 	int	i;
 
 	i = 0;
-	while (list->option[i])
+	while (mini->list->option[i])
 	{
-		if (!ft_strncmp(list->option[i], "<<", 2))
+		if (!ft_strncmp(mini->list->option[i], "<<", 2))
 		{
-			dup2(list->infile, 0);
-			remove_redir(list->option, i);
+			dup2(mini->list->infile, 0);
+			remove_redir(mini->list->option, i);
 			continue ;
 		}
-		else if (list->option[i] && !ft_strncmp(list->option[i], ">>", 2))
+		else if (mini->list->option[i] && !ft_strncmp(mini->list->option[i], ">>", 2))
 		{
-			if (exp->ambiguous || exp->test)
+			if (mini->list->flags.ambiguous) // zidha m3a or || mini->list->flags.special
 			{
-				ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
-				exp->ambiguous = 0;
-				exp->status = 1;
+				ft_error("Minishell:", mini->list->option[i + 1], "ambiguous redirect\n");
+				mini->list->flags.ambiguous = 0;
+				mini->status = 1;
 				return (1);
 			}
-			if (handle_append(list, i, exp))
+			if (handle_append(mini, i))
 				return (1);
 		}
-		else if (list->option[i] && !ft_strncmp(list->option[i], ">", 1))
+		else if (mini->list->option[i] && !ft_strncmp(mini->list->option[i], ">", 1))
 		{
-			if (exp->ambiguous || exp->test)
+			if (mini->list->flags.ambiguous) // zidha m3a or || mini->list->flags.special
 			{
-				ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
-				exp->ambiguous = 0;
-				exp->status = 1;
+				ft_error("Minishell:", mini->list->option[i + 1], "ambiguous redirect\n");
+				mini->list->flags.ambiguous = 0;
+				mini->status = 1;
 				return (1);
 			}
-			if (handle_redir_out(list, i, exp))
+			if (handle_redir_out(mini, i))
 				return (1);
 		}
-		else if (list->option[i] && !ft_strncmp(list->option[i], "<", 1))
+		else if (mini->list->option[i] && !ft_strncmp(mini->list->option[i], "<", 1))
 		{
-			if (exp->ambiguous || exp->test)
+			if (mini->list->flags.ambiguous) // zidha m3a or || mini->list->flags.special
 			{
-				ft_error("Minishell:", list->option[i + 1], "ambiguous redirect\n");
-				exp->ambiguous = 0;
-				exp->status = 1;
+				ft_error("Minishell:", mini->list->option[i + 1], "ambiguous redirect\n");
+				mini->list->flags.ambiguous = 0;
+				mini->status = 1;
 				return (1);
 			}
-			if (handle_redir_in(list, i, exp))
+			if (handle_redir_in(mini, i))
 				return (1);
 		}
 		else
@@ -86,58 +86,58 @@ int	handle_redirs(t_list *list, t_exp *exp)
 	return (0);
 }
 
-int	handle_redir_in(t_list *list, int i, t_exp *exp)
+int	handle_redir_in(t_mini *mini, int i)
 {
-	list->infile = -1;
-	if (list->option[i + 1])
+	mini->list->infile = -1;
+	if (mini->list->option[i + 1])
 	{
-		list->infile = open(list->option[i + 1], O_RDONLY);
-		if (list->infile == -1)
+		mini->list->infile = open(mini->list->option[i + 1], O_RDONLY);
+		if (mini->list->infile == -1)
 		{
-			ft_error("Minishell:", list->option[i + 1], "No such file or directory\n");
-			return ((exp->status = 1), 1);
+			ft_error("Minishell:", mini->list->option[i + 1], "No such file or directory\n");
+			return ((mini->status = 1), 1);
 		}
-		dup2(list->infile, 0);
-		close(list->infile);
-		remove_redir(list->option, i);
+		dup2(mini->list->infile, 0);
+		close(mini->list->infile);
+		remove_redir(mini->list->option, i);
 	}
 	return (0);
 }
 
-int	handle_redir_out(t_list *list, int i, t_exp *exp)
+int	handle_redir_out(t_mini *mini, int i)
 {
-	list->outfile = -1;
-	if (list->option[i + 1])
+	mini->list->outfile = -1;
+	if (mini->list->option[i + 1])
 	{
-		list->outfile = open(list->option[i + 1], O_RDWR
+		mini->list->outfile = open(mini->list->option[i + 1], O_RDWR
 				| O_CREAT | O_TRUNC, 0644);
-		if (list->outfile == -1)
+		if (mini->list->outfile == -1)
 		{
-			ft_error("Minishell:", list->option[i + 1], "No such file or directory\n");
-			return ((exp->status = 1), 1);
+			ft_error("Minishell:", mini->list->option[i + 1], "No such file or directory\n");
+			return (mini->status = 1, 1);
 		}
-		dup2(list->outfile, 1);
-		close(list->outfile);
-		remove_redir(list->option, i);
+		dup2(mini->list->outfile, 1);
+		close(mini->list->outfile);
+		remove_redir(mini->list->option, i);
 	}
 	return (0);
 }
 
-int	handle_append(t_list *list, int i, t_exp *exp)
+int	handle_append(t_mini *mini, int i)
 {
-	list->outfile = -1;
-	if (list->option[i + 1])
+	mini->list->outfile = -1;
+	if (mini->list->option[i + 1])
 	{
-		list->outfile = open(list->option[i + 1], O_RDWR
+		mini->list->outfile = open(mini->list->option[i + 1], O_RDWR
 				| O_CREAT | O_APPEND, 0644);
-		if (list->outfile == -1)
+		if (mini->list->outfile == -1)
 		{
-			ft_error("Minishell:", list->option[i + 1], "No such file or directory\n");
-			return ((exp->status = 1), 1);
+			ft_error("Minishell:", mini->list->option[i + 1], "No such file or directory\n");
+			return (mini->status = 1, 1);
 		}
-		dup2(list->outfile, 1);
-		close(list->outfile);
-		remove_redir(list->option, i);
+		dup2(mini->list->outfile, 1);
+		close(mini->list->outfile);
+		remove_redir(mini->list->option, i);
 	}
 	return (0);
 }

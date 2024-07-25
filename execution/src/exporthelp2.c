@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 23:43:03 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 13:21:42 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:19:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_exp	*last_node(t_exp *head)
 	return (head);
 }
 
-int	exporthelp(t_exp *exp, char **s, t_list *list)
+int	exporthelp(t_mini *mini, char **s)
 {
 	t_exp	*new;
 	int		i;
@@ -29,16 +29,16 @@ int	exporthelp(t_exp *exp, char **s, t_list *list)
 	i = 1;
 	if (!s[1])
 	{
-		new = dup_list(exp);
+		new = dup_list(mini->exp);
 		sort_list(new);
 		print_exp(new);
-		free_env(new, 0);
+		free_env(new, 0, mini);
 	}
-	else if (s[1] && exp)
+	else if (s[1] && mini->exp)
 	{
 		while (s[i])
 		{
-			export(&exp, s[i], list);
+			export(mini, s[i]);
 			i++;
 		}
 	}

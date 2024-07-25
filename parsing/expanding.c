@@ -6,39 +6,39 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 23:52:20 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:48:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	store_new_key(char *node, t_exp **exp, char *replace, int quotes)
+void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 {
 	int		i;
 	int		j;
 
 	i = -1;
 	j = 0;
-	while (node[++i])
+	while (list->option[index][++i])
 	{
-		if (node[i] == '"' || node[i] == '\'')
-			(*exp)->is_quote = 1;
-		if (node[i] == '"' && !(quotes & 1))
+		if (list->option[index][i] == '"' || list->option[index][i] == '\'')
+			mini->is_quote = 1;
+		if (list->option[index][i] == '"' && !(quotes & 1))
 			quotes = !((quotes >> 1) & 1) << 1;
-		else if (node[i] == '\'' && !((quotes >> 1) & 1))
+		else if (list->option[index][i] == '\'' && !((quotes >> 1) & 1))
 			quotes = !(quotes & 1);
-		else if (node[i] == '$' && !(quotes & 1))
+		else if (list->option[index][i] == '$' && !(quotes & 1))
 		{
-			if (store_dollar(node, &replace[j], i))
+			if (store_dollar(list->option[index], &mini->replace[j], i))
 				break ;
-			else if (found_question_mark(node[i + 1], exp, replace, &j) && ++i)
+			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
 				continue ;
-			else if (node[++i] == '$')
+			else if (list->option[index][++i] == '$')
 				continue ;
-			i += replace_with_value(node + i, exp, replace, &j);
+			i += replace_with_value(list, list->option[index] + i, mini, &j);
 		}
 		else
-			replace[j++] = node[i];
+			mini->replace[j++] = list->option[index][i];
 	}
 }
 
@@ -116,32 +116,31 @@ void	rm_empty_option(char ***option, int count)
 	(*option) = arr;
 }
 
-void	expanding(t_list **list, t_exp **exp, char *replace)
+void	expanding(t_mini *mini, int i, int count)
 {
 	t_list	*tmp;
-	int		i;
-	int		count;
 
-	tmp = *list;
+	tmp = mini->list;
 	while (tmp)
 	{
 		i = -1;
 		count = 0;
 		while (tmp->option[++i])
 		{
-			replace = ft_calloc(1, helper2(tmp->option[i], exp) + 1);
-			if (replace)
-				store_new_key(tmp->option[i], exp, replace, 0);
+			mini->replace = ft_calloc(1, helper2(tmp->option[i], mini) + 1);
+			if (!mini->replace)
+				return ;
+			store_new_key(tmp, i, mini, 0);
 			if (tmp->option[i][0] == '"')
-				(*exp)->ambiguous = 0;
-			if (*replace != '\0')
+				tmp->flags.ambiguous = 0;
+			if (*mini->replace != '\0')
 				count++;
-			if (*replace == '\0' && (*exp)->is_quote && ++count)
-				*replace = 1;
+			if (*mini->replace == '\0' && mini->is_quote && ++count)
+				*mini->replace = 1;
 			free(tmp->option[i]);
-			tmp->option[i] = ft_strdup(replace);
-			free(replace);
-			(*exp)->is_quote = 0;
+			tmp->option[i] = ft_strdup(mini->replace);
+			free(mini->replace);
+			mini->is_quote = 0;
 		}
 		rm_empty_option(&tmp->option, count);
 		tmp = tmp->next;

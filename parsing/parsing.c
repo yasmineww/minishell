@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 23:37:11 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:36:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int	parsing(t_mini *mini, char *input)
 		return (1);
 	}
 	tmp = add_space(input);
-	free(input);
 	split_cmd(&mini->list, tmp);
+	free(input);
 	input = NULL;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 23:41:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:06:57 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 int	setup_prompt(t_mini *mini, char **input)
 {
 	*input = NULL;
-	// exp->ambiguous = 0;
-	// exp->expanded = 0;
+	mini->list = NULL;
+	mini->pwd = NULL;
+	mini->exp->path = NULL;
 	rl_catch_signals = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
@@ -29,8 +30,8 @@ int	setup_prompt(t_mini *mini, char **input)
 	{
 		printf("exit\n");
 		ft_free(mini->exp->path);
-		free_env(mini->exp, 1);
-		free(mini->exp->pwd);
+		free_env(mini->exp, 1, mini);
+		free(mini->pwd);
 		exit (mini->status);
 	}
 	if (*input && *input[0] != '\0')
@@ -45,7 +46,7 @@ void	set_pwd(t_mini *mini)
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		mini->exp->pwd = ft_strdup(cwd);
+		mini->pwd = ft_strdup(cwd);
 		free(cwd);
 	}
 	mini->status = 0;
@@ -83,16 +84,12 @@ void	f()
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
-	t_list	*list;
-	// t_exp	*exp;
 	t_mini	mini;
 
 	// atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;
-	list = NULL;
-	// ft_env(&exp, envp);
 	ft_env(&mini.exp, envp);
 	set_pwd(&mini);
 	while (1)
@@ -101,9 +98,9 @@ int	main(int ac, char **av, char **envp)
 		if (parsing(&mini, input))
 			continue ;
 		handle_heredoc(&mini);
-		// expanding(&list, &exp, NULL);
-		// execute(list, &exp, envp);
-		// free_list(list);
-		// list = NULL;
+		expanding(&mini, 0, 0);
+		execute(&mini, envp);
+		free_list(mini.list);
+		mini.list = NULL;
 	}
 }

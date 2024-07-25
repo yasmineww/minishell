@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:06:14 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:19:43 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,24 @@ void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
 	}
 }
 
-int	find_home(t_exp *exp)
+int	find_home(t_exp *exp, t_mini *mini)
 {
 	int	ret;
 
 	if (exp->value == NULL)
-		return (exp->status = 1,
+		return (mini->status = 1,
 			ft_error("Minishell: cd:", "HOME not set\n", NULL), 1);
 	ret = chdir(exp->value);
 	if (ret)
 		return (ft_error("Minishell: cd:", exp->value,
-				"No such file or directory\n"), exp->status = 1, 1);
-	if (exp->pwd)
-		free(exp->pwd);
-	exp->pwd = ft_strdup(exp->value);
+				"No such file or directory\n"), mini->status = 1, 1);
+	if (mini->pwd)
+		free(mini->pwd);
+	mini->pwd = ft_strdup(exp->value);
 	return (0);
 }
 
-int	ft_find_home(t_exp *exp)
+int	ft_find_home(t_exp *exp, t_mini *mini)
 {
 	int	res;
 	t_exp *tmp;
@@ -87,15 +87,15 @@ int	ft_find_home(t_exp *exp)
 	{
 		if (ft_strcmp(tmp->key, "HOME") == 0)
 		{
-			res = find_home(tmp);
+			res = find_home(tmp, mini);
 			if (res == 0)
-				return (tmp->status = 0, 0);
+				return (mini->status = 0, 0);
 			return (res);
 			// else // wa9ila break 7sn
 				// break ;
 		}
 		tmp = tmp->next;
 	}
-	return (exp->status = 1,
+	return (mini->status = 1,
 		ft_error("Minishell: cd:", "HOME not set\n", NULL), 1);
 }

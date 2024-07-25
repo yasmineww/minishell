@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:09:06 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:05:58 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:18:05 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_2dlen(char **s)
 	return (i);
 }
 
-int	exec_builtin(t_exp **exp, char **cmd, t_list *list)
+int	exec_builtin(t_mini *mini, char **cmd)
 {
 	if (!cmd || !*cmd)
 		return (0);
@@ -61,21 +61,21 @@ int	exec_builtin(t_exp **exp, char **cmd, t_list *list)
 	{
 		if (ft_2dlen(cmd) > 2)
 			return (ft_error("Minishell: cd:", "too many arguments\n",
-					NULL), (*exp)->status = 1, 1);
+					NULL), mini->status = 1, 1);
 		else
-			return (ft_cd(cmd[1], *exp, list));
+			return (ft_cd(cmd[1], mini));
 	}
 	if (ft_strcmp(cmd[0], "pwd") == 0)
-		return (ft_pwd(*exp));
+		return (ft_pwd(mini));
 	if (ft_strcmp(cmd[0], "env") == 0)
-		print_env(exp);
+		print_env(&mini->exp);
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		return (ft_exit(cmd, *exp));
+		return (ft_exit(cmd, mini));
 	if (ft_strcmp(cmd[0], "echo") == 0)
-		return (ft_echo(cmd, *exp));
+		return (ft_echo(cmd, mini->exp, mini));
 	if (ft_strcmp(cmd[0], "unset") == 0)
-		return (ft_unset_helper(exp, cmd, list));
+		return (ft_unset_helper(mini, cmd));
 	if (ft_strcmp(cmd[0], "export") == 0)
-		return (exporthelp(*exp, cmd, list));
+		return (exporthelp(mini, cmd));
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:06:42 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:45:01 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 // i might need to add protections 7it list t9d tkon empty
 
-int	ft_new_key(t_exp **exp, char *s)
+int	ft_new_key(t_exp **exp, char *s, t_mini *mini)
 {
 	t_exp	*cur;
 	t_exp	*new;
@@ -27,7 +27,7 @@ int	ft_new_key(t_exp **exp, char *s)
 	}
 	new = malloc(sizeof(t_exp));
 	if (!new)
-		return ((*exp)->status = 1, 1);
+		return (mini->status = 1, 1);
 	new->key = ft_strdup(s);
 	new->value = NULL;
 	new->next = NULL;
@@ -35,7 +35,7 @@ int	ft_new_key(t_exp **exp, char *s)
 	return (0);
 }
 
-int	ft_append_value(t_exp **exp, char *s, int i)
+int	ft_append_value(t_exp **exp, char *s, int i, t_mini *mini)
 {
 	t_exp	*cur;
 	t_exp	*new;
@@ -55,7 +55,7 @@ int	ft_append_value(t_exp **exp, char *s, int i)
 	}
 	new = malloc(sizeof(t_exp));
 	if (!new)
-		return ((*exp)->status = 1, 1);
+		return (mini->status = 1, 1);
 	new->key = ft_substr(s, 0, i);
 	new->value = ft_strdup(s + i + 2);
 	new->next = NULL;
@@ -79,7 +79,7 @@ int	ft_export_input(const char *s)
 	return (0);
 }
 
-int	ft_reset_value(t_exp **exp, char *s, int i)
+int	ft_reset_value(t_exp **exp, char *s, int i, t_mini *mini)
 {
 	t_exp	*cur;
 	t_exp	*new;
@@ -98,7 +98,7 @@ int	ft_reset_value(t_exp **exp, char *s, int i)
 	}
 	new = malloc(sizeof(t_exp));
 	if (!new)
-		return ((*exp)->status = 1, 1);
+		return (mini->status = 1, 1);
 	new->key = ft_substr(s, 0, i);
 	new->value = ft_strdup(s + i + 1);
 	new->next = NULL;
@@ -106,25 +106,25 @@ int	ft_reset_value(t_exp **exp, char *s, int i)
 	return (0);
 }
 
-int	export(t_exp **exp, char *s, t_list *list)
+int	export(t_mini *mini, char *s)
 {
 	int		i;
 
 	i = 0;
 	if (!ft_strncmp(s, "PWD", 3))
-		list->pwd_unset = 0;
+		mini->list->pwd_unset = 0;
 	if (!ft_strncmp(s, "OLDPWD", 6))
-		list->oldpwd_unset = 0;
+		mini->list->oldpwd_unset = 0;
 	if (ft_export_input(s))
 		return (ft_error("export", s, "not a valid identifier\n"),
-			(*exp)->status = 1, 1);
+			mini->status = 1, 1);
 	while (s[i] && s[i] != '+' && s[i] != '=')
 		i++;
 	if (s[i] == '+' && s[i + 1] == '=')
-		return (ft_append_value(exp, s, i));
+		return (ft_append_value(&mini->exp, s, i, mini));
 	else if (s[i] == '=')
-		return (ft_reset_value(exp, s, i));
+		return (ft_reset_value(&mini->exp, s, i, mini));
 	else if (!ft_strchr(s, '=') && !ft_strchr(s, '+'))
-		return (ft_new_key(exp, s));
+		return (ft_new_key(&mini->exp, s, mini));
 	return (0);
 }

@@ -6,22 +6,22 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 23:54:56 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:29:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	found_question_mark(char node, t_exp **exp, char *replace, int *j)
+int	found_quest(char node, t_mini *mini, int *j)
 {
 	char	*value;
 
 	if (node == '?')
 	{
-		value = ft_itoa((*exp)->status);
+		value = ft_itoa(mini->status);
 		while (*value)
 		{
-			replace[(*j)++] = *value;
+			mini->replace[(*j)++] = *value;
 			value++;
 		}
 		return (1);
@@ -42,22 +42,22 @@ int	store_dollar(char *node, char *replace, int i)
 	return (0);
 }
 
-int	replace_with_value(char *node, t_exp **exp, char *replace, int *j)
+int	replace_with_value(t_list *list, char *node, t_mini *mini, int *j)
 {
 	int		end;
 	char	*value;
 
 	end = get_key(node);
-	value = get_value(node, end, exp);
+	value = get_value(node, end, mini->exp);
 	if (end == 0 || !value)
-		(*exp)->ambiguous = 1;
+		list->flags.ambiguous = 1;
 	if (value)
 	{
 		if (count_word_spaces(value) > 1)
-			(*exp)->test = 1;
+			list->flags.special = 1;
 		while (*value)
 		{
-			replace[*j] = *value;
+			mini->replace[*j] = *value;
 			(*j)++;
 			value++;
 		}

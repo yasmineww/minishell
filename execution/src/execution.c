@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 00:50:48 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:54:36 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 //protect functions ??
 // ambiguous builtin
 
-void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
+void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 {
-	if (list->option[0] && is_builtin(list->option))
+	if (mini->list->option[0] && is_builtin(mini->list->option))
 	{
-		if (handle_redirs(list, exp))
+		if (handle_redirs(mini))
 			exit(1);
-		exec_builtin(&exp, list->option, list);
+		exec_builtin(mini, mini->list->option);
 		dup2(data->fdpipe[0], 0);
 		close(data->fdpipe[0]);
 		dup2(data->fdpipe[1], 1);
@@ -29,56 +29,56 @@ void	cmd_exec(t_exp *exp, t_list *list, char **envp, t_exec *data)
 	}
 	else
 	{
-		if (handle_redirs(list, exp))
+		if (handle_redirs(mini))
 			exit(1);
-		if (!list->option[0])
+		if (!mini->list->option[0])
 			exit(0);
-		if (exp->test)
+		if (mini->exp->test) //mini->list->flags.special
 		{
 			//free the old one 2d array ig
-			list->option = ft_split_spaces(list->option[0]);
+			mini->list->option = ft_split_spaces(mini->list->option[0]);
 		}
-		list->option[0] = get_cmd_path(exp, list->option[0]);
-		if (list->option[0] && execve(list->option[0], list->option, envp))
+		mini->list->option[0] = get_cmd_path(mini->exp, mini->list->option[0] , mini);
+		if (mini->list->option[0] && execve(mini->list->option[0], mini->list->option, envp))
 		{
-			if (list->option[0][0] && list->option[0][0] == '/')
+			if (mini->list->option[0][0] && mini->list->option[0][0] == '/')
 			{
-				opendir(list->option[0]);
-				ft_error("Minishell:", list->option[0], "is a directory\n");
-				exp->status = 126;
+				opendir(mini->list->option[0]);
+				ft_error("Minishell:", mini->list->option[0], "is a directory\n");
+				mini->status = 126;
 				exit(126);
 			}
-			ft_error("Minishell:", list->option[0], "command not found\n");
-			exp->status = 127;
+			ft_error("Minishell:", mini->list->option[0], "command not found\n");
+			mini->status = 127;
 			exit(127);
 		}
 	}
 }
 
-int	cmd_process(t_exp *exp, t_list *list, char **envp, t_exec *data)
+int	cmd_process(char **envp, t_exec *data, t_mini *mini)
 {
-	while (list)
+	while (mini->list)
 	{
-		if (list->next && pipe(data->fdpipe) == -1)
-			return (perror("pipe"), exp->status = 1, 1);
+		if (mini->list->next && pipe(data->fdpipe) == -1)
+			return (perror("pipe"), mini->status = 1, 1);
 		data->pid[data->i] = fork();
 		if (data->pid[data->i] < 0)
-			return (perror("fork"), exp->status = 1, 1);
+			return (perror("fork"), mini->status = 1, 1);
 		else if (data->pid[data->i] == 0)
 		{
 			setup_signals(1);
-			child_io(data, list);
-			cmd_exec(exp, list, envp, data);
+			child_io(data, mini->list);
+			cmd_exec(envp, data, mini);
 		}
 		else
-			parent_io(data, list);
-		list = list->next;
+			parent_io(data, mini->list);
+		mini->list = mini->list->next;
 		data->i++;
 	}
 	return (0);
 }
 
-void	children_wait(t_exec *data, t_exp *exp, struct termios *term)
+void	children_wait(t_exec *data, struct termios *term, t_mini *mini)
 {
 	int	i;
 
@@ -95,34 +95,34 @@ void	children_wait(t_exec *data, t_exp *exp, struct termios *term)
 			write(1, "Quit: 3\n", 8);
 		else if (WTERMSIG(data->status) == SIGINT)
 			write(1, "\n", 1);
-		exp->status = WTERMSIG(data->status) + 128;
+		mini->status = WTERMSIG(data->status) + 128;
 	}
 	else if (WIFEXITED(data->status))
-		exp->status = WEXITSTATUS(data->status);
+		mini->status = WEXITSTATUS(data->status);
 }
 
-int	exec(t_exp **exp, t_list *list, char **envp, struct termios *term)
+int	exec(t_mini *mini, char **envp, struct termios *term)
 {
 	t_exec	data;
 
 	data = (t_exec){0}; // concept of initialization vs assignement
-	if (!list || !list->option)
-		return ((*exp)->status = 1, 1);
+	if (!mini->list || !mini->list->option)
+		return (mini->status = 1, 1);
 	int dups = dup(0);
 	data.std_in = dup(0);
 	data.std_out = dup(1);
 	data.pid = NULL;
 	data.i = 0;
 	setup_signals(0);
-	data.count = ft_lstsize(list);
-	if (data.count == 1 && is_builtin(list->option))
-		return (onecmd_builtin(exp, list));
+	data.count = ft_lstsize(mini->list);
+	if (data.count == 1 && is_builtin(mini->list->option))
+		return (onecmd_builtin(mini));
 	data.pid = malloc(sizeof(int) * data.count);
 	if (!data.pid)
-		return ((*exp)->status = 1, 1);
-	if (cmd_process(*exp, list, envp, &data))
-		return ((*exp)->status = 1, 1);
-	children_wait(&data, *exp, term);
+		return (mini->status = 1, 1);
+	if (cmd_process(envp, &data, mini))
+		return (mini->status = 1, 1);
+	children_wait(&data, term, mini);
 	free(data.pid);
 	dup2(dups, 0);
 	close(dups);
@@ -162,11 +162,11 @@ char *get_last_arg(char **option)
 	return (option[i]);
 }
 
-int	execute(t_list *list, t_exp **exp, char **envp)
+int	execute(t_mini *mini, char **envp)
 {
 	char			*tmp;
 	struct termios	term;
-	char	*last_arg;
+	char			*last_arg;
 
 	tcgetattr(0, &term);
 	if (g_sig == 1)
@@ -174,21 +174,23 @@ int	execute(t_list *list, t_exp **exp, char **envp)
 		g_sig = 0;
 		return (0);
 	}
-	tmp = find_path(exp);
-	if (*exp && tmp)
+	tmp = find_path(&mini->exp);
+	if (mini->exp && tmp)
 	{
-		if ((*exp)->path)
-			ft_free((*exp)->path);
-		(*exp)->path = ft_split(tmp, ':');
+		if (mini->exp->path)
+		{
+			// puts("ok");
+			ft_free(mini->exp->path);
+		}
+		mini->exp->path = ft_split(tmp, ':');
 	}
-	if (!(*exp) || !(*exp)->path)
-		return ((*exp)->status = 1, 1);
-	// free(tmp);
-	last_arg = get_last_arg(list->option);
+	if (!mini->exp|| !mini->exp->path)
+		return (mini->status = 1, 1);
+	last_arg = get_last_arg(mini->list->option);
 	if (last_arg)
-		update_underscore(exp, last_arg);
-	exec(exp, list, envp, &term);
-	if (list->infile)
-		close(list->infile);
+		update_underscore(&mini->exp, last_arg);
+	exec(mini, envp, &term);
+	if (mini->list && mini->list->infile)
+		close(mini->list->infile);
 	return (0);
 }

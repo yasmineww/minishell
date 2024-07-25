@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 16:36:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/11 18:44:43 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:17:44 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_pwd(t_exp *exp)
+int	ft_pwd(t_mini *mini)
 {
 	char	*cwd;
 
@@ -24,7 +24,7 @@ int	ft_pwd(t_exp *exp)
 		return (0);
 	}
 	else
-		printf("%s\n", exp->pwd);
+		printf("%s\n", mini->pwd);
 	return (0);
 }
 

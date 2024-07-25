@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/21 22:07:02 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:34:01 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_unset_helper(t_exp **exp, char **s, t_list *list)
+int	ft_unset_helper(t_mini *mini, char **s)
 {
 	int	i;
 
@@ -22,35 +22,35 @@ int	ft_unset_helper(t_exp **exp, char **s, t_list *list)
 		if (ft_strchr(s[i], '=') || !isalpha_underscore(s[i][0], 1))
 		{
 			ft_error("minishell: unset: `", s[i], "': not a valid identifier\n");
-			(*exp)->status = 1;
+			mini->status = 1;
 			i++;
 			continue ;
 		}
-		ft_unset(exp, s[i], list);
+		ft_unset(mini, s[i]);
 		i++;
 	}
 	return (0);
 }
 
-int	ft_unset(t_exp **exp, char *key, t_list *list)
+int	ft_unset(t_mini *mini, char *key)
 {
 	t_exp	*cur;
 	t_exp	*prev;
 
-	cur = *exp;
+	cur = mini->exp;
 	prev = NULL;
 	if (!key)
-		return ((*exp)->status = 1, 1);
+		return (mini->status = 1, 1);
 	while (cur)
 	{
 		if (ft_strncmp(cur->key, key, ft_strlen(key)) == 0)
 		{
 			if (!ft_strncmp(cur->key, "PWD", 3))
-				list->pwd_unset = 1;
+				mini->list->pwd_unset = 1;
 			if (!ft_strncmp(cur->key, "OLDPWD", 6))
-				list->oldpwd_unset = 1;
+				mini->list->oldpwd_unset = 1;
 			if (!prev)
-				*exp = cur->next;
+				mini->exp = cur->next;
 			else
 				prev->next = cur->next;
 			free(cur->key);

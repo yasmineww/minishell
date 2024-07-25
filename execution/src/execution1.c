@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 00:27:10 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:07:02 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parent_io(t_exec *data, t_list *list)
 	}
 }
 
-char	*get_cmd_path(t_exp *exp, char *cmd)
+char	*get_cmd_path(t_exp *exp, char *cmd, t_mini *mini)
 {
 	char	*cmdpath;
 	char	*prefix;
@@ -49,7 +49,7 @@ char	*get_cmd_path(t_exp *exp, char *cmd)
 	}
 	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
-	return (exp->status = 127,
+	return (mini->status = 127,
 		ft_error("Minishell:", cmd, "command not found\n"),
 		exit(127), NULL);
 }
@@ -68,7 +68,7 @@ void	setup_signals(int i)
 	}
 }
 
-int	onecmd_builtin(t_exp **exp, t_list *list)
+int	onecmd_builtin(t_mini *mini)
 {
 	int	std_in;
 	int	std_out;
@@ -77,15 +77,15 @@ int	onecmd_builtin(t_exp **exp, t_list *list)
 	i = 0;
 	std_in = dup(0);
 	std_out = dup(1);
-	if (!list || !list->option || list->next)
-		return ((*exp)->status = 1, 1);
-	if (handle_redirs(list, *exp))
+	if (!mini->list || !mini->list->option || mini->list->next)
+		return (mini->status = 1, 1);
+	if (handle_redirs(mini))
 		return (1);
-	exec_builtin(exp, list->option, list);
-	while (list->option[i])
+	exec_builtin(mini, mini->list->option);
+	while (mini->list->option[i])
 	{
-		free(list->option[i]);
-		list->option[i] = NULL;
+		free(mini->list->option[i]);
+		mini->list->option[i] = NULL;
 		i++;
 	}
 	close(std_in);

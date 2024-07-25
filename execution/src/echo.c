@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:27:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/23 12:22:31 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:10:40 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_echo_helper(char **cmd, int *no_nl)
 	return (i);
 }
 
-int	ft_echo(char **cmd, t_exp *exp)
+int	ft_echo(char **cmd, t_exp *exp, t_mini *mini)
 {
 	int	no_nl;
 	int	i;
@@ -88,6 +88,6 @@ int	ft_echo(char **cmd, t_exp *exp)
 	no_nl = 0;
 	i = ft_echo_helper(cmd, &no_nl);
 	echo_print(cmd, i, no_nl, exp);
-	exp->status = 0;
+	mini->status = 0;
 	return (0);
 }
