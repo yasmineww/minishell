@@ -6,13 +6,13 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:28:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:54:30 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	replace_with_value_heredoc(char *node, t_exp **exp, char *replace, int *j)
+int	replace_with_value_heredoc(char *node, t_exp *exp, char *replace, int *j)
 {
 	int		end;
 	char	*value;
@@ -45,7 +45,7 @@ int	store_dollar_heredoc(char *node, char *replace, int i)
 	return (0);
 }
 
-char	*store_new_key2(char *node, int len, t_exp **exp)
+char	*store_new_key2(char *node, int len, t_exp *exp)
 {
 	int		i;
 	int		j;
@@ -72,13 +72,13 @@ char	*store_new_key2(char *node, int len, t_exp **exp)
 	return (replace);
 }
 
-void	expanding_heredoc(char **read, t_exp **exp)
+void	expanding_heredoc(char **read, t_mini *mini)
 {
 	int		len;
 	char	*replace;
 
-	len = helper2(*read, exp);
-	replace = store_new_key2(*read, len, exp);
+	len = helper2(*read, mini);
+	replace = store_new_key2(*read, len, mini->exp);
 	free(*read);
 	*read = ft_strdup(replace);
 	free(replace);

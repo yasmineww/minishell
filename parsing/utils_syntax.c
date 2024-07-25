@@ -6,16 +6,16 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 19:57:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/16 11:53:24 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:34:14 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	error_message(char *input, t_exp **exp)
+int	error_message(char *input, int *status)
 {
 	write(2, "Minishell: syntax error\n", 25);
-	(*exp)->status = 258;
+	*status = 258;
 	free(input);
 	input = NULL;
 	return (1);

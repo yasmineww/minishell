@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 12:09:28 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:52:20 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,27 @@ void	store_new_key(char *node, t_exp **exp, char *replace, int quotes)
 	}
 }
 
-int	get_value_len(char *ptr, int j, int end, t_exp **exp)
+int	get_value_len(char *ptr, int j, int end, t_exp *exp)
 {
 	char	*ptr2;
-	t_exp	*env;
 
-	env = *exp;
 	ptr2 = ft_substr(ptr, j, end);
 	if (!ptr2)
 		return (0);
-	while (env)
+	while (exp)
 	{
-		if (!ft_strcmp(env->key, ptr2))
+		if (!ft_strcmp(exp->key, ptr2))
 		{
 			free(ptr2);
-			return (ft_strlen(env->value));
+			return (ft_strlen(exp->value));
 		}
-		env = env->next;
+		exp = exp->next;
 	}
 	free(ptr2);
 	return (0);
 }
 
-int	helper2(char *tmp, t_exp **exp)
+int	helper2(char *tmp, t_mini *mini)
 {
 	int	len;
 	int	j;
@@ -77,13 +75,13 @@ int	helper2(char *tmp, t_exp **exp)
 	{
 		if (tmp[j] == '$')
 		{
-			(*exp)->expanded = 1;
+			mini->list->flags.expanded = 1;
 			if (tmp[j + 1] && tmp[j + 1] == '?')
-				len += ft_intlen((*exp)->status);
+				len += ft_intlen(mini->status);
 			else
 			{
 				end = get_key(&tmp[j + 1]);
-				len += get_value_len(tmp, j + 1, end, exp);
+				len += get_value_len(tmp, j + 1, end, mini->exp);
 			}
 		}
 	}

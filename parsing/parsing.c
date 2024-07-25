@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/20 16:10:34 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:37:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	quotes_syntax_error(char *input)
 	return (0);
 }
 
-int	parsing(char *input, t_list **list, t_exp **exp)
+int	parsing(t_mini *mini, char *input)
 {
 	char	*tmp;
 
@@ -88,12 +88,12 @@ int	parsing(char *input, t_list **list, t_exp **exp)
 	}
 	if (quotes_syntax_error(input) || syntax_error(input))
 	{
-		error_message(input, exp);
+		error_message(input, &mini->status);
 		return (1);
 	}
 	tmp = add_space(input);
-	split_cmd(list, tmp);
 	free(input);
+	split_cmd(&mini->list, tmp);
 	input = NULL;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 14:03:53 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:34:33 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ int		ft_2dlen(char **s);
 
 // ---------------------- parsing ----------------------
 
-int		error_message(char *input, t_exp **exp);
+int		parsing(t_mini *mini, char *input);
+int		error_message(char *input, int *status);
 int		special_char(char *ptr);
 int		check_space(char *ptr);
 int		two_specials(char *ptr);
@@ -122,7 +123,6 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-int		parsing(char *input, t_list **list, t_exp **exp);
 void	expanding(t_list **list, t_exp **exp, char *replace);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp **exp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 16:54:34 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:08:13 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_pointers(char *read_me, char *delim, int *td, t_list *temp)
 	free(delim);
 	close(td[1]);
 	temp->infile = td[0];
+	close (td[0]);
+	close(temp->infile);
 }
 
 char	*rm_quotes(char *s1, int *bool, int i)
@@ -49,7 +51,7 @@ char	*rm_quotes(char *s1, int *bool, int i)
 	return (copy);
 }
 
-void	find_delimiter(t_list *temp, t_exp **exp, int i, int bool)
+void	find_delimiter(t_list *temp, t_mini *mini, int i, int bool)
 {
 	char		*read_me;
 	char		*delim;
@@ -65,7 +67,7 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i, int bool)
 	while (read_me)
 	{
 		if (!bool && ft_strcmp(delim, read_me))
-			expanding_heredoc(&read_me, exp);
+			expanding_heredoc(&read_me, mini);
 		if (!ft_strcmp(delim, read_me))
 			break ;
 		ft_putendl_fd(read_me, td[1]);
@@ -77,13 +79,12 @@ void	find_delimiter(t_list *temp, t_exp **exp, int i, int bool)
 	free_pointers(read_me, delim, td, temp);
 }
 
-void	handle_heredoc(t_list **list, t_exp **exp)
+void	handle_heredoc(t_mini *mini)
 {
 	t_list		*temp;
 	int			i;
-	int			count = 0;
 
-	temp = *list;
+	temp = mini->list;
 	if (temp)
 		temp->infile = 0;
 	while (temp)
@@ -97,11 +98,11 @@ void	handle_heredoc(t_list **list, t_exp **exp)
 				if (count > 0)
 					close(temp->infile);
 				count++;
-				find_delimiter(temp, exp, i, 0);
+				find_delimiter(temp, mini, i, 0);
 			}
 		}
 		temp = temp->next;
 	}
 	if (g_sig == 1)
-		(*exp)->status = 1;
+		mini->status = 1;
 }
