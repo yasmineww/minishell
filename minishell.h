@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/24 20:28:51 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:17:33 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int		handle_append(t_mini *mini, int i);
 int		handle_redirs(t_mini *mini);
 char	*find_path(t_exp **exp);
 int		ft_exit(char **cmd, t_mini *mini);
-void	free_env(t_exp *exp, int flag, t_mini *mini);
+void	free_env(t_exp *exp);
 char	*ft_getoldpwd(t_exp *exp);
 void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd);
 int		find_home(t_exp *exp, t_mini *mini);

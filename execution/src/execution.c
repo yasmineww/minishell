@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/25 12:54:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 00:07:50 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 		close(data->fdpipe[0]);
 		dup2(data->fdpipe[1], 1);
 		close(data->fdpipe[1]);
+		free_list(mini->list);
 		exit(0);
 	}
 	else
@@ -57,6 +58,9 @@ void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 
 int	cmd_process(char **envp, t_exec *data, t_mini *mini)
 {
+	t_list	*temp;
+
+	temp = mini->list;
 	while (mini->list)
 	{
 		if (mini->list->next && pipe(data->fdpipe) == -1)
@@ -75,6 +79,7 @@ int	cmd_process(char **envp, t_exec *data, t_mini *mini)
 		mini->list = mini->list->next;
 		data->i++;
 	}
+	free_list(temp);
 	return (0);
 }
 
@@ -170,21 +175,15 @@ int	execute(t_mini *mini, char **envp)
 
 	tcgetattr(0, &term);
 	if (g_sig == 1)
-	{
-		g_sig = 0;
-		return (0);
-	}
+		return (g_sig = 0 ,0);
 	tmp = find_path(&mini->exp);
 	if (mini->exp && tmp)
 	{
 		if (mini->exp->path)
-		{
-			// puts("ok");
 			ft_free(mini->exp->path);
-		}
 		mini->exp->path = ft_split(tmp, ':');
 	}
-	if (!mini->exp|| !mini->exp->path)
+	if (!mini->exp || !mini->exp->path)
 		return (mini->status = 1, 1);
 	last_arg = get_last_arg(mini->list->option);
 	if (last_arg)

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/24 12:49:37 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 00:52:06 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ void	remove_redir(char **option, int i)
 {
 	if (ft_2dlen(option) < 3)
 	{
+		free(option[i]);
 		option[i] = NULL;
 		if (option[i + 1])
+		{
+			free(option[i + 1]);
 			option[i + 1] = NULL;
+		}
 		return ;
 	}
-	while (option[i] && option[i + 2])
+	free(option[i]);
+	free(option[i + 1]);
+	while (option[i + 2])
 	{
 		option[i] = option[i + 2];
 		i++;
@@ -46,7 +52,7 @@ int	handle_redirs(t_mini *mini)
 		}
 		else if (mini->list->option[i] && !ft_strncmp(mini->list->option[i], ">>", 2))
 		{
-			if (mini->list->flags.ambiguous) // zidha m3a or || mini->list->flags.special
+			if (mini->list->flags.ambiguous || mini->list->flags.special)
 			{
 				ft_error("Minishell:", mini->list->option[i + 1], "ambiguous redirect\n");
 				mini->list->flags.ambiguous = 0;
@@ -58,7 +64,7 @@ int	handle_redirs(t_mini *mini)
 		}
 		else if (mini->list->option[i] && !ft_strncmp(mini->list->option[i], ">", 1))
 		{
-			if (mini->list->flags.ambiguous) // zidha m3a or || mini->list->flags.special
+			if (mini->list->flags.ambiguous || mini->list->flags.special)
 			{
 				ft_error("Minishell:", mini->list->option[i + 1], "ambiguous redirect\n");
 				mini->list->flags.ambiguous = 0;
@@ -70,7 +76,7 @@ int	handle_redirs(t_mini *mini)
 		}
 		else if (mini->list->option[i] && !ft_strncmp(mini->list->option[i], "<", 1))
 		{
-			if (mini->list->flags.ambiguous) // zidha m3a or || mini->list->flags.special
+			if (mini->list->flags.ambiguous || mini->list->flags.special)
 			{
 				ft_error("Minishell:", mini->list->option[i + 1], "ambiguous redirect\n");
 				mini->list->flags.ambiguous = 0;

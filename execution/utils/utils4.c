@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/25 13:06:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:33:29 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ void	ft_free(char **s)
 	while (s[i])
 	{
 		free(s[i]);
+		s[i] = NULL;
 		i++;
 	}
 	free(s);
+	s = NULL;
 }

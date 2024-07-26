@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:32:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/24 12:50:32 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/25 23:34:57 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_exit(char **cmd, t_mini *mini)
 					"numeric argument required\n"), exit(255), 1);
 		else
 			return (ft_error("exit", NULL,
-					"too many argument\n"), mini->status = 1, 1);
+					"too many arguments\n"), mini->status = 1, 1);
 	}
 	return (mini->status = 1, 1);
 }
