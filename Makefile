@@ -7,7 +7,7 @@ SRC = main.c \
   	execution/src/envp.c execution/src/builtins.c	execution/src/cd.c execution/src/pwd.c execution/src/env.c \
   	execution/src/echo.c execution/src/execution.c execution/src/unset.c execution/src/export.c execution/src/exporthelp.c execution/src/redir.c \
   	execution/src/exit.c execution/src/utils.c execution/utils/utils1.c execution/utils/utils2.c execution/utils/utils3.c execution/utils/utils4.c \
-	execution/src/exporthelp2.c execution/src/execution1.c execution/src/cdhelper.c\
+	execution/src/exporthelp2.c execution/src/execution1.c execution/src/cdhelper.c execution/src/redirhelp.c  execution/src/execution2.c \
 
 OBJ = $(addprefix obj/, $(SRC:.c=.o))
 

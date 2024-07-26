@@ -1,11 +1,15 @@
 ------------execution------------
 
 
+exit 9223372036854775808
+exit -9223372036854775809
+
+exit long max
+
+IS A DIRECTORY
+
 ila t unseta tail dial linked list 3tih null
 ila t unseta kolchi 3ti lhead NULL
-
-
-unset kolchi pwd makhdamach
 
 
 envp 7wlo l array
@@ -18,21 +22,13 @@ Minishell$
 
 env -i ./minishell
 
-waaaaaaaa fink a PWD oldpwd unset
-ila t unseta pwd w oldpwd khask t3awd t7thom
-
-
 protect dup with custom ft_dup
-
 
 tcsetattr
 
 
 fd leaks on error exit
 /bin/cat terminal save etat ? ctrl+ C
-
-
-exit quotes handling numbers
 
 ---------- error management -------
 
@@ -114,7 +110,7 @@ cat | cat | ls
 cat << 6 > 7
 cat << 6 << 8 > 9
 cat < " "
-echo $a -n hello 
+echo $a -n hello
 ls ""
 echo hey | ls
 cat | << a
@@ -130,6 +126,7 @@ marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minish
 marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minishell 2$
 ambiguous redirect
  << $""
+ila t unseta pwd w oldpwd khask t3awd t7thom
 
 
 split and create array in export cmd="ls -l"

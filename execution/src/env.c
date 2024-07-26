@@ -6,25 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 01:18:47 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:15:11 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	free_env(t_exp *exp)
-{
-	t_exp	*tmp;
-
-	while (exp)
-	{
-		tmp = exp;
-		exp = exp->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-	}
-}
 
 void	print_env(t_exp **exp)
 {
@@ -78,55 +64,19 @@ void	find_key(char *envp, t_exp *exp)
 	find_value(envp, exp, l + 1);
 }
 
-t_exp	*create_node(char *key, char *value)
+void	check_oldpwd(t_exp *exp)
 {
-	t_exp	*new;
-
-	new = malloc(sizeof(t_exp));
-	if (!new)
-		return (NULL);
-	new->key = ft_strdup(key);
-	if (value)
-		new->value = ft_strdup(value);
-	else
-		new->value = NULL;
-	new->next = NULL;
-	return (new);
-}
-
-int	setup_env_ignored(t_exp **exp)
-{
-	t_exp	*new;
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	new = create_node("PWD", pwd);
-	if (!new)
-		return (exit(1), 1);
-	ft_lstadd_back(exp, new);
-	new = create_node("SHLVL", "1");
-	if (!new)
-		return (exit(1), 1);
-	ft_lstadd_back(exp, new);
-	new = create_node("OLDPWD", NULL);
-	if (!new)
-		return (exit(1), 1);
-	ft_lstadd_back(exp, new);
-	new = create_node("HOME", UNDERSC);
-	if (!new)
-		return (exit(1), 1);
-	ft_lstadd_back(exp, new);
-	new = create_node("PATH", PATH);
-	if (!new)
-		return (exit(1), 1);
-	ft_lstadd_back(exp, new);
-	return (0);
+	if (!ft_strcmp(exp->key, "OLDPWD"))
+	{
+		if (exp->value)
+			free(exp->value);
+		exp->value = NULL;
+	}
 }
 
 int	ft_env(t_exp **exp, char **envp)
 {
 	int			i;
-	t_exp		*tmp;
 	t_exp		*new;
 
 	i = -1;
@@ -139,22 +89,9 @@ int	ft_env(t_exp **exp, char **envp)
 		if (!new)
 			return (exit(1), 1);
 		find_key(envp[i], new);
-		if (!ft_strcmp(new->key, "OLDPWD"))
-		{
-			if (new->value)
-				free(new->value);
-			new->value = NULL;
-		}
+		check_oldpwd(new);
 		new->next = NULL;
-		if (!*exp)
-			*exp = new;
-		else
-		{
-			tmp = *exp;
-			while (tmp->next)
-				tmp = tmp->next;
-			tmp->next = new;
-		}
+		ft_lstadd_back(exp, new);
 	}
 	return (1);
 }

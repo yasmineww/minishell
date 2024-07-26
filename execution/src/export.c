@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/24 12:45:01 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:26:42 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	export(t_mini *mini, char *s)
 
 	i = 0;
 	if (!ft_strncmp(s, "PWD", 3))
-		mini->list->pwd_unset = 0;
+		mini->pwd_unset = 0;
 	if (!ft_strncmp(s, "OLDPWD", 6))
-		mini->list->oldpwd_unset = 0;
+		mini->oldpwd_unset = 0;
 	if (ft_export_input(s))
 		return (ft_error("export", s, "not a valid identifier\n"),
 			mini->status = 1, 1);

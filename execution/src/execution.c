@@ -6,13 +6,12 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 02:13:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:49:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 //protect functions ??
-
 
 void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 {
@@ -36,17 +35,20 @@ void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 			exit(0);
 		if (mini->list->flags.special)
 			mini->list->option = ft_split_spaces(mini->list->option[0]);
-		mini->list->option[0] = get_cmd_path(mini->list->option[0] , mini);
-		if (mini->list->option[0] && execve(mini->list->option[0], mini->list->option, envp))
+		mini->list->option[0] = get_cmd_path(mini->list->option[0], mini);
+		if (execve(mini->list->option[0], mini->list->option, envp))
 		{
-			if (mini->list->option[0][0] && mini->list->option[0][0] == '/')
+			if (mini->list->option[0] && mini->list->option[0][0] && mini->list->option[0][0] == '/')
 			{
-				opendir(mini->list->option[0]);
-				ft_error("Minishell:", mini->list->option[0], "is a directory\n");
+			puts("hehgfh");
+				// opendir(mini->list->option[0]);// if valid path is a directory if not no such file
+				ft_error("Minishell:", mini->list->option[0],
+					"is a directory\n");
 				mini->status = 126;
 				exit(126);
 			}
-			ft_error("Minishell:", mini->list->option[0], "command not found\n");
+			ft_error("Minishell:", mini->list->option[0],
+				"command not found\n");
 			mini->status = 127;
 			exit(127);
 		}
@@ -92,7 +94,7 @@ void	children_wait(t_exec *data, struct termios *term, t_mini *mini)
 	}
 	if (WIFSIGNALED(data->status))
 	{
-		tcsetattr(STDIN_FILENO, TCSANOW, term); // 9ra 3la hadchi
+		tcsetattr(STDIN_FILENO, TCSANOW, term);
 		if (WTERMSIG(data->status) == SIGQUIT)
 			write(1, "Quit: 3\n", 8);
 		else if (WTERMSIG(data->status) == SIGINT)
@@ -107,10 +109,10 @@ int	exec(t_mini *mini, char **envp, struct termios *term)
 {
 	t_exec	data;
 
-	data = (t_exec){0}; // concept of initialization vs assignement
+	data = (t_exec){0};
 	if (!mini->list || !mini->list->option)
 		return (mini->status = 1, 1);
-	int dups = dup(0);
+	data.dups = dup(0);
 	data.std_in = dup(0);
 	data.std_out = dup(1);
 	data.pid = NULL;
@@ -126,42 +128,11 @@ int	exec(t_mini *mini, char **envp, struct termios *term)
 		return (mini->status = 1, 1);
 	children_wait(&data, term, mini);
 	free(data.pid);
-	dup2(dups, 0);
-	close(dups);
+	dup2(data.dups, 0);
+	close(data.dups);
 	close(data.std_in);
 	close(data.std_out);
 	return (0);
-}
-
-void	update_underscore(t_exp **exp, char *last_arg)
-{
-	t_exp	*tmp;
-	t_exp	*new;
-
-	tmp = *exp;
-	while(tmp)
-	{
-		if (!ft_strcmp(tmp->key, "_"))
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(last_arg);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	new = create_node("_", last_arg);
-	if (new)
-		ft_lstadd_back(exp, new);
-}
-
-char *get_last_arg(char **option)
-{
-	int	i;
-
-	i = 0;
-	while (option[i + 1])
-		i++;
-	return (option[i]);
 }
 
 int	execute(t_mini *mini, char **envp)
@@ -172,7 +143,7 @@ int	execute(t_mini *mini, char **envp)
 
 	tcgetattr(0, &term);
 	if (g_sig == 1)
-		return (g_sig = 0 ,0);
+		return (g_sig = 0, 0);
 	tmp = find_path(&mini->exp);
 	if (mini->exp && tmp)
 	{
@@ -181,8 +152,7 @@ int	execute(t_mini *mini, char **envp)
 		mini->path = ft_split(tmp, ':');
 	}
 	last_arg = get_last_arg(mini->list->option);
-	if (last_arg)
-		update_underscore(&mini->exp, last_arg);
+	update_underscore(&mini->exp, last_arg);
 	exec(mini, envp, &term);
 	if (mini->list && mini->list->infile)
 		close(mini->list->infile);
