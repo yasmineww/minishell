@@ -1,28 +1,11 @@
 ------------execution------------
+relink test
 
-
-exit 9223372036854775808
-exit -9223372036854775809
-
-exit long max
 
 IS A DIRECTORY
 
-ila t unseta tail dial linked list 3tih null
-ila t unseta kolchi 3ti lhead NULL
-
-
-envp 7wlo l array
-
-fd leak
-Minishell$ export a="ls"
-Minishell$ < $a
-Minishell: ls: No such file or directory
-Minishell$
 
 env -i ./minishell
-
-protect dup with custom ft_dup
 
 tcsetattr
 
@@ -127,7 +110,12 @@ marin@LAPTOP-JQ6NPLQG:/mnt/c/Users/marin/downloads/compressed/minishell 2/minish
 ambiguous redirect
  << $""
 ila t unseta pwd w oldpwd khask t3awd t7thom
-
+protect dup with custom ft_dup
+fd leak
+Minishell$ export a="ls"
+Minishell$ < $a
+Minishell: ls: No such file or directory
+Minishell$
 
 split and create array in export cmd="ls -l"
 bash-3.2$ export var="ls                -la"

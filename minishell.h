@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 21:52:32 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:14:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	g_sig;
 
 # define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
 # define UNDERSC "/usr/bin/env"
-
 typedef struct s_exec
 {
 	int	fdpipe[2];
@@ -105,6 +104,9 @@ t_exp	*dup_list(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
 void	free_env(t_exp *exp);
 char	*get_last_arg(char **option);
+int		ft_lstsize_exp(t_exp *lst);
+void	ft_dup2(int fd1, int fd2);
+int		ft_dup(int fd);
 
 
 // ---------------------- parsing ----------------------
@@ -141,14 +143,14 @@ void	free_list(t_list *list);
 
 // ---------------------- execution ----------------------
 
-int		execute(t_mini *mini, char **envp);
+int		execute(t_mini *mini);
 int		is_builtin(char **cmd);
 int		exec_builtin(t_mini *mini, char **cmd);
 int		ft_cd(char *path, t_mini *mini);
 int		ft_pwd(t_mini *mini);
 void	print_env(t_exp **exp);
 int		ft_echo(char **cmd, t_exp *exp, t_mini *mini);
-int		exec(t_mini *mini, char **envp, struct termios *term);
+int		exec(t_mini *mini, struct termios *term);
 int		ft_unset(t_mini *mini, char *key);
 int		export(t_mini *mini, char *s);
 void	find_key(char *envp, t_exp *exp);
@@ -183,5 +185,6 @@ int		redirs_handler(t_mini *mini, int i, char *s, int (*handler) (t_mini *, int)
 void	signal_handler(int sig);
 void	signal_handler_heredoc(int sig);
 void	setup_signals(int i);
+
 
 #endif

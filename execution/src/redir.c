@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 20:35:27 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:27:13 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	handle_redirs(t_mini *mini)
 	{
 		if (!ft_strncmp(mini->list->option[i], "<<", 2))
 		{
-			dup2(mini->list->infile, 0);
+			ft_dup2(mini->list->infile, 0);
 			remove_redir(mini->list->option, i);
 			continue ;
 		}
@@ -64,7 +64,7 @@ int	handle_redir_in(t_mini *mini, int i)
 				"No such file or directory\n");
 			return ((mini->status = 1), 1);
 		}
-		dup2(mini->list->infile, 0);
+		ft_dup2(mini->list->infile, 0);
 		close(mini->list->infile);
 		remove_redir(mini->list->option, i);
 	}
@@ -76,7 +76,7 @@ int	handle_redir_out(t_mini *mini, int i)
 	mini->list->outfile = -1;
 	if (mini->list->option[i + 1])
 	{
-		mini->list->outfile = open(mini->list->option[i + 1], O_RDWR
+		mini->list->outfile = open(mini->list->option[i + 1], O_WRONLY
 				| O_CREAT | O_TRUNC, 0644);
 		if (mini->list->outfile == -1)
 		{
@@ -84,7 +84,7 @@ int	handle_redir_out(t_mini *mini, int i)
 				"No such file or directory\n");
 			return (mini->status = 1, 1);
 		}
-		dup2(mini->list->outfile, 1);
+		ft_dup2(mini->list->outfile, 1);
 		close(mini->list->outfile);
 		remove_redir(mini->list->option, i);
 	}
@@ -96,7 +96,7 @@ int	handle_append(t_mini *mini, int i)
 	mini->list->outfile = -1;
 	if (mini->list->option[i + 1])
 	{
-		mini->list->outfile = open(mini->list->option[i + 1], O_RDWR
+		mini->list->outfile = open(mini->list->option[i + 1], O_WRONLY
 				| O_CREAT | O_APPEND, 0644);
 		if (mini->list->outfile == -1)
 		{
@@ -104,7 +104,8 @@ int	handle_append(t_mini *mini, int i)
 				"No such file or directory\n");
 			return (mini->status = 1, 1);
 		}
-		dup2(mini->list->outfile, 1);
+		ft_dup2(mini->list->outfile, 1);
+			return (mini->status = 1, 1);
 		close(mini->list->outfile);
 		remove_redir(mini->list->option, i);
 	}

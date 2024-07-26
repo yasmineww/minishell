@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 21:52:37 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 22:39:46 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		}
 		expanding(&mini, 0, 0, NULL);
-		execute(&mini, envp);
+		execute(&mini);
 		free_list(mini.list);
 		mini.list = NULL;
 	}

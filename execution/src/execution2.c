@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:00:58 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 21:20:43 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:32:53 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	onecmd_builtin(t_mini *mini)
 	int		std_in;
 	int		std_out;
 
-	std_in = dup(0);
-	std_out = dup(1);
+	std_in = ft_dup(0);
+	std_out = ft_dup(1);
 	if (!mini->list || !mini->list->option || mini->list->next)
 		return (mini->status = 1, 1);
 	if (handle_redirs(mini))
 		return (1);
 	exec_builtin(mini, mini->list->option);
-	dup2(std_in, 0);
-	dup2(std_out, 1);
+	ft_dup2(std_in, 0);
+	ft_dup2(std_out, 1);
 	close(std_in);
 	close(std_out);
 	return (0);
