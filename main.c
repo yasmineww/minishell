@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 02:12:39 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:05:44 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ int	main(int ac, char **av, char **envp)
 		setup_prompt(&mini, &input);
 		if (parsing(&mini, input))
 			continue ;
-		handle_heredoc(&mini);
+		if (handle_heredoc(&mini, NULL))
+		{
+			free_list(mini.list);
+			continue ;
+		}
 		expanding(&mini, 0, 0, NULL);
 		execute(&mini, envp);
 		free_list(mini.list);
