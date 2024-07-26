@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 01:29:42 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:41:52 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	replace_with_value(t_list *list, char *node, t_mini *mini, int *j)
 	if (value)
 	{
 		if (count_word_spaces(value) > 1)
+		{
 			list->flags.special = 1;
+			list->flags.ambiguous = 1;
+		}
 		while (*value)
 		{
 			mini->replace[*j] = *value;
