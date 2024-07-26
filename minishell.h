@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 01:17:33 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:04:36 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,9 @@ typedef struct s_list
 
 typedef struct s_exp
 {
-	int				test;
 	int				expanded;
 	int				status;
 	int				ambiguous;
-	char			**path;
 	char			*key;
 	char			*value;
 	//char			*oldpwd; // still not sure i'll be working with this
@@ -77,6 +75,7 @@ typedef struct s_exp
 
 typedef struct s_mini
 {
+	char	**path;
 	char	*pwd;
 	int		is_quote;
 	int		status;
@@ -167,7 +166,7 @@ int		find_home(t_exp *exp, t_mini *mini);
 int		ft_find_home(t_exp *exp, t_mini *mini);
 void	update_cwd(t_mini *mini);
 void	parent_io(t_exec *data, t_list *list);
-char	*get_cmd_path(t_exp *exp, char *cmd, t_mini *mini);
+char	*get_cmd_path(char *cmd, t_mini *mini);
 int		onecmd_builtin(t_mini *mini);
 void	child_io(t_exec *data, t_list *list);
 int		ft_unset_helper(t_mini *mini, char **s);

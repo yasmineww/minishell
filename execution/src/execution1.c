@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 01:25:56 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:02:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parent_io(t_exec *data, t_list *list)
 	}
 }
 
-char	*get_cmd_path(t_exp *exp, char *cmd, t_mini *mini)
+char	*get_cmd_path(char *cmd, t_mini *mini)
 {
 	char	*cmdpath;
 	char	*prefix;
@@ -37,9 +37,9 @@ char	*get_cmd_path(t_exp *exp, char *cmd, t_mini *mini)
 		return cmd;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
-	while (exp->path[i])
+	while (mini->path[i])
 	{
-		prefix = ft_strjoin(exp->path[i], "/");
+		prefix = ft_strjoin(mini->path[i], "/");
 		cmdpath = ft_strjoin(prefix, cmd);
 		free(prefix);
 		if (!access(cmdpath, X_OK))
@@ -72,9 +72,7 @@ int	onecmd_builtin(t_mini *mini)
 {
 	int		std_in;
 	int		std_out;
-	int		i;
 
-	i = 0;
 	std_in = dup(0);
 	std_out = dup(1);
 	if (!mini->list || !mini->list->option || mini->list->next)

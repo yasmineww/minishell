@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 16:36:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/24 13:17:44 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:10:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,3 @@ int	ft_pwd(t_mini *mini)
 		printf("%s\n", mini->pwd);
 	return (0);
 }
-
-//leaks

@@ -6,13 +6,13 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 00:07:50 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:10:18 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 //protect functions ??
-// ambiguous builtin
+
 
 void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 {
@@ -34,12 +34,9 @@ void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 			exit(1);
 		if (!mini->list->option[0])
 			exit(0);
-		if (mini->exp->test) //mini->list->flags.special
-		{
-			//free the old one 2d array ig
+		if (mini->list->flags.special)
 			mini->list->option = ft_split_spaces(mini->list->option[0]);
-		}
-		mini->list->option[0] = get_cmd_path(mini->exp, mini->list->option[0] , mini);
+		mini->list->option[0] = get_cmd_path(mini->list->option[0] , mini);
 		if (mini->list->option[0] && execve(mini->list->option[0], mini->list->option, envp))
 		{
 			if (mini->list->option[0][0] && mini->list->option[0][0] == '/')
@@ -179,12 +176,10 @@ int	execute(t_mini *mini, char **envp)
 	tmp = find_path(&mini->exp);
 	if (mini->exp && tmp)
 	{
-		if (mini->exp->path)
-			ft_free(mini->exp->path);
-		mini->exp->path = ft_split(tmp, ':');
+		if (mini->path)
+			ft_free(mini->path);
+		mini->path = ft_split(tmp, ':');
 	}
-	if (!mini->exp || !mini->exp->path)
-		return (mini->status = 1, 1);
 	last_arg = get_last_arg(mini->list->option);
 	if (last_arg)
 		update_underscore(&mini->exp, last_arg);

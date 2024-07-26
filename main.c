@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 01:26:38 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:01:58 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	setup_prompt(t_mini *mini, char **input)
 	if (!*input || isatty(0) == 0)
 	{
 		printf("exit\n");
-		ft_free(mini->exp->path);
+		ft_free(mini->path);
 		free_env(mini->exp);
 		free(mini->pwd);
 		exit (mini->status);
@@ -89,7 +89,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_sig = 0;
 	ft_env(&mini.exp, envp);
-	mini.exp->path = NULL;
+	mini.path = NULL;
 	set_pwd(&mini);
 	while (1)
 	{
