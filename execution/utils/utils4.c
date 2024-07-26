@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 17:01:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:49:35 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	my_atoi(char *str)
 {
-	long	res;
+	size_t	res;
 	int		sign;
 
 	res = 0;
@@ -30,6 +30,10 @@ int	my_atoi(char *str)
 	while (*str >= '0' && *str <= '9')
 	{
 		res = (res * 10) + (*str - '0');
+		if (res > 9223372036854775807ULL && sign == 1)
+			return (255);
+		else if (res > 9223372036854775808ULL && sign == -1)
+			return (255);
 		str++;
 	}
 	return (res * sign);

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 18:01:26 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:28:56 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	sort_list(t_exp *exp);
 int		countparams(char **s);
 t_exp	*dup_list(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
-
 
 // ---------------------- parsing ----------------------
 
