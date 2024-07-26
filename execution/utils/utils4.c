@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 16:36:03 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:52:20 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,29 @@
 
 int	my_atoi(char *str)
 {
-	long	res;
+	size_t	res;
+	int		sign;
 
 	res = 0;
+	sign = 1;
 	while (check_space(str))
 		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
 	while (*str >= '0' && *str <= '9')
 	{
 		res = (res * 10) + (*str - '0');
+		if (res > 9223372036854775807ULL && sign == 1)
+			return (255);
+		else if (res > 9223372036854775808ULL && sign == -1)
+			return (255);
 		str++;
 	}
-	return (res);
+	return (res * sign);
 }
 
 void	ft_putendl_fd(char *s, int fd)

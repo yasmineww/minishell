@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 15:47:56 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:52:07 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
 				continue ;
 			else if (list->option[index][++i] == '$')
+			{
+				mini->is_quote = 1;
 				continue ;
+			}
 			i += replace_with_value(list, list->option[index] + i, mini, &j);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 15:47:50 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:52:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	found_quest(char node, t_mini *mini, int *j)
 		}
 		return (1);
 	}
-	else if (node == '$')
-		return (1);
+	// else if (node == '$')
+	// 	return (1);
 	return (0);
 }
 

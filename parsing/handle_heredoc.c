@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/25 19:12:06 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:01:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,8 @@ void	find_delimiter(t_list *temp, t_mini *mini, int i, int bool)
 	free_pointers(read_me, delim, td, temp);
 }
 
-void	handle_heredoc(t_mini *mini)
+int	handle_heredoc(t_mini *mini, t_list	*temp)
 {
-	t_list		*temp;
 	int			i;
 	int			count;
 
@@ -98,10 +97,11 @@ void	handle_heredoc(t_mini *mini)
 					close(temp->infile);
 				count++;
 				find_delimiter(temp, mini, i, 0);
+				if (g_sig == 1)
+					return (mini->status = 1, 1);
 			}
 		}
 		temp = temp->next;
 	}
-	if (g_sig == 1)
-		mini->status = 1;
+	return (0);
 }

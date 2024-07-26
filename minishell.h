@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 20:35:51 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:52:32 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int		ft_env(t_exp **exp, char **envp);
 void	expanding(t_mini *mini, int i, int count, t_list *list);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp *exp);
-void	handle_heredoc(t_mini *mini);
+int		handle_heredoc(t_mini *mini, t_list *temp);
 void	expanding_heredoc(char **read, t_mini *mini);
 int		helper2(char *tmp, t_mini *mini);
 int		get_value_len(char *ptr, int j, int end, t_exp *exp);
