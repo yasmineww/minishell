@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/24 13:07:02 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:25:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	setup_signals(int i)
 
 int	onecmd_builtin(t_mini *mini)
 {
-	int	std_in;
-	int	std_out;
-	int	i;
+	int		std_in;
+	int		std_out;
+	int		i;
 
 	i = 0;
 	std_in = dup(0);
@@ -82,12 +82,8 @@ int	onecmd_builtin(t_mini *mini)
 	if (handle_redirs(mini))
 		return (1);
 	exec_builtin(mini, mini->list->option);
-	while (mini->list->option[i])
-	{
-		free(mini->list->option[i]);
-		mini->list->option[i] = NULL;
-		i++;
-	}
+	dup2(std_in, 0);
+	dup2(std_out, 1);
 	close(std_in);
 	close(std_out);
 	return (0);

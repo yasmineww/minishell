@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 01:34:30 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:42:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	setup_prompt(t_mini *mini, char **input)
 {
 	*input = NULL;
 	mini->list = NULL;
-	mini->pwd = NULL;
-	mini->exp->path = NULL;
 	rl_catch_signals = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
@@ -30,7 +28,7 @@ int	setup_prompt(t_mini *mini, char **input)
 	{
 		printf("exit\n");
 		ft_free(mini->exp->path);
-		free_env(mini->exp, 1, mini);
+		free_env(mini->exp);
 		free(mini->pwd);
 		exit (mini->status);
 	}
@@ -91,6 +89,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_sig = 0;
 	ft_env(&mini.exp, envp);
+	mini.exp->path = NULL;
 	set_pwd(&mini);
 	while (1)
 	{
