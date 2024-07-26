@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/24 20:29:15 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:29:42 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	found_quest(char node, t_mini *mini, int *j)
 		}
 		return (1);
 	}
+	else if (node == '$')
+		return (1);
 	return (0);
 }
 

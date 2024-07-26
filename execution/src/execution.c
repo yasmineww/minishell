@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/25 12:54:36 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 00:59:19 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	cmd_exec(char **envp, t_exec *data, t_mini *mini)
 			exit(1);
 		if (!mini->list->option[0])
 			exit(0);
-		if (mini->exp->test) //mini->list->flags.special
+		if (mini->list->flags.special) //mini->list->flags.special
 		{
+			
 			//free the old one 2d array ig
 			mini->list->option = ft_split_spaces(mini->list->option[0]);
 		}
@@ -178,14 +179,13 @@ int	execute(t_mini *mini, char **envp)
 	if (mini->exp && tmp)
 	{
 		if (mini->exp->path)
-		{
-			// puts("ok");
 			ft_free(mini->exp->path);
-		}
 		mini->exp->path = ft_split(tmp, ':');
 	}
-	if (!mini->exp|| !mini->exp->path)
-		return (mini->status = 1, 1);
+	// if (!mini->exp|| !mini->exp->path)
+	// {
+	// 	return (mini->status = 1, 1);
+	// }
 	last_arg = get_last_arg(mini->list->option);
 	if (last_arg)
 		update_underscore(&mini->exp, last_arg);
