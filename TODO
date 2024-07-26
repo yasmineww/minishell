@@ -223,3 +223,31 @@ MY TEST DONT DELETE
 		// 	temp = temp->next;
 		// 	puts("--------------------------------------");
 		// }
+
+
+
+Minishell$ cd 1/2/3
+Minishell$ ls
+Minishell$ pwd
+/Users/ymakhlou/Desktop/1/2/3
+Minishell$ ls
+Minishell$ pwd
+(null)
+Minishell$ cd ..
+Minishell: cd:: error in retrieving current directory
+Minishell$ pwd
+(null)
+Minishell$ cd ..
+Minishell: cd:: error in retrieving current directory
+Minishell$ pwd
+(null)
+Minishell$ cd ..
+Minishell: cd:: error in retrieving current directory
+Minishell$ pwd
+(null)
+Minishell$ cd ..
+Minishell: cd:: error in retrieving current directory
+Minishell$ pwd
+(null)
+
+export | tr "=" " " | awk '{print $3}' | tr "\n" " "

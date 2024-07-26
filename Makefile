@@ -15,7 +15,7 @@ HEADER = minishell.h
 
 CC = cc
 
-FLAG = -Wall -Wextra -Werror -g #-fsanitize=address
+FLAG = -Wall -Wextra -Werror -g -fsanitize=address
 
 READLINE_L = $(shell brew --prefix readline)/lib
 

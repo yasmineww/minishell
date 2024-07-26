@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exporthelp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:47:43 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/25 23:44:26 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:42:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	print_exp(t_exp *exp)
 	{
 		if (ft_strncmp(tmp->key, "_", 1) == 0)
 			tmp = tmp->next;
+		if (!tmp)
+			break ;
 		if (tmp->key && !tmp->value)
 			printf("declare -x %s\n", tmp->key);
 		else

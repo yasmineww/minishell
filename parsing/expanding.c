@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/24 16:48:35 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:30:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 			if (store_dollar(list->option[index], &mini->replace[j], i))
 				break ;
 			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
-				continue ;
-			else if (list->option[index][++i] == '$')
 				continue ;
 			i += replace_with_value(list, list->option[index] + i, mini, &j);
 		}
@@ -116,10 +114,8 @@ void	rm_empty_option(char ***option, int count)
 	(*option) = arr;
 }
 
-void	expanding(t_mini *mini, int i, int count)
+void	expanding(t_mini *mini, int i, int count, t_list *tmp)
 {
-	t_list	*tmp;
-
 	tmp = mini->list;
 	while (tmp)
 	{
@@ -127,6 +123,7 @@ void	expanding(t_mini *mini, int i, int count)
 		count = 0;
 		while (tmp->option[++i])
 		{
+			mini->is_quote = 0;
 			mini->replace = ft_calloc(1, helper2(tmp->option[i], mini) + 1);
 			if (!mini->replace)
 				return ;
@@ -140,7 +137,6 @@ void	expanding(t_mini *mini, int i, int count)
 			free(tmp->option[i]);
 			tmp->option[i] = ft_strdup(mini->replace);
 			free(mini->replace);
-			mini->is_quote = 0;
 		}
 		rm_empty_option(&tmp->option, count);
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 02:01:58 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:12:39 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main(int ac, char **av, char **envp)
 		if (parsing(&mini, input))
 			continue ;
 		handle_heredoc(&mini);
-		expanding(&mini, 0, 0);
+		expanding(&mini, 0, 0, NULL);
 		execute(&mini, envp);
 		free_list(mini.list);
 		mini.list = NULL;

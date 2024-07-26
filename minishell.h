@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 02:04:36 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 02:12:44 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int		quotes_syntax_error(char *input);
 int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
-void	expanding(t_mini *mini, int i, int count);
+void	expanding(t_mini *mini, int i, int count, t_list *list);
 int		get_key(char *ptr);
 char	*get_value(char *ptr, int end, t_exp *exp);
 void	handle_heredoc(t_mini *mini);
