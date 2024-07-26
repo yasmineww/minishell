@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 15:08:38 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:47:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,15 @@ void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 				break ;
 			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
 				continue ;
+			else if (list->option[index][++i] == '$')
+				continue ;
 			i += replace_with_value(list, list->option[index] + i, mini, &j);
 		}
 		else
 			mini->replace[j++] = list->option[index][i];
 	}
 }
+
 
 int	get_value_len(char *ptr, int j, int end, t_exp *exp)
 {
