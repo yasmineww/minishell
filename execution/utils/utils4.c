@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/25 21:33:29 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:01:49 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,24 @@
 int	my_atoi(char *str)
 {
 	long	res;
+	int		sign;
 
 	res = 0;
+	sign = 1;
+	while (check_space(str))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
 	while (*str >= '0' && *str <= '9')
 	{
 		res = (res * 10) + (*str - '0');
 		str++;
 	}
-	return (res);
+	return (res * sign);
 }
 
 void	ft_putendl_fd(char *s, int fd)

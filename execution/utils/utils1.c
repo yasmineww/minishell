@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:14:42 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/10 12:22:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:47:51 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	ft_isnumber(char *s)
 
 	i = 0;
 	if (s[i] == '-' || s[i] == '+')
+		i++;
+	while (check_space(&s[i]))
 		i++;
 	while (s[i])
 	{
