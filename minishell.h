@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 02:12:44 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:35:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	g_sig;
 typedef struct s_exec
 {
 	int	fdpipe[2];
+	int	dups;
 	int	std_in;
 	int	std_out;
 	int	*pid;
@@ -56,8 +57,6 @@ typedef struct s_list
 	char			*cmd;
 	int				infile;
 	int				outfile;
-	int				oldpwd_unset;
-	int				pwd_unset;
 	struct s_list	*next;
 }	t_list;
 
@@ -68,8 +67,6 @@ typedef struct s_exp
 	int				ambiguous;
 	char			*key;
 	char			*value;
-	//char			*oldpwd; // still not sure i'll be working with this
-	// char			*pwd;
 	struct s_exp	*next;
 }	t_exp;
 
@@ -77,6 +74,8 @@ typedef struct s_mini
 {
 	char	**path;
 	char	*pwd;
+	int		pwd_unset;
+	int		oldpwd_unset;
 	int		is_quote;
 	int		status;
 	char	*replace;
@@ -104,6 +103,8 @@ void	sort_list(t_exp *exp);
 int		countparams(char **s);
 t_exp	*dup_list(t_exp *exp);
 void	ft_error(char *str1, char *str2, char *str3);
+void	free_env(t_exp *exp);
+char	*get_last_arg(char **option);
 
 
 // ---------------------- parsing ----------------------
@@ -170,11 +171,17 @@ char	*get_cmd_path(char *cmd, t_mini *mini);
 int		onecmd_builtin(t_mini *mini);
 void	child_io(t_exec *data, t_list *list);
 int		ft_unset_helper(t_mini *mini, char **s);
-void	setup_signals(int i);
+int		setup_env_ignored(t_exp **exp);
+void	update_underscore(t_exp **exp, char *last_arg);
+int		process_redir(t_mini *mini, int *i, char *type, int (*handler) (t_mini *, int));
+int		check_amb(t_mini *mini, int i);
+void	remove_redir(char **option, int i);
+int		redirs_handler(t_mini *mini, int i, char *s, int (*handler) (t_mini *, int));
 
 // ---------------------- signals ----------------------
 
 void	signal_handler(int sig);
 void	signal_handler_heredoc(int sig);
+void	setup_signals(int i);
 
 #endif

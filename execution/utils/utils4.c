@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/25 21:33:29 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:36:03 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	my_atoi(char *str)
 	long	res;
 
 	res = 0;
+	while (check_space(str))
+		str++;
 	while (*str >= '0' && *str <= '9')
 	{
 		res = (res * 10) + (*str - '0');
