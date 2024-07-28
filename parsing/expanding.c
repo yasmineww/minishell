@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 08:00:44 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:25:52 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,20 @@ void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 			quotes = !(quotes & 1);
 		else if (list->option[index][i] == '$' && !(quotes & 1))
 		{
-			if (store_dollar(list->option[index], &mini->replace[j], i))
-				break ;
-			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
-				continue ;
-			else if (list->option[index][++i] == '$')
+			if (list->option[index][i + 1] && list->option[index][i + 1] == '$')
 			{
-				mini->is_quote = 1;
+				i++;
 				continue ;
 			}
-			i += replace_with_value(list, list->option[index] + i, mini, &j);
+			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
+				continue ;
+			else if (!list->option[index][i + 1] || !ft_isalpha_num(list->option[index][i + 1]))
+			{
+				mini->replace[j++] = list->option[index][i];
+				continue ;
+			}
+			i += replace_with_value(list, list->option[index] + i + 1, mini, &j);
+			i++;
 		}
 		else
 			mini->replace[j++] = list->option[index][i];

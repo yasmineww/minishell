@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 20:04:26 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:25:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	expanding_heredoc(char **read, t_mini *mini);
 int		helper2(char *tmp, t_mini *mini);
 int		get_value_len(char *ptr, int j, int end, t_exp *exp);
 int		found_quest(char node, t_mini *mini, int *j);
-int		store_dollar(char *node, char *replace, int i);
+int		found_dollar(char *node, char *replace, int i);
 int		replace_with_value(t_list *list, char *node, t_mini *mini, int *j);
 void	free_list(t_list *list);
 
