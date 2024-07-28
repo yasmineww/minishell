@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 16:09:10 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 20:26:30 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 05:24:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	unset_flags(t_mini *mini, t_exp *cur)
 		mini->pwd_unset = 1;
 	if (!ft_strncmp(cur->key, "OLDPWD", 6))
 		mini->oldpwd_unset = 1;
+	if (!ft_strncmp(cur->key, "PATH", 4))
+	{
+		mini->path_unset = 1;
+		ft_free(mini->path);
+		mini->path = NULL;
+	}
 }
 
 int	ft_unset(t_mini *mini, char *key)

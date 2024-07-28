@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/27 00:14:51 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:01:30 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
-# include <dirent.h>
+# include <sys/stat.h>
 
 int	g_sig;
 
@@ -75,6 +75,7 @@ typedef struct s_mini
 	char	*pwd;
 	int		pwd_unset;
 	int		oldpwd_unset;
+	int		path_unset;
 	int		is_quote;
 	int		status;
 	char	*replace;
@@ -179,6 +180,7 @@ int		process_redir(t_mini *mini, int *i, char *type, int (*handler) (t_mini *, i
 int		check_amb(t_mini *mini, int i);
 void	remove_redir(char **option, int i);
 int		redirs_handler(t_mini *mini, int i, char *s, int (*handler) (t_mini *, int));
+int		ft_export_input(const char *s)
 
 // ---------------------- signals ----------------------
 

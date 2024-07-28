@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 19:59:47 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 05:13:50 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int	process_redir(t_mini *mini, int *i, char *type, int (*handler)
 	if (res == 1)
 		return (1);
 	else if (res == 2)
-		return (0);
+	{
+		remove_redir(mini->list->option, *i);
+		(*i)--;
+	}
 	return (0);
 }

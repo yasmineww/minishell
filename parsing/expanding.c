@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 21:52:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:00:44 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 			mini->replace[j++] = list->option[index][i];
 	}
 }
-
 
 int	get_value_len(char *ptr, int j, int end, t_exp *exp)
 {

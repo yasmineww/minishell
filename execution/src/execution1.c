@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 23:07:12 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 06:48:34 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ char	*get_cmd_path(char *cmd, t_mini *mini)
 	if (!cmd || !cmd[0])
 		return (NULL);
 	i = 0;
-	if (cmd[0] == '/' || cmd[0] == '.')
+	if (!access(cmd, X_OK))
 		return (ft_strdup(cmd));
-	while (mini->path[i])
+	while (mini->path && mini->path[i])
 	{
 		prefix = ft_strjoin(mini->path[i], "/");
 		cmdpath = ft_strjoin(prefix, cmd);
@@ -45,8 +45,6 @@ char	*get_cmd_path(char *cmd, t_mini *mini)
 		free(cmdpath);
 		i++;
 	}
-	if (!access(cmd, X_OK))
-		return (ft_strdup(cmd));
 	return (mini->status = 127,
 		ft_error("Minishell:", cmd, "command not found\n"),
 		exit(127), NULL);

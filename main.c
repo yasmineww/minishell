@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 22:39:46 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 05:24:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	set_pwd(t_mini *mini)
 {
 	static char	*cwd;
 
+	mini->path_unset = 0;
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{

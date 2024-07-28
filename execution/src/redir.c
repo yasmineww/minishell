@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 23:27:13 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 04:42:48 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	handle_redir_in(t_mini *mini, int i)
 		}
 		ft_dup2(mini->list->infile, 0);
 		close(mini->list->infile);
-		remove_redir(mini->list->option, i);
 	}
 	return (0);
 }
@@ -86,7 +85,6 @@ int	handle_redir_out(t_mini *mini, int i)
 		}
 		ft_dup2(mini->list->outfile, 1);
 		close(mini->list->outfile);
-		remove_redir(mini->list->option, i);
 	}
 	return (0);
 }
@@ -105,9 +103,7 @@ int	handle_append(t_mini *mini, int i)
 			return (mini->status = 1, 1);
 		}
 		ft_dup2(mini->list->outfile, 1);
-			return (mini->status = 1, 1);
 		close(mini->list->outfile);
-		remove_redir(mini->list->option, i);
 	}
 	return (0);
 }

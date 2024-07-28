@@ -1,16 +1,9 @@
 ------------execution------------
-relink test
-
-
-IS A DIRECTORY
-
 
 env -i ./minishell
 
 tcsetattr
 
-
-fd leaks on error exit
 /bin/cat terminal save etat ? ctrl+ C
 
 ---------- error management -------

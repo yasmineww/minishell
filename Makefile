@@ -11,7 +11,7 @@ SRC = main.c \
 
 OBJ = $(addprefix obj/, $(SRC:.c=.o))
 
-HEADER = minishell.h
+HEADER = minishell.h execution/utils/utils.h
 
 CC = cc
 

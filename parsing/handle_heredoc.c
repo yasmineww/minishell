@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 01:30:04 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:00:23 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	find_delimiter(t_list *temp, t_mini *mini, int i, int bool)
 	char		*delim;
 	int			td[2];
 	int			fd;
-	
+
 	if (pipe(td) == -1)
 		perror("file descriptor error\n");
 	fd = ft_dup(0);

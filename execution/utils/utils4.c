@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:12:03 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 01:28:51 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:00:35 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	my_atoi(char *str)
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	if (!s || fd < 0)

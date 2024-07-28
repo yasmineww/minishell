@@ -6,43 +6,20 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/27 00:14:09 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:02:20 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 //protect functions ??
 
-char	**turn_exp_array(t_mini *mini)
-{
-	t_exp	*cur;
-	char	**envp;
-	int		i;
 
-	i = 0;
-	cur = mini->exp;
-	i = ft_lstsize_exp(cur);
-	envp = malloc(sizeof(char *) * (i + 1));
-	if (!envp)
-		return (mini->status = 1, NULL);
-	i = 0;
-	while (cur)
-	{
-		if (cur->value)
-		{
-			envp[i] = ft_strjoin(cur->key, "=");
-				envp[i] = ft_strjoin(envp[i], cur->value);
-			i++;
-		}
-		cur = cur->next;
-	}
-	envp[i] = NULL;
-	return (envp);
-}
 
 void	cmd_exec(t_exec *data, t_mini *mini)
 {
 	char	**envpp;
+	struct stat path_stat;
+
 	if (mini->list->option[0] && is_builtin(mini->list->option))
 	{
 		if (handle_redirs(mini))
@@ -67,14 +44,14 @@ void	cmd_exec(t_exec *data, t_mini *mini)
 		envpp = turn_exp_array(mini);
 		if (execve(mini->list->option[0], mini->list->option, envpp))
 		{
-			if (mini->list->option[0] && mini->list->option[0][0] && mini->list->option[0][0] == '/')
-			{
-				// opendir(mini->list->option[0]);// if valid path is a directory if not no such file
+			if (stat(mini->list->option[0], &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
 				ft_error("Minishell:", mini->list->option[0],
 					"is a directory\n");
 				mini->status = 126;
 				exit(126);
-			}
+		}
+		else
+		{
 			ft_error("Minishell:", mini->list->option[0],
 				"command not found\n");
 			mini->status = 127;
@@ -177,12 +154,15 @@ int	execute(t_mini *mini)
 	tcgetattr(0, &term);
 	if (g_sig == 1)
 		return (g_sig = 0, 0);
-	tmp = find_path(&mini->exp);
-	if (mini->exp && tmp)
+	if (mini->path_unset == 0)
 	{
-		if (mini->path)
-			ft_free(mini->path);
-		mini->path = ft_split(tmp, ':');
+		tmp = find_path(&mini->exp);
+		if (mini->exp && tmp)
+		{
+			if (mini->path)
+				ft_free(mini->path);
+			mini->path = ft_split(tmp, ':');
+		}
 	}
 	last_arg = get_last_arg(mini->list->option);
 	update_underscore(&mini->exp, last_arg);

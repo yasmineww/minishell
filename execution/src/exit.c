@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:32:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 18:44:14 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:01:51 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_exit(char **cmd, t_mini *mini)
 {
 	int	i;
 
-	i  = ft_2dlen(cmd);
+	i = ft_2dlen(cmd);
 	if (i == 1)
 		exit(0);
 	if (i == 2)
