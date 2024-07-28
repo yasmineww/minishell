@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:00:58 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 04:13:09 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:36:08 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,10 @@ char	*get_last_arg(char **option)
 	while (option[i + 1])
 		i++;
 	return (option[i]);
+}
+
+void	check_special(t_mini *mini)
+{
+	if (mini->list->flags.special)
+		mini->list->option = ft_split_spaces(mini->list->option[0]);
 }

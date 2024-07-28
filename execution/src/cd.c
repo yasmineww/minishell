@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 20:29:36 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:05:31 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	update_cwd(t_mini *mini)
 	oldpwd = ft_getoldpwd(mini->exp);
 	cwd = getcwd(NULL, 0);
 	cwd_oldpwd(mini->exp, cwd, oldpwd);
-	free(cwd);
 	if (mini->pwd_unset == 1)
 	{
 		cur = create_node("PWD", cwd);
@@ -35,6 +34,7 @@ void	update_cwd(t_mini *mini)
 		ft_lstadd_back(&mini->exp, cur);
 		mini->oldpwd_unset = 0;
 	}
+	free(cwd);
 }
 
 void	ft_error(char *str1, char *str2, char *str3)
@@ -86,7 +86,8 @@ int	ft_cd(char *path, t_mini *mini)
 	{
 		ret = chdir(path);
 		if (ret != 0)
-			return (ft_error("Minishell: cd:", path, "No such file or directory\n")
+			return (ft_error("Minishell: cd:",
+					path, "No such file or directory\n")
 				, mini->status = 1, 1);
 	}
 	update_cwd(mini);

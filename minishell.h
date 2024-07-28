@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 08:01:30 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:04:26 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	g_sig;
 
 # define PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin"
 # define UNDERSC "/usr/bin/env"
+
 typedef struct s_exec
 {
 	int	fdpipe[2];
@@ -109,7 +110,6 @@ int		ft_lstsize_exp(t_exp *lst);
 void	ft_dup2(int fd1, int fd2);
 int		ft_dup(int fd);
 
-
 // ---------------------- parsing ----------------------
 
 int		parsing(t_mini *mini, char *input);
@@ -176,17 +176,23 @@ void	child_io(t_exec *data, t_list *list);
 int		ft_unset_helper(t_mini *mini, char **s);
 int		setup_env_ignored(t_exp **exp);
 void	update_underscore(t_exp **exp, char *last_arg);
-int		process_redir(t_mini *mini, int *i, char *type, int (*handler) (t_mini *, int));
+int		process_redir(t_mini *mini, int *i, char *type,
+			int (*handler) (t_mini *, int));
 int		check_amb(t_mini *mini, int i);
 void	remove_redir(char **option, int i);
-int		redirs_handler(t_mini *mini, int i, char *s, int (*handler) (t_mini *, int));
-int		ft_export_input(const char *s)
+int		redirs_handler(t_mini *mini, int i, char *s,
+			int (*handler) (t_mini *, int));
+int		ft_export_input(const char *s);
+char	**turn_exp_array(t_mini *mini);
+void	ft_close(t_exec data);
+void	check_special(t_mini *mini);
+void	check_execve(t_mini *mini);
+int		builtin_pipe(t_exec *data, t_mini *mini);
 
 // ---------------------- signals ----------------------
 
 void	signal_handler(int sig);
 void	signal_handler_heredoc(int sig);
 void	setup_signals(int i);
-
 
 #endif

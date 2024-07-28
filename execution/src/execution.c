@@ -6,58 +6,27 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:47:35 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 08:02:20 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:03:39 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-//protect functions ??
-
-
 
 void	cmd_exec(t_exec *data, t_mini *mini)
 {
-	char	**envpp;
-	struct stat path_stat;
+	char		**envpp;
 
-	if (mini->list->option[0] && is_builtin(mini->list->option))
-	{
-		if (handle_redirs(mini))
-			exit(1);
-		exec_builtin(mini, mini->list->option);
-		ft_dup2(data->fdpipe[0], 0);
-		close(data->fdpipe[0]);
-		ft_dup2(data->fdpipe[1], 1);
-		close(data->fdpipe[1]);
-		free_list(mini->list);
+	if (!builtin_pipe(data, mini))
 		exit(0);
-	}
-	else
-	{
-		if (handle_redirs(mini))
-			exit(1);
-		if (!mini->list->option[0])
-			exit(0);
-		if (mini->list->flags.special)
-			mini->list->option = ft_split_spaces(mini->list->option[0]);
-		mini->list->option[0] = get_cmd_path(mini->list->option[0], mini);
-		envpp = turn_exp_array(mini);
-		if (execve(mini->list->option[0], mini->list->option, envpp))
-		{
-			if (stat(mini->list->option[0], &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
-				ft_error("Minishell:", mini->list->option[0],
-					"is a directory\n");
-				mini->status = 126;
-				exit(126);
-		}
-		else
-		{
-			ft_error("Minishell:", mini->list->option[0],
-				"command not found\n");
-			mini->status = 127;
-			exit(127);
-		}
-	}
+	if (handle_redirs(mini))
+		exit(1);
+	if (!mini->list->option[0])
+		exit(0);
+	check_special(mini);
+	mini->list->option[0] = get_cmd_path(mini->list->option[0], mini);
+	envpp = turn_exp_array(mini);
+	if (execve(mini->list->option[0], mini->list->option, envpp))
+		check_execve(mini);
 }
 
 int	cmd_process(t_exec *data, t_mini *mini)
@@ -68,7 +37,7 @@ int	cmd_process(t_exec *data, t_mini *mini)
 	while (mini->list)
 	{
 		if (mini->list->next && pipe(data->fdpipe) == -1)
-			return (perror("pipe"),mini->status = 1, 1);
+			return (perror("pipe"), mini->status = 1, 1);
 		data->pid[data->i] = fork();
 		if (data->pid[data->i] < 0)
 			return (perror("fork"), mini->status = 1, 1);
@@ -108,14 +77,6 @@ void	children_wait(t_exec *data, struct termios *term, t_mini *mini)
 	}
 	else if (WIFEXITED(data->status))
 		mini->status = WEXITSTATUS(data->status);
-}
-
-void ft_close(t_exec data)
-{
-	ft_dup2(data.dups, 0);
-	close(data.dups);
-	close(data.std_in);
-	close(data.std_out);
 }
 
 int	exec(t_mini *mini, struct termios *term)

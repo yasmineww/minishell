@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:51:53 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 20:15:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:21:27 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,25 @@ char	*ft_getoldpwd(t_exp *exp)
 	return (NULL);
 }
 
+void	update_value(t_exp *exp, char *val)
+{
+	if (exp->value)
+		free(exp->value);
+	exp->value = ft_strdup(val);
+}
+
 void	cwd_oldpwd(t_exp *exp, char *cwd, char *oldpwd)
 {
 	while (exp)
 	{
 		if (ft_strcmp(exp->key, "PWD") == 0)
-		{
-			if (exp->value)
-				free(exp->value);
-			exp->value = ft_strdup(cwd);
-		}
+			update_value(exp, cwd);
 		if (ft_strcmp(exp->key, "OLDPWD") == 0)
 		{
 			if (oldpwd)
-			{
-				if (exp->value)
-					free(exp->value);
-				exp->value = oldpwd;
-			}
+				update_value(exp, oldpwd);
 			else
-			{
-				if (exp->value)
-					free(exp->value);
-				exp->value = ft_strdup(cwd);
-			}
+				update_value(exp, cwd);
 			oldpwd = NULL;
 		}
 		exp = exp->next;
@@ -66,9 +61,8 @@ int	find_home(t_exp *exp, t_mini *mini)
 		return (mini->status = 1,
 			ft_error("Minishell: cd:", "HOME not set\n", NULL), 1);
 	ret = chdir(exp->value);
-	if (ret)
-		return (ft_error("Minishell: cd:", exp->value,
-				"No such file or directory\n"), mini->status = 1, 1);
+	if (ret == -1)
+		return (mini->status = 0, 0);
 	if (mini->pwd)
 		free(mini->pwd);
 	mini->pwd = ft_strdup(exp->value);
@@ -78,7 +72,7 @@ int	find_home(t_exp *exp, t_mini *mini)
 int	ft_find_home(t_exp *exp, t_mini *mini)
 {
 	int		res;
-	t_exp 	*tmp;
+	t_exp	*tmp;
 
 	tmp = exp;
 	while (tmp)
@@ -89,8 +83,6 @@ int	ft_find_home(t_exp *exp, t_mini *mini)
 			if (res == 0)
 				return (mini->status = 0, 0);
 			return (res);
-			// else // wa9ila break 7sn
-				// break ;
 		}
 		tmp = tmp->next;
 	}
