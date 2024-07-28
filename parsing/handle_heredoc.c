@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 23:09:05 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 01:30:04 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	find_delimiter(t_list *temp, t_mini *mini, int i, int bool)
 	char		*delim;
 	int			td[2];
 	int			fd;
-
+	
 	if (pipe(td) == -1)
 		perror("file descriptor error\n");
 	fd = ft_dup(0);
@@ -80,7 +80,6 @@ void	find_delimiter(t_list *temp, t_mini *mini, int i, int bool)
 int	handle_heredoc(t_mini *mini, t_list	*temp)
 {
 	int			i;
-	int			count;
 
 	temp = mini->list;
 	if (temp)
@@ -88,14 +87,12 @@ int	handle_heredoc(t_mini *mini, t_list	*temp)
 	while (temp)
 	{
 		i = -1;
-		count = 0;
 		while (temp->option[++i])
 		{
 			if (!ft_strcmp(temp->option[i], "<<"))
 			{
-				if (count > 0)
+				if (temp->infile)
 					close(temp->infile);
-				count++;
 				find_delimiter(temp, mini, i, 0);
 				if (g_sig == 1)
 					return (mini->status = 1, 1);

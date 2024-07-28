@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/26 22:27:46 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/28 01:27:49 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 int	found_quest(char node, t_mini *mini, int *j)
 {
 	char	*value;
+	int		i;
 
+	i = 0;
 	if (node == '?')
 	{
 		value = ft_itoa(mini->status);
-		while (*value)
+		while (value[i])
 		{
-			mini->replace[(*j)++] = *value;
-			value++;
+			mini->replace[(*j)++] = value[i];
+			i++;
 		}
+		free(value);
 		return (1);
 	}
 	// else if (node == '$')
