@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:36:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 20:05:31 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:00:28 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	update_cwd(t_mini *mini)
 		mini->oldpwd_unset = 0;
 	}
 	free(cwd);
+	free(oldpwd);
 }
 
 void	ft_error(char *str1, char *str2, char *str3)

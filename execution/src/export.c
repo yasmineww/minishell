@@ -6,12 +6,12 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 22:49:21 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 08:01:07 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:48:44 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-// i might need to add protections 7it list t9d tkon empty
+
 
 t_exp	*append_vs_create(t_exp *exp, char *s, int len, t_mini *mini)
 {
