@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exporthelp2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 23:43:03 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 08:01:15 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:50:11 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ int	ft_export_input(const char *s)
 			return (1);
 		i++;
 	}
+	if (s[i] && s[i] == '+')
+		if ((s[i + 1] && s[i + 1] != '=') || !s[i + 1])
+			return (1);
 	return (0);
 }

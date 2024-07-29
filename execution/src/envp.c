@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:15:05 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 20:14:42 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:02:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ t_exp	*create_node(char *key, char *value)
 	return (new);
 }
 
-int	setup_env_ignored(t_exp **exp)
+int	setup_env_ignored(t_exp **exp, char *pwd)
 {
 	t_exp	*new;
-	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	new = create_node("PWD", pwd);
+	free(pwd);
 	if (!new)
 		return (exit(1), 1);
 	ft_lstadd_back(exp, new);

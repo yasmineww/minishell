@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/29 10:48:50 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:03:19 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ char	*get_cmd_path(char *cmd, t_mini *mini);
 int		onecmd_builtin(t_mini *mini);
 void	child_io(t_exec *data, t_list *list);
 int		ft_unset_helper(t_mini *mini, char **s);
-int		setup_env_ignored(t_exp **exp);
+int		setup_env_ignored(t_exp **exp, char *pwd);
 void	update_underscore(t_exp **exp, char *last_arg);
 int		process_redir(t_mini *mini, int *i, char *type,
 			int (*handler) (t_mini *, int));

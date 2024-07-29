@@ -6,13 +6,11 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/29 10:19:15 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:00:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-////////DONT TOUCH MAIN 25 LINES PLS///////////
 
 int	setup_prompt(t_mini *mini, char **input)
 {
