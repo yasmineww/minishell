@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:26:36 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 01:27:49 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:50:03 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,23 @@ int	found_quest(char node, t_mini *mini, int *j)
 		free(value);
 		return (1);
 	}
-	// else if (node == '$')
-	// 	return (1);
 	return (0);
 }
 
-int	store_dollar(char *node, char *replace, int i)
+int	apply_logic(char *list, t_mini *mini, int *i, int *j)
 {
-	int	j;
-
-	j = 0;
-	if (check_space(&node[i + 1]) || node[i + 1] == '\0')
+	if (list[(*i) + 1] && list[(*i) + 1] == '$')
 	{
-		replace[j] = node[i];
+		(*i)++;
 		return (1);
 	}
-	// if (node[i + 1] == '\"')
-	// {
-	// 	replace[j] = node[i];
-	// 	return (1);
-	// }
+	else if (found_quest(list[(*i) + 1], mini, j) && ++(*i))
+		return (1);
+	else if (!list[(*i) + 1] || !ft_isalpha_num(list[(*i) + 1]))
+	{
+		mini->replace[(*j)++] = list[*i];
+		return (1);
+	}
 	return (0);
 }
 

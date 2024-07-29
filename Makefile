@@ -15,7 +15,7 @@ HEADER = minishell.h execution/utils/utils.h
 
 CC = cc
 
-FLAG = -Wall -Wextra -Werror 
+FLAG = -Wall -Wextra -Werror
 
 READLINE_L = $(shell brew --prefix readline)/lib
 

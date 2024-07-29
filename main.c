@@ -6,13 +6,11 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/29 02:28:17 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:16:12 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-////////DONT TOUCH MAIN 25 LINES PLS///////////
 
 int	setup_prompt(t_mini *mini, char **input)
 {
@@ -68,6 +66,8 @@ void	free_list(t_list *list)
 			temp->option[i] = NULL;
 			i++;
 		}
+		if (temp->infile)
+			close(temp->infile);
 		free(temp->option);
 		temp->option = NULL;
 		list = temp->next;
@@ -75,17 +75,11 @@ void	free_list(t_list *list)
 	}
 }
 
-void	f()
-{
-	system("leaks minishell");
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_mini	mini;
 
-	// atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;

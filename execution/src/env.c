@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:51:55 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/26 20:15:11 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:03:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_env(t_exp **exp, char **envp)
 	i = -1;
 	*exp = NULL;
 	if (!envp || !*envp)
-		return (setup_env_ignored(exp));
+		return (setup_env_ignored(exp, NULL));
 	while (envp[++i])
 	{
 		new = malloc(sizeof(t_exp));

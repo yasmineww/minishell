@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/29 01:45:46 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:16:25 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ void	expanding_heredoc(char **read, t_mini *mini);
 int		helper2(char *tmp, t_mini *mini);
 int		get_value_len(char *ptr, int j, int end, t_exp *exp);
 int		found_quest(char node, t_mini *mini, int *j);
-int		store_dollar(char *node, char *replace, int i);
 int		replace_with_value(t_list *list, char *node, t_mini *mini, int *j);
 void	free_list(t_list *list);
+int		apply_logic(char *list, t_mini *mini, int *i, int *j);
 
 // ---------------------- execution ----------------------
 
@@ -174,7 +174,7 @@ char	*get_cmd_path(char *cmd, t_mini *mini);
 int		onecmd_builtin(t_mini *mini);
 void	child_io(t_exec *data, t_list *list);
 int		ft_unset_helper(t_mini *mini, char **s);
-int		setup_env_ignored(t_exp **exp);
+int		setup_env_ignored(t_exp **exp, char *pwd);
 void	update_underscore(t_exp **exp, char *last_arg);
 int		process_redir(t_mini *mini, int *i, char *type,
 			int (*handler) (t_mini *, int));
