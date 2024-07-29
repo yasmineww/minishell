@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:39:05 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 22:25:52 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:50:29 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,10 @@ void	store_new_key(t_list *list, int index, t_mini *mini, int quotes)
 			quotes = !(quotes & 1);
 		else if (list->option[index][i] == '$' && !(quotes & 1))
 		{
-			if (list->option[index][i + 1] && list->option[index][i + 1] == '$')
-			{
-				i++;
+			if (apply_logic(list->option[index], mini, &i, &j))
 				continue ;
-			}
-			else if (found_quest(list->option[index][i + 1], mini, &j) && ++i)
-				continue ;
-			else if (!list->option[index][i + 1] || !ft_isalpha_num(list->option[index][i + 1]))
-			{
-				mini->replace[j++] = list->option[index][i];
-				continue ;
-			}
-			i += replace_with_value(list, list->option[index] + i + 1, mini, &j);
+			i += replace_with_value(list, list->option[index] + i + 1,
+					mini, &j);
 			i++;
 		}
 		else

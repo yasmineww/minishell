@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 22:25:32 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:48:50 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ void	expanding_heredoc(char **read, t_mini *mini);
 int		helper2(char *tmp, t_mini *mini);
 int		get_value_len(char *ptr, int j, int end, t_exp *exp);
 int		found_quest(char node, t_mini *mini, int *j);
-int		found_dollar(char *node, char *replace, int i);
 int		replace_with_value(t_list *list, char *node, t_mini *mini, int *j);
 void	free_list(t_list *list);
+int		apply_logic(char *list, t_mini *mini, int *i, int *j);
 
 // ---------------------- execution ----------------------
 

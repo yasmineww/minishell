@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 23:48:58 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:19:15 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,11 @@ void	free_list(t_list *list)
 	}
 }
 
-void	f()
-{
-	system("leaks minishell");
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_mini	mini;
 
-	// atexit(f);
 	(void)ac;
 	(void)av;
 	g_sig = 0;

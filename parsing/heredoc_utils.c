@@ -6,13 +6,13 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/29 10:03:41 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:08:38 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	replace_with_value_heredoc(char *node, t_exp *exp, char *replace, int *j)
+int	replace_val_heredoc(char *node, t_exp *exp, char *replace, int *j)
 {
 	int		end;
 	char	*value;
@@ -29,20 +29,6 @@ int	replace_with_value_heredoc(char *node, t_exp *exp, char *replace, int *j)
 		}
 	}
 	return (end - 1);
-}
-
-int	store_dollar_heredoc(char *node, char *replace, int i)
-{
-	int	j;
-
-	j = 0;
-	if (node[i] == '$' && (check_space(&node[i + 1])
-			|| node[i + 1] == '\0'))
-	{
-		replace[j] = node[i];
-		return (1);
-	}
-	return (0);
 }
 
 int	found_quest_heredoc(char node, t_mini *mini, char *replace, int *j)
@@ -65,17 +51,11 @@ int	found_quest_heredoc(char node, t_mini *mini, char *replace, int *j)
 	return (0);
 }
 
-char	*store_new_key2(char *node, int len, t_exp *exp, t_mini *mini)
+char	*store_new_key2(char *node, char *replace, t_mini *mini, int j)
 {
-	int		i;
-	int		j;
-	char	*replace;
+	int	i;
 
 	i = -1;
-	j = 0;
-	replace = ft_calloc (1, len + 1);
-	if (!replace)
-		return (NULL);
 	while (node[++i])
 	{
 		if (node[i] == '$')
@@ -92,8 +72,7 @@ char	*store_new_key2(char *node, int len, t_exp *exp, t_mini *mini)
 				replace[j++] = node[i];
 				continue ;
 			}
-			i += replace_with_value_heredoc(node + i + 1, exp, replace, &j);
-			i++;
+			i += replace_val_heredoc(node + i + 1, mini->exp, replace, &j) + 1;
 		}
 		else
 			replace[j++] = node[i];
@@ -107,7 +86,10 @@ void	expanding_heredoc(char **read, t_mini *mini)
 	char	*replace;
 
 	len = helper2(*read, mini);
-	replace = store_new_key2(*read, len, mini->exp, mini);
+	replace = ft_calloc (1, len + 1);
+	if (!replace)
+		return ;
+	replace = store_new_key2(*read, replace, mini, 0);
 	free(*read);
 	*read = ft_strdup(replace);
 	free(replace);
