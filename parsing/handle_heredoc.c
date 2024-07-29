@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:04:20 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 08:00:23 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:38:32 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	handle_heredoc(t_mini *mini, t_list	*temp)
 					close(temp->infile);
 				find_delimiter(temp, mini, i, 0);
 				if (g_sig == 1)
-					return (mini->status = 1, 1);
+					return (close(temp->infile), mini->status = 1, 1);
 			}
 		}
 		temp = temp->next;

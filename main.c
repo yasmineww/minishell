@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:59:19 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 05:24:12 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:48:58 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	free_list(t_list *list)
 			temp->option[i] = NULL;
 			i++;
 		}
+		if (temp->infile)
+			close(temp->infile);
 		free(temp->option);
 		temp->option = NULL;
 		list = temp->next;
