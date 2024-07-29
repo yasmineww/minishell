@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 01:29:54 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 08:31:33 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:55:19 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_cmd_path(char *cmd, t_mini *mini)
 	if (!cmd || !cmd[0])
 		return (NULL);
 	i = 0;
-	if (!access(cmd, X_OK) || (cmd[0] == '/' || cmd[0] == '.'))
+	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
 	while (mini->path && mini->path[i])
 	{
