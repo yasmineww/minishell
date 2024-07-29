@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/28 20:04:26 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/29 01:45:46 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int		ft_export_input(const char *s);
 char	**turn_exp_array(t_mini *mini);
 void	ft_close(t_exec data);
 void	check_special(t_mini *mini);
-void	check_execve(t_mini *mini);
+void	check_execve(t_mini *mini, int flag);
 int		builtin_pipe(t_exec *data, t_mini *mini);
 
 // ---------------------- signals ----------------------
