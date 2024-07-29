@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:52:08 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/23 23:54:30 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:03:41 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,27 @@ int	store_dollar_heredoc(char *node, char *replace, int i)
 	return (0);
 }
 
-char	*store_new_key2(char *node, int len, t_exp *exp)
+int	found_quest_heredoc(char node, t_mini *mini, char *replace, int *j)
+{
+	char	*value;
+	int		i;
+
+	i = 0;
+	if (node == '?')
+	{
+		value = ft_itoa(mini->status);
+		while (value[i])
+		{
+			replace[(*j)++] = value[i];
+			i++;
+		}
+		free(value);
+		return (1);
+	}
+	return (0);
+}
+
+char	*store_new_key2(char *node, int len, t_exp *exp, t_mini *mini)
 {
 	int		i;
 	int		j;
@@ -58,13 +78,22 @@ char	*store_new_key2(char *node, int len, t_exp *exp)
 		return (NULL);
 	while (node[++i])
 	{
-		if (store_dollar_heredoc(node, &replace[j], i))
-			break ;
 		if (node[i] == '$')
 		{
-			if (node[++i] == '$')
+			if (node[i + 1] && node[i + 1] == '$')
+			{
+				i++;
 				continue ;
-			i += replace_with_value_heredoc(node + i, exp, replace, &j);
+			}
+			else if (found_quest_heredoc(node[i + 1], mini, replace, &j) && ++i)
+				continue ;
+			else if (!node[i + 1] || !ft_isalpha_num(node[i + 1]))
+			{
+				replace[j++] = node[i];
+				continue ;
+			}
+			i += replace_with_value_heredoc(node + i + 1, exp, replace, &j);
+			i++;
 		}
 		else
 			replace[j++] = node[i];
@@ -78,7 +107,7 @@ void	expanding_heredoc(char **read, t_mini *mini)
 	char	*replace;
 
 	len = helper2(*read, mini);
-	replace = store_new_key2(*read, len, mini->exp);
+	replace = store_new_key2(*read, len, mini->exp, mini);
 	free(*read);
 	*read = ft_strdup(replace);
 	free(replace);
