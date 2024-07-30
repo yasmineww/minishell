@@ -6,7 +6,7 @@
 /*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:56:39 by mbenchel          #+#    #+#             */
-/*   Updated: 2024/07/28 04:42:48 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:48:56 by mbenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	redirs_handler(t_mini *mini, int i, char *s, int (*handler)
 	(t_mini *, int))
 {
+	int	l;
+
+	if (!mini || !mini->list || !mini->list->option)
+		return (0);
+	l = ft_2dlen(mini->list->option);
+	if (i < 0 || i >= l)
+		return (0);
 	if (mini->list->option[i] && !ft_strncmp
 		(mini->list->option[i], s,
 			ft_strlen(s)))
