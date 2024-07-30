@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchel <mbenchel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:48:59 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/29 18:19:33 by mbenchel         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:08:53 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	add_back(t_list **stack_a, char *content);
 void	store_cmd(char *input, t_list **list);
 void	split_cmd(t_list **list, char *input);
 int		quotes_syntax_error(char *input);
-int		count_quote(char *input);
 char	*add_space(char *input);
 int		ft_env(t_exp **exp, char **envp);
 void	expanding(t_mini *mini, int i, int count, t_list *list);

@@ -6,7 +6,7 @@
 /*   By: ymakhlou <ymakhlou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:27:34 by ymakhlou          #+#    #+#             */
-/*   Updated: 2024/07/24 16:36:51 by ymakhlou         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:58:05 by ymakhlou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,31 @@ int	syntax_error(char *ptr)
 	return (0);
 }
 
-int	count_quote(char *input)
+int	count_quote(char *input, int i, int count)
 {
-	int	count;
-	int	i;
-
-	count = 0;
-	i = -1;
-	while (input[++i])
+	while (input[i])
 	{
-		if (input[i] && input[i] == '\'')
+		if (input[i] == '\'')
 		{
+			count++;
 			i++;
 			while (input[i] && input[i] != '\'')
 				input[i++] *= -1;
+			if (input[i] == '\'')
+				count++;
 		}
-		if (input[i] && input[i] == '\"')
+		else if (input[i] == '\"')
 		{
+			count++;
 			i++;
 			while (input[i] && input[i] != '\"')
 				input[i++] *= -1;
+			if (input[i] == '\"')
+				count++;
 		}
+		if (input[i])
+			i++;
 	}
-	i = -1;
-	while (input[++i])
-		if (input[i] && (input[i] == '\'' || input[i] == '\"'))
-			count++;
 	return (count);
 }
 
@@ -68,7 +67,7 @@ int	quotes_syntax_error(char *input)
 {
 	int	num;
 
-	num = count_quote(input);
+	num = count_quote(input, 0, 0);
 	if (num % 2 != 0)
 		return (1);
 	return (0);
